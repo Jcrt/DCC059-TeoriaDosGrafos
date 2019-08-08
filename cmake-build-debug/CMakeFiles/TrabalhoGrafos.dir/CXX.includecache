@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp
+MenuPrincipal.h
+/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h
+iostream
+-
+cctype
+-
+cstdlib
+-
+
+/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h
+
