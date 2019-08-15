@@ -27,7 +27,7 @@ int MenuPrincipal::ReadOption() {
     cin.get(input);
 
     if(!isdigit(input)){
-        cout << endl << "The char passed isn't a number!" << endl;
+        cout << endl << "Opção inválida" << endl;
         option = -1;
     }
     else{
