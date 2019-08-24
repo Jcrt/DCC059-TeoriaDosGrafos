@@ -15,7 +15,7 @@
 ########################
 
 //Path to a program.
-CMAKE_AR:FILEPATH=D:/_ProgramFiles/cygwin64/bin/ar.exe
+CMAKE_AR:FILEPATH=/usr/bin/ar.exe
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
@@ -35,16 +35,16 @@ CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j4
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
-//No help, variable specified on the command line.
-CMAKE_CXX_COMPILER:UNINITIALIZED=D:/_ProgramFiles/cygwin64/bin/c++.exe
+//CXX compiler
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++.exe
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_AR:FILEPATH=D:/_ProgramFiles/cygwin64/bin/gcc-ar.exe
+CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar.exe
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_RANLIB:FILEPATH=D:/_ProgramFiles/cygwin64/bin/gcc-ranlib.exe
+CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib.exe
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -61,16 +61,16 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:UNINITIALIZED=D:/_ProgramFiles/cygwin64/bin/gcc.exe
+//C compiler
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_AR:FILEPATH=D:/_ProgramFiles/cygwin64/bin/gcc-ar.exe
+CMAKE_C_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar.exe
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_RANLIB:FILEPATH=D:/_ProgramFiles/cygwin64/bin/gcc-ranlib.exe
+CMAKE_C_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib.exe
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -109,10 +109,10 @@ CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=D:/_ProgramFiles/cygwin64/bin/ld.exe
+CMAKE_LINKER:FILEPATH=/usr/bin/ld.exe
 
-//No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:UNINITIALIZED=D:/_ProgramFiles/cygwin64/bin/make.exe
+//Path to a program.
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -135,13 +135,13 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_NM:FILEPATH=D:/_ProgramFiles/cygwin64/bin/nm.exe
+CMAKE_NM:FILEPATH=/usr/bin/nm.exe
 
 //Path to a program.
-CMAKE_OBJCOPY:FILEPATH=D:/_ProgramFiles/cygwin64/bin/objcopy.exe
+CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy.exe
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=D:/_ProgramFiles/cygwin64/bin/objdump.exe
+CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump.exe
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -153,7 +153,7 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=TrabalhoGrafos
 
 //Path to a program.
-CMAKE_RANLIB:FILEPATH=D:/_ProgramFiles/cygwin64/bin/ranlib.exe
+CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib.exe
 
 //RC compiler
 CMAKE_RC_COMPILER:FILEPATH=/usr/bin/windres.exe
@@ -221,7 +221,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=D:/_ProgramFiles/cygwin64/bin/strip.exe
+CMAKE_STRIP:FILEPATH=/usr/bin/strip.exe
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -333,6 +333,8 @@ CMAKE_GENERATOR_TOOLSET:INTERNAL=
 CMAKE_HOME_DIRECTORY:INTERNAL=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos
 //ADVANCED property for variable: CMAKE_LINKER
 CMAKE_LINKER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_MAKE_PROGRAM
+CMAKE_MAKE_PROGRAM-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS
 CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG

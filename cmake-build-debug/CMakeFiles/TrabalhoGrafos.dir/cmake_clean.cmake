@@ -1,6 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/TrabalhoGrafos.dir/main.cpp.o"
   "CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o"
+  "CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o"
+  "CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
+  "CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
   "TrabalhoGrafos.pdb"
   "TrabalhoGrafos.exe"
   "libTrabalhoGrafos.dll.a"

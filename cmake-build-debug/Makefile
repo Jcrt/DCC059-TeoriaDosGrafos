@@ -123,6 +123,60 @@ TrabalhoGrafos/fast:
 	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/build
 .PHONY : TrabalhoGrafos/fast
 
+Classes/Aresta.o: Classes/Aresta.cpp.o
+
+.PHONY : Classes/Aresta.o
+
+# target to build an object file
+Classes/Aresta.cpp.o:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o
+.PHONY : Classes/Aresta.cpp.o
+
+Classes/Aresta.i: Classes/Aresta.cpp.i
+
+.PHONY : Classes/Aresta.i
+
+# target to preprocess a source file
+Classes/Aresta.cpp.i:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.i
+.PHONY : Classes/Aresta.cpp.i
+
+Classes/Aresta.s: Classes/Aresta.cpp.s
+
+.PHONY : Classes/Aresta.s
+
+# target to generate assembly for a file
+Classes/Aresta.cpp.s:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.s
+.PHONY : Classes/Aresta.cpp.s
+
+Classes/Grafo.o: Classes/Grafo.cpp.o
+
+.PHONY : Classes/Grafo.o
+
+# target to build an object file
+Classes/Grafo.cpp.o:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o
+.PHONY : Classes/Grafo.cpp.o
+
+Classes/Grafo.i: Classes/Grafo.cpp.i
+
+.PHONY : Classes/Grafo.i
+
+# target to preprocess a source file
+Classes/Grafo.cpp.i:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.i
+.PHONY : Classes/Grafo.cpp.i
+
+Classes/Grafo.s: Classes/Grafo.cpp.s
+
+.PHONY : Classes/Grafo.s
+
+# target to generate assembly for a file
+Classes/Grafo.cpp.s:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.s
+.PHONY : Classes/Grafo.cpp.s
+
 Classes/MenuPrincipal.o: Classes/MenuPrincipal.cpp.o
 
 .PHONY : Classes/MenuPrincipal.o
@@ -149,6 +203,33 @@ Classes/MenuPrincipal.s: Classes/MenuPrincipal.cpp.s
 Classes/MenuPrincipal.cpp.s:
 	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.s
 .PHONY : Classes/MenuPrincipal.cpp.s
+
+Classes/No.o: Classes/No.cpp.o
+
+.PHONY : Classes/No.o
+
+# target to build an object file
+Classes/No.cpp.o:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o
+.PHONY : Classes/No.cpp.o
+
+Classes/No.i: Classes/No.cpp.i
+
+.PHONY : Classes/No.i
+
+# target to preprocess a source file
+Classes/No.cpp.i:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.i
+.PHONY : Classes/No.cpp.i
+
+Classes/No.s: Classes/No.cpp.s
+
+.PHONY : Classes/No.s
+
+# target to generate assembly for a file
+Classes/No.cpp.s:
+	$(MAKE) -f CMakeFiles/TrabalhoGrafos.dir/build.make CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.s
+.PHONY : Classes/No.cpp.s
 
 main.o: main.cpp.o
 
@@ -186,9 +267,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TrabalhoGrafos"
 	@echo "... edit_cache"
+	@echo "... Classes/Aresta.o"
+	@echo "... Classes/Aresta.i"
+	@echo "... Classes/Aresta.s"
+	@echo "... Classes/Grafo.o"
+	@echo "... Classes/Grafo.i"
+	@echo "... Classes/Grafo.s"
 	@echo "... Classes/MenuPrincipal.o"
 	@echo "... Classes/MenuPrincipal.i"
 	@echo "... Classes/MenuPrincipal.s"
+	@echo "... Classes/No.o"
+	@echo "... Classes/No.i"
+	@echo "... Classes/No.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

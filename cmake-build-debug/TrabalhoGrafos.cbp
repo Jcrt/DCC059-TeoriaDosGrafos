@@ -11,20 +11,20 @@
 				<Option working_dir="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TrabalhoGrafos">
@@ -42,10 +42,10 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoGrafos"/>
-					<CompileFile command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoGrafos"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TrabalhoGrafos/fast">
@@ -63,27 +63,45 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoGrafos/fast"/>
-					<CompileFile command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 TrabalhoGrafos/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/_ProgramFiles/cygwin64/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j4 -f &quot;/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.cpp">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.h">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.cpp">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.h">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp">
 			<Option target="TrabalhoGrafos"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.cpp">
+			<Option target="TrabalhoGrafos"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.h">
 			<Option target="TrabalhoGrafos"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp">
