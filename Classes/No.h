@@ -6,15 +6,33 @@
 #define TRABALHOGRAFOS_NO_H
 
 
+
+#include <iostream>
 #include "Aresta.h"
 
+using namespace std;
+
 class No {
-    int Id;
-    int DIn;
-    int DOut;
-    float Peso;
-    No *Prox;
-    Aresta *Adjascente;
+public:
+    No() { lista = new Aresta; dIn = 0; dOut = 0; }
+    ~No() { delete lista; }
+
+
+    No* getProx() { return prox; }
+    void* setProx(No* p) { prox = p; }
+    void setId(int idNo) { id = idNo; }
+    int getId() { return id; }
+    void addAresta(int idVertice, int idAresta, int peso)
+    {lista->insereAresta(idVertice, idAresta, peso); dIn++; dOut++;}
+    void imprimeArestas() { cout << "No " << id << " possui arestas com: "; lista->imprimirArestas(); }
+
+private:
+    int id;
+    int dIn;
+    int dOut;
+    float peso;
+    No* prox;
+    Aresta *lista;
 };
 
 
