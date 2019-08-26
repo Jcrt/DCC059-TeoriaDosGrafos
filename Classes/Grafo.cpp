@@ -59,6 +59,48 @@ void Grafo::insereNo(int idNo) {
  * @param idNo id do novo que sera removido.
  */
 void Grafo::removeNo(int idNo) {
+    No* p = primeiro;
+    No* aux;
+    if(primeiro != nullptr){
+        while(p != nullptr){
+            if(p->getId() == idNo){
+                cout << "No " << p->getId()  << " removido" << endl;
+                if(p == primeiro) {
+                    if (primeiro->getProx() == nullptr) {
+                        delete primeiro;
+                        primeiro = nullptr;
+                        numeroDeNos--;
+                    }
+                    else{
+                        primeiro = primeiro->getProx();
+                        delete primeiro;
+                        numeroDeNos--;
+                    }
+                }
+                else{
+                    if(p->getProx() == nullptr) {
+                        delete p;
+                        numeroDeNos--;
+                    }
+                    else{
+                        aux->setProx(p->getProx());
+                        delete p;
+                        numeroDeNos--;
+                    }
+                }
+            }
+            else {
+                aux = p;
+                p = p->getProx();
+            }
+        }
+        for(p = primeiro; p != nullptr; p = p->getProx())
+            p->removeAresta(idNo);
+    }
+    else{
+        cout << "GRAFO VAZIO" << endl;
+    }
+    cout << endl;
 
 }
 
@@ -118,5 +160,23 @@ void Grafo::imprimirArestas() {
         p->imprimeArestas();
         p  = p->getProx();
     }
+    cout << endl;
+}
+
+void Grafo::grauEntrada(int idNo) {
+    No *p = busca(idNo);
+    if (p != nullptr)
+        cout << "Grau de entrada do no " << idNo << ": " << p->getGrauSaida() << endl;
+    else
+        cout << "O no " << idNo << " nao existe." << endl;
+    cout << endl;
+}
+
+void Grafo::grauSaida(int idNo) {
+    No* p = busca(idNo);
+    if(p != nullptr)
+        cout << "Grau de saida do no "<< idNo << ": " << p->getGrauSaida() << endl;
+    else
+        cout << "O no "<< idNo << " nao existe." << endl;
     cout << endl;
 }

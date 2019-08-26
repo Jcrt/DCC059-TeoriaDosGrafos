@@ -20,6 +20,8 @@ public:
     void addAresta(int idVertice1, int idVertice2, int idAresta, int peso);
     void imprimirVertices();
     void imprimirArestas();
+    void grauEntrada(int idNo);
+    void grauSaida(int idNo);
 
 private:
     int numeroDeNos;

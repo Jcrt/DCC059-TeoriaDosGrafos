@@ -14,7 +14,7 @@ using namespace std;
 
 class No {
 public:
-    No() { lista = new Aresta; dIn = 0; dOut = 0; }
+    No() {lista = new Aresta; dIn = 0; dOut = 0; }
     ~No() { delete lista; }
 
 
@@ -24,7 +24,11 @@ public:
     int getId() { return id; }
     void addAresta(int idVertice, int idAresta, int peso)
     {lista->insereAresta(idVertice, idAresta, peso); dIn++; dOut++;}
+    void removeAresta(int idNo) { lista->removeAresta(idNo); dIn--; dOut--; }
     void imprimeArestas() { cout << "No " << id << " possui arestas com: "; lista->imprimirArestas(); }
+    int getGrauEntrada() { return dIn; }
+    int getGrauSaida() { return dOut; }
+
 
 private:
     int id;

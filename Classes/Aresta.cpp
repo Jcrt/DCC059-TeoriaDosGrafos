@@ -20,7 +20,7 @@ Aresta::Aresta() {
  * Destrutor das Arestas, deleta todas arestas da memoria.
  */
 Aresta::~Aresta() {
-    Aresta *p = new Aresta();
+    Aresta *p = primeira;
     while(p != nullptr){
         Aresta *q = p->getProx();
         delete p;
@@ -63,4 +63,35 @@ void Aresta::imprimirArestas() {
         p = p->getProx();
     }
     cout << endl;
+}
+
+void Aresta::removeAresta(int idNo) {
+    Aresta* p = primeira;
+    Aresta* aux;
+    if(primeira != nullptr){
+        if(p->getAdj() == idNo){
+            if(p == primeira){
+                if(primeira == ultima){
+                    delete primeira;
+                    primeira = nullptr;
+                    ultima = nullptr;
+                    numeroDeArestas--;
+                }
+                else{
+                    primeira = primeira->getProx();
+                    delete p;
+                    numeroDeArestas--;
+                }
+            }
+            else{
+                aux->setProx(p->getProx());
+                if(p == ultima)
+                    ultima = aux;
+                delete p;
+                numeroDeArestas--;
+            }
+        }
+        aux = p;
+        p = p->getProx();
+    }
 }

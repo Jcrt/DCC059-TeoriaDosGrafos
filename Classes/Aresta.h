@@ -12,6 +12,7 @@ public:
     ~Aresta();
 
     void insereAresta(int idVertice, int idAresta, int peso);
+    void removeAresta(int idNo);
     int getId() {return id;}
     void setProx(Aresta* p) { prox = p; }
     Aresta* getProx() { return prox; }
@@ -20,6 +21,8 @@ public:
     void setPeso(float pesoAresta) { pesoAresta = peso; }
     void setId(int idAresta) { id = idAresta; }
     void imprimirArestas();
+
+
 
 private:
     Aresta* primeira;

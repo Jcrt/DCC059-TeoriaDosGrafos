@@ -22,6 +22,11 @@ int main() {
 
     g.imprimirVertices();
     g.imprimirArestas();
+    g.grauEntrada(2);
+    g.removeNo(7);
+    g.grauEntrada(2);
+
+
 
 
 }
