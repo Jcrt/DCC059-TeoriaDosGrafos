@@ -12,21 +12,20 @@ int main() {
     }*/
 
     Grafo g;
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i <= 10; i++){
         g.insereNo(i);
     }
+    cout << endl;
 
-    g.addAresta(2,7,30, 5);
-    g.addAresta(2,3,3, 10);
-    g.addAresta(2,4,22, 32);
+    g.addAresta(1, 10, 20);
+    g.addAresta(1, 7, 10);
+    g.addAresta(3, 5, 13);
+    g.addAresta(5, 6, 19);
+    g.addAresta(6, 9, 30);
+    cout << endl;
 
-    g.imprimirVertices();
-    g.imprimirArestas();
-    g.grauEntrada(2);
-    g.removeNo(7);
-    g.grauEntrada(2);
-
-
-
-
+    g.removeNo(1);
+    g.removeNo((20));
+    g.removeAresta(6, 5);
+    g.removeAresta(4, 8);
 }

@@ -11,24 +11,22 @@ public:
     Aresta();
     ~Aresta();
 
-    void insereAresta(int idVertice, int idAresta, int peso);
+    void insereAresta(int idVertice, int peso);
     void removeAresta(int idNo);
-    int getId() {return id;}
-    void setProx(Aresta* p) { prox = p; }
-    Aresta* getProx() { return prox; }
-    void setAdj(int adj) { noAdj = adj; }
-    int getAdj() { return noAdj; }
-    void setPeso(float pesoAresta) { pesoAresta = peso; }
-    void setId(int idAresta) { id = idAresta; }
+    void setProx(Aresta* p);
+    Aresta* getProx();
+    void setAdj(int adj);
+    int getAdj();
+    void setPeso(float pesoAresta);
+    void setId(int idAresta);
     void imprimirArestas();
-
-
+    bool existeAresta(int idNo);
 
 private:
+    int id;
     Aresta* primeira;
     Aresta* ultima;
     int numeroDeArestas;
-    int id;
     int noAdj;
     float peso;
     Aresta *prox;

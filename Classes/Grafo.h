@@ -16,17 +16,20 @@ public:
 
     void insereNo(int idNo);
     void removeNo(int idNo);
-    No* busca(int idNo);
-    void addAresta(int idVertice1, int idVertice2, int idAresta, int peso);
+    No* buscaNo(int idNo);
+    void addAresta(int idVertice1, int idVertice2, int peso);
+    void removeAresta(int idVertice1, int idVertice2);
     void imprimirVertices();
     void imprimirArestas();
     void grauEntrada(int idNo);
     void grauSaida(int idNo);
+    bool existeAresta(int idVertice1, int idVertice2);
+    bool existeVertice(int idVertice);
 
 private:
     int numeroDeNos;
-    int ordem;
-    No *primeiro;
+    No* primeiro;
+    No* ultimo;
 
 };
 
