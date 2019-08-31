@@ -1,4 +1,4 @@
-C:\Users\julio\.CLion2019.2\system\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos
+/home/leo/clion-2019.2.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/leo/git/DCC059-TeoriaDosGrafos
 -- Configuring done
 -- Generating done
--- Build files have been written to: /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug
+-- Build files have been written to: /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug

@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.cpp" "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o"
-  "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.cpp" "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
-  "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp" "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o"
-  "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.cpp" "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
-  "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp" "/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/main.cpp.o"
+  "/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.cpp" "/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o"
+  "/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.cpp" "/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
+  "/home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.cpp" "/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o"
+  "/home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.cpp" "/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
+  "/home/leo/git/DCC059-TeoriaDosGrafos/main.cpp" "/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -5,8 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
   "CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
   "TrabalhoGrafos.pdb"
-  "TrabalhoGrafos.exe"
-  "libTrabalhoGrafos.dll.a"
+  "TrabalhoGrafos"
 )
 
 # Per-language clean rules from dependency scanning.

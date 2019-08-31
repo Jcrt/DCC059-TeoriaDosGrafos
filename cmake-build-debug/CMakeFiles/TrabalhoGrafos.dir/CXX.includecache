@@ -6,19 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp
-MenuPrincipal.h
-/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.h
+
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.h
+No.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.h
+Aresta.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.h
+
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.h
+
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.h
 iostream
 -
-cctype
--
-cstdlib
--
+Aresta.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.h
 
-/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h
-
-/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp
+/home/leo/git/DCC059-TeoriaDosGrafos/main.cpp
+random
+-
 Classes/MenuPrincipal.h
-/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.h
+Classes/Grafo.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.h
+Classes/Aresta.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.h
+Classes/No.h
+/home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.h
 

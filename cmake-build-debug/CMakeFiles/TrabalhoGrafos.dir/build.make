@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cygdrive/c/Users/julio/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
+CMAKE_COMMAND = /home/leo/clion-2019.2.1/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /cygdrive/c/Users/julio/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
+RM = /home/leo/clion-2019.2.1/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos
+CMAKE_SOURCE_DIR = /home/leo/git/DCC059-TeoriaDosGrafos
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug
+CMAKE_BINARY_DIR = /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/TrabalhoGrafos.dir/depend.make
@@ -59,68 +59,68 @@ include CMakeFiles/TrabalhoGrafos.dir/flags.make
 
 CMakeFiles/TrabalhoGrafos.dir/main.cpp.o: CMakeFiles/TrabalhoGrafos.dir/flags.make
 CMakeFiles/TrabalhoGrafos.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/main.cpp.o"
-	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/main.cpp.o -c /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/main.cpp.o -c /home/leo/git/DCC059-TeoriaDosGrafos/main.cpp
 
 CMakeFiles/TrabalhoGrafos.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TrabalhoGrafos.dir/main.cpp.i"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp > CMakeFiles/TrabalhoGrafos.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/DCC059-TeoriaDosGrafos/main.cpp > CMakeFiles/TrabalhoGrafos.dir/main.cpp.i
 
 CMakeFiles/TrabalhoGrafos.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TrabalhoGrafos.dir/main.cpp.s"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/main.cpp -o CMakeFiles/TrabalhoGrafos.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/DCC059-TeoriaDosGrafos/main.cpp -o CMakeFiles/TrabalhoGrafos.dir/main.cpp.s
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o: CMakeFiles/TrabalhoGrafos.dir/flags.make
 CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o: ../Classes/MenuPrincipal.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o"
-	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o -c /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o -c /home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.cpp
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.i"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.i
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.s"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/MenuPrincipal.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/DCC059-TeoriaDosGrafos/Classes/MenuPrincipal.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.s
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o: CMakeFiles/TrabalhoGrafos.dir/flags.make
 CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o: ../Classes/Aresta.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o"
-	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o -c /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o -c /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.cpp
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.i"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.i
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.s"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Aresta.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Aresta.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.s
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o: CMakeFiles/TrabalhoGrafos.dir/flags.make
 CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o: ../Classes/No.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
-	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o -c /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o -c /home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.cpp
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.i"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.i
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.s"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/No.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/DCC059-TeoriaDosGrafos/Classes/No.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.s
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o: CMakeFiles/TrabalhoGrafos.dir/flags.make
 CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o: ../Classes/Grafo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
-	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o -c /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o -c /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.cpp
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.i"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.cpp > CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.i
 
 CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.s"
-	/usr/bin/c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/Classes/Grafo.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leo/git/DCC059-TeoriaDosGrafos/Classes/Grafo.cpp -o CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.s
 
 # Object files for target TrabalhoGrafos
 TrabalhoGrafos_OBJECTS = \
@@ -133,18 +133,18 @@ TrabalhoGrafos_OBJECTS = \
 # External object files for target TrabalhoGrafos
 TrabalhoGrafos_EXTERNAL_OBJECTS =
 
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/main.cpp.o
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/build.make
-TrabalhoGrafos.exe: CMakeFiles/TrabalhoGrafos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable TrabalhoGrafos.exe"
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/main.cpp.o
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/Classes/MenuPrincipal.cpp.o
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/Classes/Aresta.cpp.o
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/Classes/No.cpp.o
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/Classes/Grafo.cpp.o
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/build.make
+TrabalhoGrafos: CMakeFiles/TrabalhoGrafos.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable TrabalhoGrafos"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TrabalhoGrafos.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/TrabalhoGrafos.dir/build: TrabalhoGrafos.exe
+CMakeFiles/TrabalhoGrafos.dir/build: TrabalhoGrafos
 
 .PHONY : CMakeFiles/TrabalhoGrafos.dir/build
 
@@ -153,6 +153,6 @@ CMakeFiles/TrabalhoGrafos.dir/clean:
 .PHONY : CMakeFiles/TrabalhoGrafos.dir/clean
 
 CMakeFiles/TrabalhoGrafos.dir/depend:
-	cd /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug /cygdrive/c/Users/julio/Desktop/TrabalhoGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leo/git/DCC059-TeoriaDosGrafos /home/leo/git/DCC059-TeoriaDosGrafos /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug /home/leo/git/DCC059-TeoriaDosGrafos/cmake-build-debug/CMakeFiles/TrabalhoGrafos.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/TrabalhoGrafos.dir/depend
 
