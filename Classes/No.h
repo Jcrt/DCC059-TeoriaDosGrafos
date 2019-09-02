@@ -21,7 +21,7 @@ public:
     void removeAresta(int idNo);
     bool existeAresta(int idAdj);
     void imprimeArestas();
-    void* setProx(No* p);
+    void setProx(No* p);
     No* getProx();
     void setId(int idNo);
     int getId();

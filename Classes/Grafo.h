@@ -11,7 +11,8 @@
 
 class Grafo {
 public:
-    Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
+	Grafo();
+	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
 
 

@@ -5,7 +5,7 @@
 #include "No.h"
 
 No::No(int idNo) {
-    lista = new Aresta;
+    lista = new Aresta();
     dIn = 0;
     dOut = 0;
     setId(idNo);
@@ -52,7 +52,7 @@ float No::getPeso() const {
     return peso;
 }
 
-void* No::setProx(No* p) {
+void No::setProx(No* p) {
     this->prox = p;
 }
 
