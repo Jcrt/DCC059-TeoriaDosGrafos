@@ -5,7 +5,7 @@
 #include "No.h"
 
 No::No(int idNo) {
-    lista = new Aresta;
+    lista = new Aresta();
     dIn = 0;
     dOut = 0;
     setId(idNo);

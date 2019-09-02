@@ -3,29 +3,72 @@
 #include "Classes/Grafo.h"
 #include "Classes/Aresta.h"
 #include "Classes/No.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <math.h>
+#include <utility>
+#include <tuple>
+#include <iomanip>
+#include <stdlib.h>
+#include <chrono>
+
 using namespace std;
 
-int main() {
-    /*
-    while(MenuPrincipal::ReadOption() != 0){
-        MenuPrincipal::ReadOption();
-    }*/
+Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int ponderadoNo){
 
-    Grafo g;
-    for(int i = 0; i <= 10; i++){
-        g.insereNo(i);
+    //Variáveis para auxiliar na criação dos nós no Grafo
+    int idNoOrigem;
+    int idNoDestino;
+    int ordem;
+    ifstream file;
+    file.open(arqEntrada);
+
+    //Pegando a ordem do grafo
+    file >> ordem;
+
+    //Criando objeto grafo
+    Grafo* graf = new Grafo(ordem, direcionado, ponderadoAresta, ponderadoNo);
+
+    //Leitura de arquivo
+    if(!graf->ehPonderadoAresta() && !graf->ehPonderadoVertice())
+        while(file >> idNoOrigem >> idNoDestino)
+            graf->addAresta(idNoOrigem, idNoDestino, 0);
+
+    else if(graf->ehPonderadoAresta() && !graf->ehPonderadoVertice() ){
+        float pesoAresta;
+        while(file >> idNoOrigem >> idNoDestino >> pesoAresta)
+            graf->addAresta(idNoOrigem, idNoDestino, pesoAresta);
     }
-    cout << endl;
 
-    g.addAresta(1, 10, 20);
-    g.addAresta(1, 7, 10);
-    g.addAresta(3, 5, 13);
-    g.addAresta(5, 6, 19);
-    g.addAresta(6, 9, 30);
-    cout << endl;
+    else if(graf->ehPonderadoVertice() && !graf->ehPonderadoAresta()){
+        float pesoNoOrigem, pesoNoDestino;
+        while(file >> idNoOrigem >> pesoNoOrigem >> idNoDestino >> pesoNoDestino) {
+            graf->addAresta(idNoOrigem, idNoDestino, 0);
+            graf->buscaNo(idNoOrigem)->setPeso(pesoNoOrigem);
+            graf->buscaNo(idNoDestino)->setPeso(pesoNoDestino);
+        }
+    }
 
-    g.removeNo(1);
-    g.removeNo((20));
-    g.removeAresta(6, 5);
-    g.removeAresta(4, 8);
+    else if(graf->ehPonderadoVertice() && graf->ehPonderadoAresta()){
+        float pesoNoOrigem, pesoNoDestino, pesoAresta;
+        while(file >> idNoOrigem >> pesoNoOrigem >> idNoDestino >> pesoNoDestino) {
+            graf->addAresta(idNoOrigem, idNoDestino, pesoAresta);
+            graf->buscaNo(idNoOrigem)->setPeso(pesoNoOrigem);
+            graf->buscaNo(idNoDestino)->setPeso(pesoNoDestino);
+        }
+    }
+
+    file.close();
+    return graf;
+}
+
+int main(int argc, char* argv[]) {
+    if(argc != 5) {
+        cout << "Argumentos insuficientes" << endl;
+        return 1;
+    }
+    Grafo* x;
+    x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+    x->imprimirArestas();
 }

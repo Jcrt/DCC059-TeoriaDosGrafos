@@ -14,6 +14,7 @@ Aresta::Aresta() {
     primeira = nullptr;
     ultima = nullptr;
     numeroDeArestas = 0;
+
 }
 
 /**
@@ -34,7 +35,7 @@ Aresta::~Aresta() {
  * @param idAresta id da aresta.
  * @param peso peso que sera inserido na aresta.
  */
-void Aresta::insereAresta(int idVertice, int peso) {
+void* Aresta::insereAresta(int idVertice, int peso) {
     Aresta* p = new Aresta();
     p->setAdj(idVertice);
     p->setPeso(peso);

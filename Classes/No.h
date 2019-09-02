@@ -30,6 +30,7 @@ public:
     void setPeso(float peso);
     float getPeso() const;
 
+
 private:
     int id;
     float peso;
