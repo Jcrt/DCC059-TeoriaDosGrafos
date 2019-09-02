@@ -27,8 +27,13 @@ public:
     void grauSaida(int idNo);
     bool existeAresta(int idVertice1, int idVertice2);
     bool existeVertice(int idVertice);
+    bool ehPonderadoVertice();
+    bool ehPonderadoAresta();
+    int getOrdem();
 
 private:
+    // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
+    int n;
     int ordem;
     No* primeiro;
     No* ultimo;

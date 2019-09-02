@@ -1,8 +1,3 @@
-//
-// Created by julio on 24/08/2019.
-//
-
-
 #include "Grafo.h"
 
 
@@ -58,9 +53,9 @@ void Grafo::insereNo(int idNo) {
         ultimo->setProx(p);
 
     ultimo = p;
-    ordem++;
+    n++;
 
-    if(ordem == 1)
+    if(n == 1)
         primeiro = p;
 
     cout << "No " << idNo << " adicionado ao Grafo.";
@@ -129,8 +124,13 @@ void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
 
     No* p = buscaNo(idVertice1);
     No* q = buscaNo(idVertice2);
+
     p->addAresta(idVertice2, peso);
-    q->addAresta(idVertice1, peso);
+    /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
+    if(!this->orientado){
+        q->addAresta(idVertice1, peso);
+    }
+
     cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
     cout << endl;
 }
@@ -140,8 +140,12 @@ void Grafo::removeAresta(int idVertice1, int idVertice2) {
         cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") removida.";
         No *p = buscaNo(idVertice1);
         p->removeAresta(idVertice2);
-        No *q = buscaNo(idVertice2);
-        q->removeAresta(idVertice1);
+
+        /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
+        if(!this->orientado){
+            No *q = buscaNo(idVertice2);
+            q->removeAresta(idVertice1);
+        }
     }
     else{
         cout << "Nao eh possivel remover a aresta (" << idVertice1 << ", " << idVertice2 << ") pois ela nao existe.";
@@ -199,15 +203,19 @@ bool Grafo::existeVertice(int idVertice){
 }
 
 bool Grafo::existeAresta(int idVertice1, int idVertice2) {
+    bool result = false;
     No* p = buscaNo(idVertice1);
     No* q = buscaNo(idVertice2);
-    if(p != nullptr && q != nullptr)
-        if(p->existeAresta(idVertice2) && q->existeAresta(idVertice1))
-            return true;
-        else
-            return false;
-    else
-        return false;
+
+    if(p == nullptr || q == nullptr){
+        if(p->existeAresta(idVertice2) && this->orientado){
+            result = true;
+        } else if(p->existeAresta(idVertice2) && q->existeAresta(idVertice1) && !this->orientado) {
+            result = true;
+        }
+    }
+
+    return result;
 }
 
 
@@ -235,4 +243,16 @@ void Grafo::grauSaida(int idNo) {
     else
         cout << "O no "<< idNo << " nao existe." << endl;
     cout << endl;
+}
+
+bool Grafo::ehPonderadoAresta() {
+    return this->ponderado_aresta;
+}
+
+bool Grafo::ehPonderadoVertice() {
+    return this->ponderado_vertice;
+}
+
+int Grafo::getOrdem() {
+    return this->ordem;
 }
