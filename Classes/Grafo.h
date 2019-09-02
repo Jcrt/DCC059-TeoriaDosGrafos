@@ -11,8 +11,9 @@
 
 class Grafo {
 public:
-    Grafo();
+    Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
+
 
     void insereNo(int idNo);
     void removeNo(int idNo);
@@ -27,9 +28,12 @@ public:
     bool existeVertice(int idVertice);
 
 private:
-    int numeroDeNos;
+    int ordem;
     No* primeiro;
     No* ultimo;
+    bool orientado;
+    bool ponderado_aresta;
+    bool ponderado_vertice;
 
 };
 

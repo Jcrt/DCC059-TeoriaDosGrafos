@@ -16,11 +16,15 @@ using namespace std;
 /**
  * Construtor do Grafo
  */
-Grafo::Grafo(){
+Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice){
     cout << "---- CRIANDO GRAFO ----" << endl;
+
     primeiro = nullptr;
     ultimo = nullptr;
-    numeroDeNos = 0;
+    this->ordem = ordem;
+    this->orientado = orientado;
+    this->ponderado_aresta = ponderado_aresta;
+    this->ponderado_vertice = ponderado_vertice;
     cout << endl;
 }
 
@@ -49,9 +53,9 @@ void Grafo::insereNo(int idNo) {
         ultimo->setProx(p);
 
     ultimo = p;
-    numeroDeNos++;
+    ordem++;
 
-    if(numeroDeNos == 1)
+    if(ordem == 1)
         primeiro = p;
 
     cout << "No " << idNo << " adicionado ao Grafo.";
@@ -76,18 +80,18 @@ void Grafo::removeNo(int idNo) {
                             delete primeiro;
                             primeiro = nullptr;
                             ultimo = nullptr;
-                            numeroDeNos--;
+                            ordem--;
                         } else {
                             primeiro = primeiro->getProx();
                             delete p;
-                            numeroDeNos--;
+                            ordem--;
                         }
                     } else {
                         aux->setProx(p->getProx());
                         if(p == ultimo)
                             ultimo = aux;
                         delete p;
-                        numeroDeNos--;
+                        ordem--;
                     }
                 } else {
                     aux = p;
