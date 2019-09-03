@@ -1,7 +1,3 @@
-//
-// Created by julio on 24/08/2019.
-//
-
 #include <iostream>
 #include "Aresta.h"
 
@@ -35,7 +31,7 @@ Aresta::~Aresta() {
  * @param idAresta id da aresta.
  * @param peso peso que sera inserido na aresta.
  */
-void* Aresta::insereAresta(int idVertice, int peso) {
+void Aresta::insereAresta(int idVertice, int peso) {
     Aresta* p = new Aresta();
     p->setAdj(idVertice);
     p->setPeso(peso);
@@ -104,6 +100,11 @@ void Aresta::imprimirArestas() {
     cout << endl;
 }
 
+/**
+ * Verifica se a aresta entre os vertices ja existe.
+ * @param idNo id do segundo vertice.
+ * @return true ou false
+ */
 bool Aresta::existeAresta(int idNo) {
     Aresta* p = primeira;
     while(p != nullptr){

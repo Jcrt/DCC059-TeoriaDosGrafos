@@ -1,11 +1,5 @@
-//
-// Created by julio on 24/08/2019.
-//
-
 #ifndef TRABALHOGRAFOS_NO_H
 #define TRABALHOGRAFOS_NO_H
-
-
 
 #include <iostream>
 #include "Aresta.h"

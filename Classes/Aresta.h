@@ -11,7 +11,7 @@ public:
     Aresta();
     ~Aresta();
 
-    void* insereAresta(int idVertice, int peso);
+    void insereAresta(int idVertice, int peso);
     void removeAresta(int idNo);
     void setProx(Aresta* p);
     Aresta* getProx();

@@ -10,14 +10,8 @@ using namespace std;
 /**
  * Construtor do Grafo
  */
-Grafo::Grafo() {
-}
-
-/**
- * Construtor do Grafo
- */
 Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice) {
-	cout << "---- CRIANDO GRAFO ----" << endl;
+    cout << "---- CRIANDO GRAFO ----" << endl;
 
 	primeiro = nullptr;
 	ultimo = nullptr;
@@ -129,19 +123,31 @@ void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
     /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
     if(!this->orientado){
         q->addAresta(idVertice1, peso);
+        cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
+    }
+    else{
+        cout << "Aresta (" << idVertice1 << " -> " << idVertice2 << ") adicionada com peso: " << peso << ".";
     }
 
-    cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
+
     cout << endl;
 }
 
+
+/**
+ * O metodo para remover uma aresta entre dois vertices verifica se primeiro se essa aresta existe
+ * e, caso exista faz a remocao da aresta. (Caso seja orientado, apenas 1 no possui a aresta, entao so é
+ * removida dele).
+ * @param idVertice1
+ * @param idVertice2
+ */
 void Grafo::removeAresta(int idVertice1, int idVertice2) {
     if (existeAresta(idVertice1, idVertice2)) {
         cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") removida.";
         No *p = buscaNo(idVertice1);
         p->removeAresta(idVertice2);
 
-        /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
+        /* Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
         if(!this->orientado){
             No *q = buscaNo(idVertice2);
             q->removeAresta(idVertice1);
@@ -194,6 +200,11 @@ void Grafo::imprimirArestas() {
     cout << endl;
 }
 
+/**
+ * Verifica se o vertice existe.
+ * @param idVertice
+ * @return true ou false
+ */
 bool Grafo::existeVertice(int idVertice){
     No* p = buscaNo(idVertice);
     if(p != nullptr)
@@ -202,6 +213,12 @@ bool Grafo::existeVertice(int idVertice){
         return false;
 }
 
+/**
+ * Verifica se aresta existe.
+ * @param idVertice1
+ * @param idVertice2
+ * @return true ou false.
+ */
 bool Grafo::existeAresta(int idVertice1, int idVertice2) {
     bool result = false;
     No* p = buscaNo(idVertice1);

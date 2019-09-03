@@ -1,7 +1,3 @@
-//
-// Created by julio on 24/08/2019.
-//
-
 #ifndef TRABALHOGRAFOS_GRAFO_H
 #define TRABALHOGRAFOS_GRAFO_H
 
@@ -11,7 +7,6 @@
 
 class Grafo {
 public:
-	Grafo();
 	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
 

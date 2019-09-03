@@ -1,7 +1,3 @@
-//
-// Created by julio on 24/08/2019.
-//
-
 #include "No.h"
 
 No::No(int idNo) {

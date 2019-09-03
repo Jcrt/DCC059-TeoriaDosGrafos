@@ -15,6 +15,14 @@
 
 using namespace std;
 
+/**
+ * Metodo para leitura dos dados do arquivo e criacao do grafo de acordo com sua definicao.
+ * @param arqEntrada caminho do arquivo de entrada.
+ * @param direcionado 0 para grafo nao direcionado e 1 para grafo direcionado.
+ * @param ponderadoAresta 0 para grafo nao ponderado nas arestas e 1 para grafo ponderado nas arestas.
+ * @param ponderadoNo 0 para grafo nao ponderado nos vertices e 1 para grafo ponderado nos vertices.
+ * @return retorna o grafo criado.
+ */
 Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int ponderadoNo){
 
     //Variáveis para auxiliar na criação dos nós no Grafo
@@ -52,7 +60,7 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
 
     else if(graf->ehPonderadoVertice() && graf->ehPonderadoAresta()){
         float pesoNoOrigem, pesoNoDestino, pesoAresta;
-        while(file >> idNoOrigem >> pesoNoOrigem >> idNoDestino >> pesoNoDestino) {
+        while(file >> idNoOrigem >> pesoNoOrigem >> idNoDestino >> pesoNoDestino >> pesoAresta) {
             graf->addAresta(idNoOrigem, idNoDestino, pesoAresta);
             graf->buscaNo(idNoOrigem)->setPeso(pesoNoOrigem);
             graf->buscaNo(idNoDestino)->setPeso(pesoNoDestino);
@@ -70,5 +78,14 @@ int main(int argc, char* argv[]) {
     }
     Grafo* x;
     x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+
+
+    // DEBUGAR
+    /*
+    x = leituraDados("Entrada.txt", 0, 1, 1);
+     */
+
     x->imprimirArestas();
+
+    delete x;
 }
