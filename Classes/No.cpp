@@ -11,9 +11,14 @@ No::~No() {
     delete lista;
 }
 
-
 void No::addAresta(int idVertice, int peso) {
-    lista->insereAresta(idVertice, peso);
+    if(lista == nullptr) {
+        Aresta *a = new Aresta();
+        a->insereAresta(idVertice, peso);
+        lista = a;
+    } else{
+        lista->insereAresta(idVertice, peso);
+    }
 }
 
 void No::removeAresta(int idNo){

@@ -1,7 +1,6 @@
 #ifndef TRABALHOGRAFOS_GRAFO_H
 #define TRABALHOGRAFOS_GRAFO_H
 
-
 #include "No.h"
 #include "Aresta.h"
 
@@ -9,7 +8,6 @@ class Grafo {
 public:
 	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
-
 
     void insereNo(int idNo);
     void removeNo(int idNo);

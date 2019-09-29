@@ -1,9 +1,5 @@
 #include "Grafo.h"
-
-
 #include <iostream>
-#include <cctype>
-#include <cstdlib>
 
 using namespace std;
 
@@ -273,3 +269,8 @@ bool Grafo::ehPonderadoVertice() {
 int Grafo::getOrdem() {
     return this->ordem;
 }
+
+/*
+
+ */
+

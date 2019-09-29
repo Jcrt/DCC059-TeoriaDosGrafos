@@ -1,19 +1,36 @@
 #include <random>
 #include "Classes/MenuPrincipal.h"
 #include "Classes/Grafo.h"
-#include "Classes/Aresta.h"
-#include "Classes/No.h"
+#include "Classes/ReadFile.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <math.h>
-#include <utility>
-#include <tuple>
 #include <iomanip>
 #include <stdlib.h>
-#include <chrono>
+
+#include <stack>
 
 using namespace std;
+
+Grafo* CreateGrafoFromGrafoStruct(ArquivoGrafo &grafoStruct, bool IsDirecionado, bool IsPonderadoAresta, bool IsPonderadoNo) {
+    Grafo * grafo = new Grafo(grafoStruct.Ordem, IsDirecionado, IsPonderadoAresta, IsPonderadoNo);
+
+    if(IsPonderadoNo){
+        while(grafoStruct.Linhas.size() > 0){
+            LinhaArquivo la = grafoStruct.Linhas[grafoStruct.Linhas.size() - 1];
+            grafo->addAresta(la.NoOrigem, la.NoDestino, la.PesoAresta);
+            grafo->buscaNo(la.NoOrigem)->setPeso(la.PesoOrigem);
+            grafo->buscaNo(la.NoDestino)->setPeso(la.PesoDestino);
+            grafoStruct.Linhas.pop_back();
+        }
+    } else{
+        while(grafoStruct.Linhas.size() > 0){
+            LinhaArquivo la = grafoStruct.Linhas[grafoStruct.Linhas.size() - 1];
+            grafo->addAresta(la.NoOrigem, la.NoDestino, la.PesoAresta);
+            grafoStruct.Linhas.pop_back();
+        }
+    }
+}
 
 /**
  * Metodo para leitura dos dados do arquivo e criacao do grafo de acordo com sua definicao.
@@ -71,21 +88,20 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
     return graf;
 }
 
+
+
+
 int main(int argc, char* argv[]) {
     if(argc != 5) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
-    Grafo* x;
-    x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+    string filepath = argv[1];
+    ArquivoGrafo ag = ReadFile::GetArquivoGrafo(filepath);
 
 
-    // DEBUGAR
-    /*
-    x = leituraDados("Entrada.txt", 0, 1, 1);
-     */
-
+    Grafo* x = CreateGrafoFromGrafoStruct(ag, atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
     x->imprimirArestas();
 
-    delete x;
+    //delete x;
 }
