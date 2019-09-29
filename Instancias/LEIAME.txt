@@ -1,0 +1,3 @@
+Pessoal, vamos tentar usar esse diretório para salvarmos as instências dos arquivos de grafos que temos.
+
+=)
