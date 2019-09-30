@@ -67,3 +67,7 @@ void No::setId(int idNo) {
 int No::getId() {
     return this->id;
 }
+
+Aresta* No::getPrimeiraAresta() {
+    return lista->getPrimeira();
+}

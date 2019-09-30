@@ -24,6 +24,7 @@ public:
     void setPeso(float peso);
     float getPeso() const;
     float getPesoAresta(int idAdj);
+    Aresta* getPrimeiraAresta();
 
 
 private:

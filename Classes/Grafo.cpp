@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstdlib>
+#include <stack>
 
 using namespace std;
 
@@ -34,6 +35,77 @@ Grafo::~Grafo() {
         No *t = p->getProx();
         delete p;
         p = t;
+    }
+}
+
+/**
+ * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
+ * @param idVertice id do vertice de inicio.
+ */
+void Grafo::buscaProfundidade(int idVertice){
+    No* p = buscaNo(idVertice);
+    if(p == nullptr)
+        return;
+
+    bool visita[n];
+    for(int i = 0; i < n; i++)
+        visita[i] = 0;
+
+    stack<int> pilha;
+    pilha.push(idVertice);
+    visita[p->getId()] = true;
+
+    Aresta* a;
+    while(!pilha.empty()){
+        a = p->getPrimeiraAresta();
+        while(a != nullptr){
+            if(!visita[a->getAdj()]){
+                visita[a->getAdj()] = true;
+                pilha.push(a->getAdj());
+                p = buscaNo(pilha.top());
+                a = p->getPrimeiraAresta();
+            } else
+                a = a->getProx();
+        }
+        pilha.pop();
+        if(!pilha.empty())
+            p = buscaNo(pilha.top());
+    }
+}
+
+
+/**
+ * Revisar -----------
+ * @param a
+ * @param b
+ */
+void Grafo::algFloyd(int a, int b) {
+    int mat[this->n][this->n];
+    No *p;
+    int aa = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) { mat[i][j] = 0; }
+            else {
+                if((p = buscaNo(i))!= nullptr) {
+                    aa = p->getPesoAresta(j);
+                    mat[i][j] = aa;
+                }
+            }
+        }
+    }
+    for (int m = 0; m < n; m++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] > mat[i][m] + mat[m][j] && mat[i][m] + mat[m][j] > 0)
+                    mat[i][j] = mat[i][m] + mat[m][j];
+            }
+        }
+    }
+
+    if((a >= 0 && a < n) && (b >= 0 && b < n)){
+        cout << "Menor Caminho entre " << a << " e " << b << " : " << mat[a][b] << endl;
+        cout << endl << "Menor Caminho entre " << b << " e " << a << " : " << mat[a][b] << endl;
     }
 }
 
@@ -112,16 +184,13 @@ void Grafo::removeNo(int idNo) {
  * @param peso peso da aresta que sera adicionada
  */
 void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
-    No* p;
-    No* q;
-
-    if(!existeVertice(idVertice1))
+if(!existeVertice(idVertice1))
         insereNo(idVertice1);
     if(!existeVertice(idVertice2))
         insereNo(idVertice2);
 
-    p = buscaNo(idVertice1);
-    q = buscaNo(idVertice2);
+    No* p = buscaNo(idVertice1);
+    No* q = buscaNo(idVertice2);
 
     p->addAresta(idVertice2, peso);
     /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/

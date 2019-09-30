@@ -26,6 +26,8 @@ public:
     bool ehPonderadoVertice();
     bool ehPonderadoAresta();
     int getOrdem();
+    void algFloyd(int idVertice1, int idVertice2);
+    void buscaProfundidade(int idVertice);
 
 
 private:

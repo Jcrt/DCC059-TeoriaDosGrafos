@@ -75,16 +75,20 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
 
 int main(int argc, char* argv[]) {
     auto inicio = std::chrono::high_resolution_clock::now();
+
     if(argc != 5) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
 
     Grafo* x;
-    x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
-    //x = leituraDados("../Instancias/TesteSimples.txt", false, true, false);
+    // Usar para debugar na IDE
+    // x = leituraDados("../Instancias/TesteSimples.txt", false, true, false);
 
-    cout << "Peso 1 - 8: " << x->getPesoAresta(1, 2) << endl;
+    // Usar para rodar no terminal
+    x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+
+    x->buscaProfundidade(1);
     x->imprimirArestas();
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
