@@ -2,7 +2,7 @@
 #define TRABALHOGRAFOS_NO_H
 
 #include <iostream>
-#include "Aresta.h"
+#include "ListaArestas.h"
 
 using namespace std;
 
@@ -23,6 +23,7 @@ public:
     int getDOut();
     void setPeso(float peso);
     float getPeso() const;
+    float getPesoAresta(int idAdj);
 
 
 private:
@@ -31,7 +32,7 @@ private:
     int dIn;
     int dOut;
     No* prox;
-    Aresta *lista;
+    ListaArestas *lista;
 
 };
 

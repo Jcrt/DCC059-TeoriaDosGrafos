@@ -1,36 +1,29 @@
 //
-// Created by julio on 24/08/2019.
+// Created by Leo on 29/09/2019.
 //
 
-#ifndef TRABALHOGRAFOS_ARESTA_H
-#define TRABALHOGRAFOS_ARESTA_H
+#ifndef GRUPO_7_ARESTA_H
+#define GRUPO_7_ARESTA_H
 
 
 class Aresta {
-public:
-    Aresta();
-    ~Aresta();
+    public:
+        Aresta();
+        ~Aresta();
 
-    void insereAresta(int idVertice, int peso);
-    void removeAresta(int idNo);
-    void setProx(Aresta* p);
-    Aresta* getProx();
-    void setAdj(int adj);
-    int getAdj();
-    void setPeso(float pesoAresta);
-    void setId(int idAresta);
-    void imprimirArestas();
-    bool existeAresta(int idNo);
+        Aresta* getProx();
+        void setProx(Aresta* p);
+        void setPeso(int peso);
+        void setAdj(int idAdj);
+        int getAdj();
+        float getPeso();
 
-private:
-    int id;
-    Aresta* primeira;
-    Aresta* ultima;
-    int numeroDeArestas;
-    int noAdj;
-    float peso;
-    Aresta *prox;
+    private:
+        int id;
+        int adj;
+        int peso;
+        Aresta* prox;
 };
 
 
-#endif //TRABALHOGRAFOS_ARESTA_H
+#endif //GRUPO_7_ARESTA_H

@@ -1,13 +1,15 @@
 #ifndef TRABALHOGRAFOS_GRAFO_H
 #define TRABALHOGRAFOS_GRAFO_H
 
+
 #include "No.h"
-#include "Aresta.h"
+#include "ListaArestas.h"
 
 class Grafo {
 public:
 	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
+
 
     void insereNo(int idNo);
     void removeNo(int idNo);
@@ -19,10 +21,12 @@ public:
     void grauEntrada(int idNo);
     void grauSaida(int idNo);
     bool existeAresta(int idVertice1, int idVertice2);
+    float getPesoAresta(int idVertice1, int idVertice2);
     bool existeVertice(int idVertice);
     bool ehPonderadoVertice();
     bool ehPonderadoAresta();
     int getOrdem();
+
 
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.

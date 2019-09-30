@@ -4,7 +4,7 @@
 
 #include <string>
 #include <bits/stdc++.h>
-#include <boost/algorithm/string.hpp>
+//#include <boost/algorithm/string.hpp>
 #include "ReadFile.h"
 
 using namespace std;
@@ -20,7 +20,7 @@ ArquivoGrafo ReadFile::GetArquivoGrafo(string fileName){
 LinhaArquivo ReadFile::CriaStructLinha(string linhaArquivo){
     vector<string> result;
     LinhaArquivo la;
-    boost::split(result, linhaArquivo, boost::is_any_of(" "));
+    //boost::split(result, linhaArquivo, boost::is_any_of(" "));
 
     if(!result.empty()){
         switch (result.size()){

@@ -1,5 +1,9 @@
 #include "Grafo.h"
+
+#include <chrono>
 #include <iostream>
+#include <cctype>
+#include <cstdlib>
 
 using namespace std;
 
@@ -15,6 +19,7 @@ Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_ve
 	this->orientado = orientado;
 	this->ponderado_aresta = ponderado_aresta;
 	this->ponderado_vertice = ponderado_vertice;
+	this->n = 0;
 	cout << endl;
 }
 
@@ -48,8 +53,8 @@ void Grafo::insereNo(int idNo) {
     if(n == 1)
         primeiro = p;
 
-    cout << "No " << idNo << " adicionado ao Grafo.";
-    cout << endl;
+    //cout << "No " << idNo << " adicionado ao Grafo.";
+    //cout << endl;
 }
 
 /**
@@ -107,26 +112,27 @@ void Grafo::removeNo(int idNo) {
  * @param peso peso da aresta que sera adicionada
  */
 void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
+    No* p;
+    No* q;
+
     if(!existeVertice(idVertice1))
         insereNo(idVertice1);
     if(!existeVertice(idVertice2))
         insereNo(idVertice2);
 
-    No* p = buscaNo(idVertice1);
-    No* q = buscaNo(idVertice2);
+    p = buscaNo(idVertice1);
+    q = buscaNo(idVertice2);
 
     p->addAresta(idVertice2, peso);
     /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
-    if(!this->orientado){
+    if (!this->orientado) {
         q->addAresta(idVertice1, peso);
-        cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
-    }
-    else{
-        cout << "Aresta (" << idVertice1 << " -> " << idVertice2 << ") adicionada com peso: " << peso << ".";
+        //cout << "ListaArestas (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
+    } else {
+        //cout << "ListaArestas (" << idVertice1 << " -> " << idVertice2 << ") adicionada com peso: " << peso << ".";
     }
 
-
-    cout << endl;
+    //cout << endl;
 }
 
 
@@ -139,7 +145,7 @@ void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
  */
 void Grafo::removeAresta(int idVertice1, int idVertice2) {
     if (existeAresta(idVertice1, idVertice2)) {
-        cout << "Aresta (" << idVertice1 << ", " << idVertice2 << ") removida.";
+        cout << "ListaArestas (" << idVertice1 << ", " << idVertice2 << ") removida.";
         No *p = buscaNo(idVertice1);
         p->removeAresta(idVertice2);
 
@@ -161,13 +167,14 @@ void Grafo::removeAresta(int idVertice1, int idVertice2) {
  * @return retorna um ponteiro para o vertice ou NULL se nao for encontrado.
  */
 No* Grafo::buscaNo(int idNo) {
-    No* p = primeiro;
-    while(p != nullptr){
-        if(p->getId() == idNo)
+    No *p = primeiro;
+    while (p != nullptr) {
+        if (p->getId() == idNo)
             return p;
         p = p->getProx();
     }
     return p;
+
 }
 
 /**
@@ -220,7 +227,7 @@ bool Grafo::existeAresta(int idVertice1, int idVertice2) {
     No* p = buscaNo(idVertice1);
     No* q = buscaNo(idVertice2);
 
-    if(p == nullptr || q == nullptr){
+    if(p != nullptr && q != nullptr){
         if(p->existeAresta(idVertice2) && this->orientado){
             result = true;
         } else if(p->existeAresta(idVertice2) && q->existeAresta(idVertice1) && !this->orientado) {
@@ -231,6 +238,15 @@ bool Grafo::existeAresta(int idVertice1, int idVertice2) {
     return result;
 }
 
+float Grafo::getPesoAresta(int idVertice1, int idVertice2) {
+    if(existeAresta(idVertice1, idVertice2)) {
+        No *p = buscaNo(idVertice1);
+        return p->getPesoAresta(idVertice2);
+    }
+    else
+        return 0;
+
+}
 
 /**
  * Imprime o grau de entrada do vertice informado.
@@ -269,8 +285,3 @@ bool Grafo::ehPonderadoVertice() {
 int Grafo::getOrdem() {
     return this->ordem;
 }
-
-/*
-
- */
-

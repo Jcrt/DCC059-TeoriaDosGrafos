@@ -1,36 +1,20 @@
 #include <random>
 #include "Classes/MenuPrincipal.h"
 #include "Classes/Grafo.h"
-#include "Classes/ReadFile.h"
+#include "Classes/ListaArestas.h"
+#include "Classes/No.h"
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <math.h>
+#include <utility>
+#include <tuple>
 #include <iomanip>
 #include <stdlib.h>
-
-#include <stack>
+#include <chrono>
+#include <cstdlib>
 
 using namespace std;
-
-Grafo* CreateGrafoFromGrafoStruct(ArquivoGrafo &grafoStruct, bool IsDirecionado, bool IsPonderadoAresta, bool IsPonderadoNo) {
-    Grafo * grafo = new Grafo(grafoStruct.Ordem, IsDirecionado, IsPonderadoAresta, IsPonderadoNo);
-
-    if(IsPonderadoNo){
-        while(grafoStruct.Linhas.size() > 0){
-            LinhaArquivo la = grafoStruct.Linhas[grafoStruct.Linhas.size() - 1];
-            grafo->addAresta(la.NoOrigem, la.NoDestino, la.PesoAresta);
-            grafo->buscaNo(la.NoOrigem)->setPeso(la.PesoOrigem);
-            grafo->buscaNo(la.NoDestino)->setPeso(la.PesoDestino);
-            grafoStruct.Linhas.pop_back();
-        }
-    } else{
-        while(grafoStruct.Linhas.size() > 0){
-            LinhaArquivo la = grafoStruct.Linhas[grafoStruct.Linhas.size() - 1];
-            grafo->addAresta(la.NoOrigem, la.NoDestino, la.PesoAresta);
-            grafoStruct.Linhas.pop_back();
-        }
-    }
-}
 
 /**
  * Metodo para leitura dos dados do arquivo e criacao do grafo de acordo com sua definicao.
@@ -47,6 +31,7 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
     int idNoDestino;
     int ordem;
     ifstream file;
+
     file.open(arqEntrada);
 
     //Pegando a ordem do grafo
@@ -88,20 +73,23 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
     return graf;
 }
 
-
-
-
 int main(int argc, char* argv[]) {
+    auto inicio = std::chrono::high_resolution_clock::now();
     if(argc != 5) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
-    string filepath = argv[1];
-    ArquivoGrafo ag = ReadFile::GetArquivoGrafo(filepath);
 
+    Grafo* x;
+    x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+    //x = leituraDados("../Instancias/TesteSimples.txt", false, true, false);
 
-    Grafo* x = CreateGrafoFromGrafoStruct(ag, atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+    cout << "Peso 1 - 8: " << x->getPesoAresta(1, 2) << endl;
     x->imprimirArestas();
 
-    //delete x;
+    auto resultado = std::chrono::high_resolution_clock::now() - inicio;
+    long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();
+    cout << "Tempo em segundos: " << seconds << endl;
+
+    delete x;
 }
