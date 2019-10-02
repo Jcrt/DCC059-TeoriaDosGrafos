@@ -71,3 +71,11 @@ int No::getId() {
 Aresta* No::getPrimeiraAresta() {
     return lista->getPrimeira();
 }
+
+void No::setIndice(int indice) {
+    this->indice = indice;
+}
+
+int No::getIndice() {
+    return this->indice;
+}

@@ -29,7 +29,6 @@ public:
     void algFloyd(int idVertice1, int idVertice2);
     void buscaProfundidade(int idVertice);
 
-
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
     int n;
@@ -40,6 +39,9 @@ private:
     bool ponderado_aresta;
     bool ponderado_vertice;
 
+
+    No* buscaNoIndice(int indice);
+    float getPesoArestaIndice(int indice1, int indice2);
 };
 
 

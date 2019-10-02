@@ -75,38 +75,34 @@ void Grafo::buscaProfundidade(int idVertice){
 
 
 /**
- * Revisar -----------
- * @param a
- * @param b
+ * Busca o menor caminho entre dois vertices através de uma matriz que é atualizada com os menores valores.
+ * @param a vertice 1
+ * @param b vertice 2
  */
 void Grafo::algFloyd(int a, int b) {
-    int mat[this->n][this->n];
-    No *p;
-    int aa = 0;
-    for (int i = 0; i < n; i++) {
+    int mat[n][n];
+
+    for(int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (i == j) { mat[i][j] = 0; }
+            if (i == j)
+                mat[i][j] = 0;
             else {
-                if((p = buscaNo(i))!= nullptr) {
-                    aa = p->getPesoAresta(j);
-                    mat[i][j] = aa;
-                }
-            }
-        }
-    }
-    for (int m = 0; m < n; m++) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (mat[i][j] > mat[i][m] + mat[m][j] && mat[i][m] + mat[m][j] > 0)
-                    mat[i][j] = mat[i][m] + mat[m][j];
+                mat[i][j] = getPesoArestaIndice(i,j);
             }
         }
     }
 
-    if((a >= 0 && a < n) && (b >= 0 && b < n)){
-        cout << "Menor Caminho entre " << a << " e " << b << " : " << mat[a][b] << endl;
-        cout << endl << "Menor Caminho entre " << b << " e " << a << " : " << mat[a][b] << endl;
+    for(int k=0 ; k<n ; k++){
+        for(int i=0 ; i<n ; i++){
+            for(int j=0 ; j<n ; j++){
+                if(mat[i][j] > mat[i][k] + mat[k][j] && mat[i][k] + mat[k][j] > 0)
+                    mat[i][j] = mat[i][k] + mat[k][j];
+            }
+        }
     }
+
+    cout << "Menor caminho entre " << a << " e " << b << ": " << mat[a-1][b-1];
+
 }
 
 /**
@@ -116,6 +112,7 @@ void Grafo::algFloyd(int a, int b) {
 void Grafo::insereNo(int idNo) {
     No* p = new No(idNo);
     p->setProx(nullptr);
+    p->setIndice(this->n);
     if(ultimo != nullptr)
         ultimo->setProx(p);
 
@@ -247,6 +244,23 @@ No* Grafo::buscaNo(int idNo) {
 }
 
 /**
+ * Metodo para buscar um vertice no Grafo pelo indice do vertice.
+ * @param indice indice do vertice que sera procurado.
+ * @return retorna um ponteiro para o vertice ou NULL se nao for encontrado.
+ */
+No* Grafo::buscaNoIndice(int indice) {
+        No *p = primeiro;
+        while (p != nullptr) {
+            if (p->getIndice() == indice)
+                return p;
+            p = p->getProx();
+        }
+        return p;
+
+}
+
+
+/**
  * Metodo que imprime os vertices do Grafo.
  */
 void Grafo::imprimirVertices(){
@@ -307,6 +321,37 @@ bool Grafo::existeAresta(int idVertice1, int idVertice2) {
     return result;
 }
 
+
+/**
+ * Retorna o peso da aresta entre os vertices buscados por indice.
+ * @param indice1 vertice 1
+ * @param indice2 vertice 2
+ * @return peso da aresta.
+ */
+float Grafo::getPesoArestaIndice(int indice1, int indice2){
+    No* p = buscaNoIndice(indice1);
+    No* q = buscaNoIndice(indice2);
+    if(p != nullptr && q != nullptr) {
+        int idVertice1 = p->getId();
+        int idVertice2 = q->getId();
+
+        if (existeAresta(idVertice1, idVertice2)) {
+            return p->getPesoAresta(idVertice2);
+        } else
+            return 9999999;
+    }
+    else
+        return 9999999;
+
+}
+
+
+/**
+ * Retorna o peso da aresta entre os vertices idVertice1 e idVertice2
+ * @param idVertice1 vertice 1
+ * @param idVertice2 vertice 2
+ * @return peso da aresta.
+ */
 float Grafo::getPesoAresta(int idVertice1, int idVertice2) {
     if(existeAresta(idVertice1, idVertice2)) {
         No *p = buscaNo(idVertice1);

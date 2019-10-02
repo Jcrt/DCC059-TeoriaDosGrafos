@@ -18,6 +18,8 @@ public:
     void setProx(No* p);
     No* getProx();
     void setId(int idNo);
+    void setIndice(int indice);
+    int getIndice();
     int getId();
     int getDIn();
     int getDOut();
@@ -34,6 +36,7 @@ private:
     int dOut;
     No* prox;
     ListaArestas *lista;
+    int indice;
 
 };
 
