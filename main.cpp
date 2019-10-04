@@ -79,42 +79,40 @@ int main(int argc, char* argv[]) {
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
 
-    Grafo* x;
-    x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+    //if(argc != 5) {
+    //    cout << "Argumentos insuficientes" << endl;
+    //    return 1;
+    //}
+
+    // Usar para rodar no terminal
+    //x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
 
     do
     {
         opcaoEscolhida = MenuPrincipal::ReadOption();
         switch(opcaoEscolhida){
             case 1:{
+                Grafo* x;
+                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
                 x->buscaEmLargura(2);
+                delete x;
             }break;
             case 2:{
+                Grafo* x;
+                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
                 x->buscaProfundidade(2);
+                delete x;
             }break;
             case 3:{
+                Grafo* x;
+                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
                 x->imprimirArestas();
+                delete x;
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
 
-    //if(argc != 5) {
-    //    cout << "Argumentos insuficientes" << endl;
-    //    return 1;
-    //}
-
-
-    // Usar para debugar na IDE
-
-
-    // Usar para rodar no terminal
-    //x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
-
-
-
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
     long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();
     cout << "Tempo em segundos: " << seconds << endl;
-
-    delete x;
 }
