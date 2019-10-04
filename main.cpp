@@ -14,6 +14,8 @@
 #include <chrono>
 #include <cstdlib>
 
+
+
 using namespace std;
 
 /**
@@ -83,12 +85,13 @@ int main(int argc, char* argv[]) {
 
     Grafo* x;
     // Usar para debugar na IDE
-     x = leituraDados("../Instancias/TesteSimples.txt", false, true, false);
+     x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
 
     // Usar para rodar no terminal
     //x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
 
-    x->algFloyd(1,4);
+    x->buscaEmLargura(2);
+    x->buscaProfundidade(2);
     x->imprimirArestas();
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;

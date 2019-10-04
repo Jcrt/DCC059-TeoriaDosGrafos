@@ -5,6 +5,8 @@
 #include <cctype>
 #include <cstdlib>
 #include <stack>
+#include <list>
+#include <climits>
 
 using namespace std;
 
@@ -39,6 +41,131 @@ Grafo::~Grafo() {
 }
 
 /**
+* Algoritmo de Dijkstra para encontrar menor caminho entre dois vertices
+* @param v int com o no inicial
+* @param vN int com o no destino
+* @return dist[vN] com a distancia entre os dois nos passados por parâmetro
+*/
+void Grafo::menorCaminhoDijkstra(int v, int vN){
+    No* p = buscaNo(v);
+    No* q = buscaNo(vN);
+    if(p != nullptr && q != nullptr){
+        int menor;
+
+        int dist[n], pre[n];
+        bool visit[n];
+        for(int i = 0; i < n; i++){
+            dist[i] = INT_MAX/2;
+            pre[i] = -1;
+            visit[i] = false;
+        }
+        dist[p->getIndice()] = 0;
+
+        while(!verificaVisit(visit, n)){
+            if(!visit[p->getIndice()]){
+                visit[p->getIndice()] = true;
+                Aresta* a = p->getPrimeiraAresta();
+                if(a != nullptr){
+                    while(a != nullptr){
+                        if(a->getPeso() >= 0)
+                            if(dist[a->getAdj()] > dist[p->getIndice()] + a->getPeso()){
+                                dist[a->getAdj()] = dist[p->getIndice()] + a->getPeso();
+                                pre[a->getAdj()] = p->getId();
+                            }
+                        a = a->getProx();
+                    }
+                }
+                int i;
+                for(i = 0; i < n; i++){
+                    if(!visit[i])
+                        break;
+                    if(i == n-1){
+                        //for(int j = 0; j < n; j++)
+                        //cout << dist[j] << "\t";
+                        cout << endl;
+                        cout << "A distancia entre " << v << " e " << vN << " e: " << dist[vN] << endl;
+                        //return dist[vN];
+                    }
+                }
+                menor = i;
+                for(i = menor+1; i < n; i++){
+                    if(!visit[i] && dist[menor] > dist[i])
+                        menor = i;
+                }
+                p = buscaNoIndice(menor);
+            }
+        }
+        if(dist[vN] == INT_MAX/2) {
+            cout << endl << "Nao existe caminho entre os vertices." << endl;
+            //return dist[vN];
+        }
+    }
+    else{
+        cout << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)" << endl;
+        //return -1;
+    }
+}
+
+/**
+* Função que verifica se o vetor é false em todas as posições
+* @param vet bool com os indices dos nos do grafo
+* @param n int com o tamanho do vetor
+* @return false se todas as posicoes sao false ou true se encontrado ao menos um true
+*/
+bool Grafo::verificaVisit(bool vet[], int n) // funcao que verifica se todos os indicies do vetor foram visitados
+{
+    for(int i = 0; i < n; i++)
+        if(!vet[i])
+            return false;
+    return true;
+}
+
+
+
+/**
+ * Busca os nos adjacentes ao passado como parametro e tras quais sao os adjacentes por nivel em largura.
+ * @param s vertice 1
+ */
+void Grafo::buscaEmLargura(int s){
+
+    No* p = buscaNo(s);
+    if(p == nullptr)
+        return;
+
+    bool visita[n];
+    for(int i = 0; i < n; i++)
+        visita[i] = 0;
+
+    list<int> queqe;
+    queqe.push_back(s);
+    visita[p->getIndice()] = true;
+    cout << p->getId() << " ";
+
+    Aresta* a;
+    while(!queqe.empty()){
+        a = p->getPrimeiraAresta();
+        while(a != nullptr){
+            No* aux = buscaNo(a->getAdj());
+            int indice = aux->getIndice();
+            if(!visita[indice]){
+                cout << aux->getId() << " ";
+                visita[indice] = true;
+                queqe.push_back(aux->getId());
+                p = buscaNo(queqe.front());
+                a = p->getPrimeiraAresta();
+            } else
+                a = a->getProx();
+        }
+        queqe.pop_front();
+        if(!queqe.empty())
+            p = buscaNo(queqe.front());
+    }
+    cout << endl;
+}
+
+
+
+/**
  * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
  * @param idVertice id do vertice de inicio.
  */
@@ -53,15 +180,19 @@ void Grafo::buscaProfundidade(int idVertice){
 
     stack<int> pilha;
     pilha.push(idVertice);
-    visita[p->getId()] = true;
+    visita[p->getIndice()] = true;
+    cout << p->getId() << " ";
 
     Aresta* a;
     while(!pilha.empty()){
         a = p->getPrimeiraAresta();
         while(a != nullptr){
-            if(!visita[a->getAdj()]){
-                visita[a->getAdj()] = true;
-                pilha.push(a->getAdj());
+            No* aux = buscaNo(a->getAdj());
+            int indice = aux->getIndice();
+            if(!visita[indice]){
+                cout << aux->getId() << " ";
+                visita[indice] = true;
+                pilha.push(aux->getId());
                 p = buscaNo(pilha.top());
                 a = p->getPrimeiraAresta();
             } else
@@ -71,6 +202,7 @@ void Grafo::buscaProfundidade(int idVertice){
         if(!pilha.empty())
             p = buscaNo(pilha.top());
     }
+    cout << endl;
 }
 
 
@@ -101,7 +233,7 @@ void Grafo::algFloyd(int a, int b) {
         }
     }
 
-    cout << "Menor caminho entre " << a << " e " << b << ": " << mat[a-1][b-1];
+    cout << "Menor caminho entre " << a << " e " << b << ": " << mat[a-1][b-1] << endl;
 
 }
 
@@ -147,11 +279,22 @@ void Grafo::removeNo(int idNo) {
                             ordem--;
                         } else {
                             primeiro = primeiro->getProx();
+                            No* q = primeiro;
+                            // Reduz o indice dos vertices que estavam na frente
+                            while(q!= nullptr){
+                                q->setIndice(q->getIndice()-1);
+                                q = q->getProx();
+                            }
                             delete p;
                             ordem--;
                         }
                     } else {
                         aux->setProx(p->getProx());
+                        // Reduz o indice dos vertices que estavam na frente
+                        while(aux->getProx() != nullptr){
+                            aux->getProx()->setIndice(aux->getProx()->getIndice()-1);
+                            aux = aux->getProx();
+                        }
                         if(p == ultimo)
                             ultimo = aux;
                         delete p;

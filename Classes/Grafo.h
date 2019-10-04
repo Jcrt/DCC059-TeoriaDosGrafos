@@ -28,6 +28,10 @@ public:
     int getOrdem();
     void algFloyd(int idVertice1, int idVertice2);
     void buscaProfundidade(int idVertice);
+    void buscaEmLargura(int inicio);
+    void menorCaminhoDijkstra(int v, int vN);
+    bool verificaVisit(bool vet[], int n);
+
 
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
