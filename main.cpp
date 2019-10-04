@@ -76,23 +76,41 @@ Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int 
 }
 
 int main(int argc, char* argv[]) {
+    int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
+
+    Grafo* x;
+    x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+
+    do
+    {
+        opcaoEscolhida = MenuPrincipal::ReadOption();
+        switch(opcaoEscolhida){
+            case 1:{
+                x->buscaEmLargura(2);
+            }break;
+            case 2:{
+                x->buscaProfundidade(2);
+            }break;
+            case 3:{
+                x->imprimirArestas();
+            }break;
+        }
+    }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
 
     //if(argc != 5) {
     //    cout << "Argumentos insuficientes" << endl;
     //    return 1;
     //}
 
-    Grafo* x;
+
     // Usar para debugar na IDE
-     x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+
 
     // Usar para rodar no terminal
     //x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
 
-    x->buscaEmLargura(2);
-    x->buscaProfundidade(2);
-    x->imprimirArestas();
+
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
     long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();

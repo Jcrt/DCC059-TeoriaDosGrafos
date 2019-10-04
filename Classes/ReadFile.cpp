@@ -13,7 +13,7 @@ ArquivoGrafo ReadFile::GetArquivoGrafo(string fileName){
     vector<string> grafo = ReadFile::Read(fileName);
     ArquivoGrafo ag;
     ag.Ordem = GetOrdemGrafo(grafo);
-    ag.Linhas = ReadFile::GetLinhasGrafo(grafo);
+    ag.Linhas = GetLinhasGrafo(grafo);
     return ag;
 }
 
