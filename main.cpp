@@ -94,16 +94,34 @@ int main(int argc, char* argv[]) {
             case 1:{
                 Grafo* x;
                 x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
-                x->buscaEmLargura(2);
+                cout << "No inicial busca em largura: ";
+                int idNo;
+                cin >> idNo;
+                x->buscaEmLargura(idNo);
                 delete x;
             }break;
             case 2:{
                 Grafo* x;
                 x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
-                x->buscaProfundidade(2);
+                cout << "No inicial busca em profundidade: ";
+                int idNo;
+                cin >> idNo;
+                x->buscaProfundidade(idNo);
                 delete x;
             }break;
             case 3:{
+                Grafo* x;
+                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+                x->algFloyd(4, 3);
+                delete x;
+            }break;
+            case 4:{
+                Grafo* x;
+                x = leituraDados("../Instancias/grafo_125.txt", true, true, false);
+                x->menorCaminhoDijkstra(4, 3);
+                delete x;
+            }break;
+            case 5:{
                 Grafo* x;
                 x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
                 x->imprimirArestas();
@@ -111,6 +129,7 @@ int main(int argc, char* argv[]) {
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
+
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
     long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();

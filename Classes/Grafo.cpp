@@ -7,6 +7,7 @@
 #include <stack>
 #include <list>
 #include <climits>
+#include <fstream>
 
 using namespace std;
 
@@ -47,8 +48,12 @@ Grafo::~Grafo() {
 * @return dist[vN] com a distancia entre os dois nos passados por parâmetro
 */
 void Grafo::menorCaminhoDijkstra(int v, int vN){
-    No* p = buscaNo(v);
-    No* q = buscaNo(vN);
+    No* p = buscaNoIndice(v-1);
+    No* q = buscaNoIndice(vN-1);
+    No* aux;
+    int indice;
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
     if(p != nullptr && q != nullptr){
         int menor;
 
@@ -60,6 +65,7 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
             visit[i] = false;
         }
         dist[p->getIndice()] = 0;
+        pre[p->getIndice()]=0;
 
         while(!verificaVisit(visit, n)){
             if(!visit[p->getIndice()]){
@@ -68,14 +74,16 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
                 if(a != nullptr){
                     while(a != nullptr){
                         if(a->getPeso() >= 0)
-                            if(dist[a->getAdj()] > dist[p->getIndice()] + a->getPeso()){
-                                dist[a->getAdj()] = dist[p->getIndice()] + a->getPeso();
-                                pre[a->getAdj()] = p->getId();
-                            }
+                            aux = buscaNo(a->getAdj());
+                        indice = aux->getIndice();
+                        if(dist[indice] > dist[p->getIndice()] + a->getPeso()){
+                            dist[indice] = dist[p->getIndice()] + a->getPeso();
+                            pre[indice] = p->getId();
+                        }
                         a = a->getProx();
                     }
                 }
-                int i;
+                int i=0;
                 for(i = 0; i < n; i++){
                     if(!visit[i])
                         break;
@@ -83,13 +91,14 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
                         //for(int j = 0; j < n; j++)
                         //cout << dist[j] << "\t";
                         cout << endl;
-                        cout << "A distancia entre " << v << " e " << vN << " e: " << dist[vN] << endl;
+                        cout << "A distancia entre " << v << " e " << vN << " e: " << dist[vN-1] << endl;
+                        arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN] << endl;
                         //return dist[vN];
                     }
                 }
                 menor = i;
-                for(i = menor+1; i < n; i++){
-                    if(!visit[i] && dist[menor] > dist[i])
+                for(i = menor; i < n; ++i){
+                    if(!visit[i] && dist[menor] >= dist[i])
                         menor = i;
                 }
                 p = buscaNoIndice(menor);
@@ -97,11 +106,13 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
         }
         if(dist[vN] == INT_MAX/2) {
             cout << endl << "Nao existe caminho entre os vertices." << endl;
+            arqSaida << endl << "Nao existe caminho entre os vertices. " << endl;
             //return dist[vN];
         }
     }
     else{
         cout << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)" << endl;
+        arqSaida << endl << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
         //return -1;
     }
 }
@@ -212,29 +223,41 @@ void Grafo::buscaProfundidade(int idVertice){
  * @param b vertice 2
  */
 void Grafo::algFloyd(int a, int b) {
-    int mat[n][n];
+    if(existeVertice(a) && existeVertice(b)) {
+        int **mat = new int *[n];
 
-    for(int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == j)
-                mat[i][j] = 0;
-            else {
-                mat[i][j] = getPesoArestaIndice(i,j);
+        for (int i = 0; i < n; i++) {
+            mat[i] = new int[n];
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    mat[i][j] = 0;
+                else {
+                    mat[i][j] = getPesoArestaIndice(i, j);
+                }
             }
         }
-    }
 
-    for(int k=0 ; k<n ; k++){
-        for(int i=0 ; i<n ; i++){
-            for(int j=0 ; j<n ; j++){
-                if(mat[i][j] > mat[i][k] + mat[k][j] && mat[i][k] + mat[k][j] > 0)
-                    mat[i][j] = mat[i][k] + mat[k][j];
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (mat[i][j] > mat[i][k] + mat[k][j] && mat[i][k] + mat[k][j] > 0)
+                        mat[i][j] = mat[i][k] + mat[k][j];
+                }
             }
         }
-    }
+        No *auxA = buscaNo(a);
+        No *auxB = buscaNo(b);
+        cout << "Menor caminho entre " << a << " e " << b << ": " << mat[auxA->getIndice()][auxB->getIndice()] << endl;
 
-    cout << "Menor caminho entre " << a << " e " << b << ": " << mat[a-1][b-1] << endl;
+        for (int i = 0; i < n; i++)
+            delete[] mat[i];
 
+        delete[]mat;
+    } else
+        cout << "Nao existe o vertice " << a << " ou " << b << endl;
 }
 
 /**

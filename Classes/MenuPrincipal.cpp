@@ -17,7 +17,9 @@ vector<OpcoesMenu> MenuPrincipal::GetOpcoesMenu(){
     static vector<OpcoesMenu> opt = {
         {1, "Busca em largura"},
         {2, "Busca em profundidade"},
-        {3, "Imprime arestas"},
+        {3, "Menor caminho floyd"},
+        {4, "Menor caminho dijsktra"},
+        {5, "Imprime arestas"},
         {0, "Sair do programa"}
     };
     return opt;
