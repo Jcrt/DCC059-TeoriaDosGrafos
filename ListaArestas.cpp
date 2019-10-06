@@ -31,9 +31,10 @@ ListaArestas::~ListaArestas() {
  * @param idAresta id da aresta.
  * @param peso peso que sera inserido na aresta.
  */
-void ListaArestas::insereAresta(int idVertice, int peso) {
+void ListaArestas::insereAresta(int idVerticeOrigem, int idVerticeAdj, int peso) {
     Aresta* p = new Aresta();
-    p->setAdj(idVertice);
+    p->setId(idVerticeOrigem);
+    p->setAdj(idVerticeAdj);
     p->setPeso(peso);
     p->setProx(nullptr);
 

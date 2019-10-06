@@ -1,13 +1,11 @@
 #include "Grafo.h"
-
-#include <chrono>
 #include <iostream>
-#include <cctype>
-#include <cstdlib>
 #include <stack>
 #include <list>
 #include <climits>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -123,15 +121,13 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
 * @param n int com o tamanho do vetor
 * @return false se todas as posicoes sao false ou true se encontrado ao menos um true
 */
-bool Grafo::verificaVisit(bool vet[], int n) // funcao que verifica se todos os indicies do vetor foram visitados
-{
+bool Grafo::verificaVisit(bool vet[], int n){
+    // funcao que verifica se todos os indicies do vetor foram visitados
     for(int i = 0; i < n; i++)
         if(!vet[i])
             return false;
     return true;
 }
-
-
 
 /**
  * Busca os nos adjacentes ao passado como parametro e tras quais sao os adjacentes por nivel em largura.
@@ -174,8 +170,6 @@ void Grafo::buscaEmLargura(int s){
     cout << endl;
 }
 
-
-
 /**
  * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
  * @param idVertice id do vertice de inicio.
@@ -215,7 +209,6 @@ void Grafo::buscaProfundidade(int idVertice){
     }
     cout << endl;
 }
-
 
 /**
  * Busca o menor caminho entre dois vertices através de uma matriz que é atualizada com os menores valores.
@@ -258,6 +251,100 @@ void Grafo::algFloyd(int a, int b) {
         delete[]mat;
     } else
         cout << "Nao existe o vertice " << a << " ou " << b << endl;
+}
+
+/**
+ * Retorna a lista de todas as arestas do grafo.
+ * @param _no - Nó de entrada do algoritmo (pois ele pesquisa as arestas por nó, de forma recursiva)
+ * @param _isSorted - Em caso de true, ordena as arestas crescentemente pelo peso
+ * @return Lista de arestas ordenadas ou não
+ */
+vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isSorted){
+    vector<Aresta*> AllArestas;
+    Aresta* aresta = _no->getPrimeiraAresta();
+
+    if(_no->getProx() != nullptr)
+        AllArestas = GetAllArestas(_no->getProx(), true);
+
+    if(aresta != nullptr){
+        do{
+            AllArestas.push_back(aresta);
+            aresta = aresta->getProx();
+        }while(aresta != nullptr);
+    }
+
+    if(AllArestas.size() >= 2 && _isSorted)
+        sort(AllArestas.begin(), AllArestas.end(), CompareArestas);
+
+    return AllArestas;
+}
+
+/**
+ * Compara os pesos da aresta
+ * @param a - aresta 1
+ * @param b - aresta 2
+ * @return - bool com verificação de qual aresta tem mais peso
+ */
+bool Grafo::CompareArestas(Aresta* a, Aresta* b){
+    return a->getPeso() < b->getPeso();
+}
+
+/**
+ * Retorna todos os nós do grafo
+ * @param _no - Nó de entrada na função
+ * @param _isSorted - Se passado true, ordena os nós do grafo por peso
+ * @return - Lista com todos os nós do grafo
+ */
+vector<No*> Grafo::GetAllNos(No * _no, bool _isSorted){
+    vector<No*> allNos;
+    if(_no->getProx() != nullptr)
+        allNos = GetAllNos(_no->getProx(), true);
+    allNos.push_back(_no);
+    if(_isSorted)
+        sort(allNos.begin(), allNos.end(), CompareNos);
+    return allNos;
+}
+
+/**
+ * Retorna se um determinado nó tem peso maior que o do outro nó
+ * @param a - Nó do grafo
+ * @param b - Nó do grafo
+ * @return - Bool com resultado da comparação de pesos
+ */
+bool Grafo::CompareNos(No* a, No* b){
+    return a->getPeso() < b->getPeso();
+}
+
+void Grafo::AGCMPrim(){
+    vector<No*> inSolution;
+    vector<No*> outSolution;
+    vector<Aresta*> allArestas;
+
+    //Trago lista de arestas ordenadas e pego a aresta de menor peso (que sempre estará na solução)
+    allArestas = GetAllArestas(this->primeiro, true);
+    outSolution = GetAllNos(this->primeiro, true);
+
+    //Insiro o nó de origem da aresta de menor peso na lista de soluções
+    No* n1 = this->buscaNo(allArestas[0]->getId());
+    inSolution.push_back(n1);
+    outSolution = RemoveNoOutSolucao(outSolution, n1);
+
+    //Busco o nó adjascente à aresta de menor peso
+    No* n2 = this->buscaNo(allArestas[0]->getAdj());
+    inSolution.push_back(n2);
+    outSolution = RemoveNoOutSolucao(outSolution, n2);
+
+    /*while(outSolution.size() > 0){
+
+    }*/
+}
+
+vector<No*> Grafo::RemoveNoOutSolucao(vector<No*> _outSolucao, No* _target){
+    auto objPointer = find(_outSolucao.begin(), _outSolucao.end(), _target);
+    if(objPointer != _outSolucao.end()){
+        _outSolucao.erase(objPointer);
+    }
+    return _outSolucao;
 }
 
 /**
@@ -355,10 +442,10 @@ if(!existeVertice(idVertice1))
     No* p = buscaNo(idVertice1);
     No* q = buscaNo(idVertice2);
 
-    p->addAresta(idVertice2, peso);
+    p->addAresta(idVertice1, idVertice2, peso);
     /*Se o grafo é orientado, apenas o vértice 1 recebe o ponteiro pro vertice 2*/
     if (!this->orientado) {
-        q->addAresta(idVertice1, peso);
+        q->addAresta(idVertice2, idVertice1, peso);
         //cout << "ListaArestas (" << idVertice1 << ", " << idVertice2 << ") adicionada com peso: " << peso << ".";
     } else {
         //cout << "ListaArestas (" << idVertice1 << " -> " << idVertice2 << ") adicionada com peso: " << peso << ".";
@@ -366,7 +453,6 @@ if(!existeVertice(idVertice1))
 
     //cout << endl;
 }
-
 
 /**
  * O metodo para remover uma aresta entre dois vertices verifica se primeiro se essa aresta existe
@@ -424,7 +510,6 @@ No* Grafo::buscaNoIndice(int indice) {
         return p;
 
 }
-
 
 /**
  * Metodo que imprime os vertices do Grafo.
@@ -486,7 +571,6 @@ bool Grafo::existeAresta(int idVertice1, int idVertice2) {
 
     return result;
 }
-
 
 /**
  * Retorna o peso da aresta entre os vertices buscados por indice.

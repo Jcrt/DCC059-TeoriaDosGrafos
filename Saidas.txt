@@ -1,0 +1,2 @@
+
+Vertice 4 ou 3 nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra

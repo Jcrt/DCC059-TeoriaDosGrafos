@@ -13,7 +13,7 @@ public:
     ListaArestas();
     ~ListaArestas();
 
-    void insereAresta(int idVertice, int peso);
+    void insereAresta(int idVerticeOrigem, int idVerticeAdj, int peso);
     void removeAresta(int idNo);
     float getPeso(int idAdj);
     void setId(int idAresta);

@@ -3,4 +3,4 @@ project(TrabalhoGrafos)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(TrabalhoGrafos main.cpp Classes/MenuPrincipal.cpp Classes/MenuPrincipal.h Classes/Aresta.cpp Classes/Aresta.h Classes/No.cpp Classes/No.h Classes/Grafo.cpp Classes/Grafo.h Classes/ReadFile.cpp Classes/ReadFile.h Classes/ListaArestas.cpp Classes/ListaArestas.h)
+add_executable(TrabalhoGrafos main.cpp MenuPrincipal.cpp MenuPrincipal.h Aresta.cpp Aresta.h No.cpp No.h Grafo.cpp Grafo.h ReadFile.cpp ReadFile.h ListaArestas.cpp ListaArestas.h)

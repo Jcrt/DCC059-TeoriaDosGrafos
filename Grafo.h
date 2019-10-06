@@ -2,6 +2,7 @@
 #define TRABALHOGRAFOS_GRAFO_H
 
 
+#include <vector>
 #include "No.h"
 #include "ListaArestas.h"
 
@@ -31,6 +32,7 @@ public:
     void buscaEmLargura(int inicio);
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
+    void AGCMPrim();
 
 
 private:
@@ -43,9 +45,14 @@ private:
     bool ponderado_aresta;
     bool ponderado_vertice;
 
-
     No* buscaNoIndice(int indice);
     float getPesoArestaIndice(int indice1, int indice2);
+
+    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
+    vector<No *> GetAllNos(No *_no, bool _isSorted);
+    vector<No*> RemoveNoOutSolucao(vector<No *> _outSolucao, No *_target);
+    static bool CompareArestas(Aresta *a, Aresta *b);
+    static bool CompareNos(No *a, No *b);
 };
 
 

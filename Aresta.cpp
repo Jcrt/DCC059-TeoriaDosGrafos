@@ -10,6 +10,14 @@ Aresta::Aresta() {
 Aresta::~Aresta() {
 }
 
+void Aresta::setId(int id){
+    this->id = id;
+}
+
+int Aresta::getId(){
+    return this->id;
+}
+
 void Aresta::setPeso(int peso) {
     this->peso = peso;
 }

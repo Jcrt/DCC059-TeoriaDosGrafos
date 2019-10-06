@@ -1,8 +1,8 @@
 #include <random>
-#include "Classes/MenuPrincipal.h"
-#include "Classes/Grafo.h"
-#include "Classes/ListaArestas.h"
-#include "Classes/No.h"
+#include "MenuPrincipal.h"
+#include "Grafo.h"
+#include "ListaArestas.h"
+#include "No.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -79,13 +79,15 @@ int main(int argc, char* argv[]) {
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
 
-    //if(argc != 5) {
-    //    cout << "Argumentos insuficientes" << endl;
-    //    return 1;
-    //}
+    if(argc != 5) {
+        cout << "Argumentos insuficientes" << endl;
+        return 1;
+    }
 
-    // Usar para rodar no terminal
-    //x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+    char* arquivoEntrada = argv[1];
+    bool isDirecionado = atoi(argv[2]);
+    bool isPonderadoAresta = atoi(argv[3]);
+    bool isPonderadoNo = atoi(argv[4]);
 
     do
     {
@@ -93,7 +95,7 @@ int main(int argc, char* argv[]) {
         switch(opcaoEscolhida){
             case 1:{
                 Grafo* x;
-                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 cout << "No inicial busca em largura: ";
                 int idNo;
                 cin >> idNo;
@@ -102,7 +104,7 @@ int main(int argc, char* argv[]) {
             }break;
             case 2:{
                 Grafo* x;
-                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 cout << "No inicial busca em profundidade: ";
                 int idNo;
                 cin >> idNo;
@@ -111,25 +113,30 @@ int main(int argc, char* argv[]) {
             }break;
             case 3:{
                 Grafo* x;
-                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->algFloyd(4, 3);
                 delete x;
             }break;
             case 4:{
                 Grafo* x;
-                x = leituraDados("../Instancias/grafo_125.txt", true, true, false);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->menorCaminhoDijkstra(4, 3);
                 delete x;
             }break;
             case 5:{
                 Grafo* x;
-                x = leituraDados("../Instancias/TesteSimples.txt", true, true, false);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
+                x->AGCMPrim();
+                delete x;
+            } break;
+            case 6:{
+                Grafo* x;
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->imprimirArestas();
                 delete x;
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
-
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
     long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();

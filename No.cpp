@@ -12,8 +12,8 @@ No::~No() {
 }
 
 
-void No::addAresta(int idVertice, int peso) {
-    lista->insereAresta(idVertice, peso);
+void No::addAresta(int idVerticeOrigem, int idVerticeAdj, int peso) {
+    lista->insereAresta(idVerticeOrigem, idVerticeAdj, peso);
 }
 
 void No::removeAresta(int idNo){

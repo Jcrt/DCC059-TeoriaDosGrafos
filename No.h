@@ -11,7 +11,7 @@ public:
     No(int idNo);
     ~No();
 
-    void addAresta(int idVertice, int peso);
+    void addAresta(int idVerticeOrigem, int idVerticeAdj, int peso);
     void removeAresta(int idNo);
     bool existeAresta(int idAdj);
     void imprimeArestas();

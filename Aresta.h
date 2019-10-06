@@ -12,11 +12,13 @@ class Aresta {
         ~Aresta();
 
         Aresta* getProx();
+        int getAdj();
+        float getPeso();
+        int getId();
         void setProx(Aresta* p);
         void setPeso(int peso);
         void setAdj(int idAdj);
-        int getAdj();
-        float getPeso();
+        void setId(int id);
 
     private:
         int id;

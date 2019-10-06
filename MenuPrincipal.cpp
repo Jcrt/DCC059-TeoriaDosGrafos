@@ -12,14 +12,14 @@
 using namespace std;
 
 //Definindo as opções do menu
-
 vector<OpcoesMenu> MenuPrincipal::GetOpcoesMenu(){
     static vector<OpcoesMenu> opt = {
         {1, "Busca em largura"},
         {2, "Busca em profundidade"},
         {3, "Menor caminho floyd"},
         {4, "Menor caminho dijsktra"},
-        {5, "Imprime arestas"},
+        {5, "Árvore geradora de custo mínimo Prim"},
+        {6, "Imprime arestas"},
         {0, "Sair do programa"}
     };
     return opt;
