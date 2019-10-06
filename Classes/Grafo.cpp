@@ -63,6 +63,7 @@ bool Grafo::verificaVisit(bool vet[], int n) // funcao que verifica se todos os 
 void Grafo::buscaEmLargura(int s){
     ofstream arqSaida;
     arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida << endl << "Busca em largura: ";
     No* p = buscaNo(s);
     if(p == nullptr)
         return;
@@ -75,8 +76,8 @@ void Grafo::buscaEmLargura(int s){
     queqe.push_back(s);
     visita[p->getIndice()] = true;
     cout << p->getId() << " ";
-    int auxSaida[n];
-    auxSaida[0] = p->getId();
+    arqSaida << p->getId() << " ";
+
 
     Aresta* a;
     while(!queqe.empty()){
@@ -86,8 +87,7 @@ void Grafo::buscaEmLargura(int s){
             int indice = aux->getIndice();
             int i = 1;
             if(!visita[indice]){
-                auxSaida[i] = aux->getId();
-                i++;
+                arqSaida << aux->getId() << " ";
                 cout << aux->getId() << " ";
                 visita[indice] = true;
                 queqe.push_back(aux->getId());
@@ -100,10 +100,8 @@ void Grafo::buscaEmLargura(int s){
         if(!queqe.empty())
             p = buscaNo(queqe.front());
     }
-    arqSaida << endl << "Busca em largura: ";
-    for(int i = 0; i < n; i++) {
-        arqSaida  << auxSaida[i] << ", ";
-    }
+
+
     cout << endl;
 
 }
@@ -159,7 +157,7 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
                     if(i == n-1){
                         cout << endl;
                         cout << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " e: " << dist[vN-1] << endl;
-                        arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN] << endl;
+                        arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN-1] << endl;
                     }
                 }
                 menor = i;
@@ -187,6 +185,9 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
  * @param idVertice id do vertice de inicio.
  */
 void Grafo::buscaProfundidade(int idVertice){
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida << endl <<  "Busca em profundidade: ";
     No* p = buscaNo(idVertice);
     if(p == nullptr)
         return;
@@ -199,6 +200,7 @@ void Grafo::buscaProfundidade(int idVertice){
     pilha.push(idVertice);
     visita[p->getIndice()] = true;
     cout << p->getId() << " ";
+    arqSaida << p->getId() << " ";
 
     Aresta* a;
     while(!pilha.empty()){
@@ -207,6 +209,7 @@ void Grafo::buscaProfundidade(int idVertice){
             No* aux = buscaNo(a->getAdj());
             int indice = aux->getIndice();
             if(!visita[indice]){
+                arqSaida << aux->getId() << " ";
                 cout << aux->getId() << " ";
                 visita[indice] = true;
                 pilha.push(aux->getId());
