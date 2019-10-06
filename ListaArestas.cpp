@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 #include "ListaArestas.h"
 
 using namespace std;
@@ -123,7 +124,7 @@ float ListaArestas::getPeso(int idAdj) {
             return p->getPeso();
         p = p->getProx();
     }
-    return 0;
+    return INT_MAX/2;
 }
 
 Aresta* ListaArestas::getPrimeira(){

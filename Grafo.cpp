@@ -40,6 +40,73 @@ Grafo::~Grafo() {
 }
 
 /**
+* Função que verifica se o vetor é false em todas as posições
+* @param vet bool com os indices dos nos do grafo
+* @param n int com o tamanho do vetor
+* @return false se todas as posicoes sao false ou true se encontrado ao menos um true
+*/
+bool Grafo::verificaVisit(bool vet[], int n) // funcao que verifica se todos os indicies do vetor foram visitados
+{
+    for(int i = 0; i < n; i++)
+        if(!vet[i])
+            return false;
+    return true;
+}
+
+
+/**
+ * Busca os nos adjacentes ao passado como parametro e tras quais sao os adjacentes por nivel em largura.
+ * @param s vertice 1
+ */
+void Grafo::buscaEmLargura(int s){
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida << endl << "Busca em largura: ";
+    No* p = buscaNo(s);
+    if(p == nullptr)
+        return;
+
+    bool visita[n];
+    for(int i = 0; i < n; i++)
+        visita[i] = 0;
+
+    list<int> queqe;
+    queqe.push_back(s);
+    visita[p->getIndice()] = true;
+    cout << p->getId() << " ";
+    arqSaida << p->getId() << " ";
+
+
+    Aresta* a;
+    while(!queqe.empty()){
+        a = p->getPrimeiraAresta();
+        while(a != nullptr){
+            No* aux = buscaNo(a->getAdj());
+            int indice = aux->getIndice();
+            int i = 1;
+            if(!visita[indice]){
+                arqSaida << aux->getId() << " ";
+                cout << aux->getId() << " ";
+                visita[indice] = true;
+                queqe.push_back(aux->getId());
+                p = buscaNo(queqe.front());
+                a = p->getPrimeiraAresta();
+            } else
+                a = a->getProx();
+        }
+        queqe.pop_front();
+        if(!queqe.empty())
+            p = buscaNo(queqe.front());
+    }
+
+
+    cout << endl;
+
+}
+
+
+
+/**
 * Algoritmo de Dijkstra para encontrar menor caminho entre dois vertices
 * @param v int com o no inicial
 * @param vN int com o no destino
@@ -86,12 +153,9 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
                     if(!visit[i])
                         break;
                     if(i == n-1){
-                        //for(int j = 0; j < n; j++)
-                        //cout << dist[j] << "\t";
                         cout << endl;
-                        cout << "A distancia entre " << v << " e " << vN << " e: " << dist[vN-1] << endl;
-                        arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN] << endl;
-                        //return dist[vN];
+                        cout << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " e: " << dist[vN-1] << endl;
+                        arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN-1] << endl;
                     }
                 }
                 menor = i;
@@ -105,12 +169,12 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
         if(dist[vN] == INT_MAX/2) {
             cout << endl << "Nao existe caminho entre os vertices." << endl;
             arqSaida << endl << "Nao existe caminho entre os vertices. " << endl;
-            //return dist[vN];
         }
     }
     else{
         cout << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)" << endl;
         arqSaida << endl << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
+<<<<<<< HEAD:Grafo.cpp
         //return -1;
     }
 }
@@ -166,15 +230,23 @@ void Grafo::buscaEmLargura(int s){
         queqe.pop_front();
         if(!queqe.empty())
             p = buscaNo(queqe.front());
+=======
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03:Classes/Grafo.cpp
     }
-    cout << endl;
 }
 
+<<<<<<< HEAD:Grafo.cpp
+=======
+
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03:Classes/Grafo.cpp
 /**
  * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
  * @param idVertice id do vertice de inicio.
  */
 void Grafo::buscaProfundidade(int idVertice){
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida << endl <<  "Busca em profundidade: ";
     No* p = buscaNo(idVertice);
     if(p == nullptr)
         return;
@@ -187,6 +259,7 @@ void Grafo::buscaProfundidade(int idVertice){
     pilha.push(idVertice);
     visita[p->getIndice()] = true;
     cout << p->getId() << " ";
+    arqSaida << p->getId() << " ";
 
     Aresta* a;
     while(!pilha.empty()){
@@ -195,6 +268,7 @@ void Grafo::buscaProfundidade(int idVertice){
             No* aux = buscaNo(a->getAdj());
             int indice = aux->getIndice();
             if(!visita[indice]){
+                arqSaida << aux->getId() << " ";
                 cout << aux->getId() << " ";
                 visita[indice] = true;
                 pilha.push(aux->getId());
@@ -216,8 +290,11 @@ void Grafo::buscaProfundidade(int idVertice){
  * @param b vertice 2
  */
 void Grafo::algFloyd(int a, int b) {
+    ofstream f;
+    f.open("../Saidas.txt", ofstream::ios_base::app);
     if(existeVertice(a) && existeVertice(b)) {
         int **mat = new int *[n];
+        No* p;
 
         for (int i = 0; i < n; i++) {
             mat[i] = new int[n];
@@ -228,7 +305,10 @@ void Grafo::algFloyd(int a, int b) {
                 if (i == j)
                     mat[i][j] = 0;
                 else {
-                    mat[i][j] = getPesoArestaIndice(i, j);
+                    p = buscaNo(i+1);
+                    if(p == nullptr)
+                        break;
+                    mat[i][j] = p->getPesoAresta(j+1);
                 }
             }
         }
@@ -241,16 +321,20 @@ void Grafo::algFloyd(int a, int b) {
                 }
             }
         }
-        No *auxA = buscaNo(a);
-        No *auxB = buscaNo(b);
-        cout << "Menor caminho entre " << a << " e " << b << ": " << mat[auxA->getIndice()][auxB->getIndice()] << endl;
+
+        f << endl << "Menor Caminho(Floyd) entre " << a << " e " << b << " : " << mat[a-1][b-1] << endl;
+        cout << endl << "Menor Caminho(Floyd) entre " << a << " e " << b << " : " << mat[a-1][b-1] << endl;
 
         for (int i = 0; i < n; i++)
             delete[] mat[i];
 
         delete[]mat;
-    } else
-        cout << "Nao existe o vertice " << a << " ou " << b << endl;
+
+    } else{
+        f << endl << "Vertices Invalidos (ERRO)-Algoritmo Floyd" << endl;
+        cout << endl << "Vertices Invalidos (ERRO)-Algoritmo Floyd" << endl;
+    }
+    f.close();
 }
 
 /**

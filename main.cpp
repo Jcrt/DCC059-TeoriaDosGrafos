@@ -26,7 +26,7 @@ using namespace std;
  * @param ponderadoNo 0 para grafo nao ponderado nos vertices e 1 para grafo ponderado nos vertices.
  * @return retorna o grafo criado.
  */
-Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int ponderadoNo){
+Grafo* leituraDados(char *arqEntrada, int direcionado, int ponderadoAresta, int ponderadoNo, char* arqSaida){
 
     //Variáveis para auxiliar na criação dos nós no Grafo
     int idNoOrigem;
@@ -79,15 +79,22 @@ int main(int argc, char* argv[]) {
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
 
+<<<<<<< HEAD
     if(argc != 5) {
+=======
+    if(argc != 6) {
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
 
+<<<<<<< HEAD
     char* arquivoEntrada = argv[1];
     bool isDirecionado = atoi(argv[2]);
     bool isPonderadoAresta = atoi(argv[3]);
     bool isPonderadoNo = atoi(argv[4]);
+=======
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
 
     do
     {
@@ -95,7 +102,11 @@ int main(int argc, char* argv[]) {
         switch(opcaoEscolhida){
             case 1:{
                 Grafo* x;
+<<<<<<< HEAD
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
+=======
+                x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
                 cout << "No inicial busca em largura: ";
                 int idNo;
                 cin >> idNo;
@@ -104,7 +115,11 @@ int main(int argc, char* argv[]) {
             }break;
             case 2:{
                 Grafo* x;
+<<<<<<< HEAD
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
+=======
+                x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
                 cout << "No inicial busca em profundidade: ";
                 int idNo;
                 cin >> idNo;
@@ -113,18 +128,39 @@ int main(int argc, char* argv[]) {
             }break;
             case 3:{
                 Grafo* x;
+<<<<<<< HEAD
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->algFloyd(4, 3);
+=======
+                x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
+                int idNo1, idNo2;
+                cout << "Vertice 1: ";
+                cin >> idNo1;
+                cout << "Vertice 2: ";
+                cin >> idNo2;
+                x->algFloyd(idNo1, idNo2);
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
                 delete x;
             }break;
             case 4:{
                 Grafo* x;
+<<<<<<< HEAD
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->menorCaminhoDijkstra(4, 3);
+=======
+                x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
+                int idNo1, idNo2;
+                cout << "Vertice 1: ";
+                cin >> idNo1;
+                cout << "Vertice 2: ";
+                cin >> idNo2;
+                x->menorCaminhoDijkstra(idNo1, idNo2);
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
                 delete x;
             }break;
             case 5:{
                 Grafo* x;
+<<<<<<< HEAD
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
                 x->AGCMPrim();
                 delete x;
@@ -132,6 +168,9 @@ int main(int argc, char* argv[]) {
             case 6:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo);
+=======
+                x = leituraDados(argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), argv[5]);
+>>>>>>> d863482dc15f9b71cea773007a3c949241f38a03
                 x->imprimirArestas();
                 delete x;
             }break;
