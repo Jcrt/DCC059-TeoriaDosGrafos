@@ -45,66 +45,12 @@ Grafo::~Grafo() {
 * @param n int com o tamanho do vetor
 * @return false se todas as posicoes sao false ou true se encontrado ao menos um true
 */
-bool Grafo::verificaVisit(bool vet[], int n) // funcao que verifica se todos os indicies do vetor foram visitados
-{
+bool Grafo::verificaVisit(bool vet[], int n) {
     for(int i = 0; i < n; i++)
         if(!vet[i])
             return false;
     return true;
 }
-
-
-/**
- * Busca os nos adjacentes ao passado como parametro e tras quais sao os adjacentes por nivel em largura.
- * @param s vertice 1
- */
-void Grafo::buscaEmLargura(int s){
-    ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
-    arqSaida << endl << "Busca em largura: ";
-    No* p = buscaNo(s);
-    if(p == nullptr)
-        return;
-
-    bool visita[n];
-    for(int i = 0; i < n; i++)
-        visita[i] = 0;
-
-    list<int> queqe;
-    queqe.push_back(s);
-    visita[p->getIndice()] = true;
-    cout << p->getId() << " ";
-    arqSaida << p->getId() << " ";
-
-
-    Aresta* a;
-    while(!queqe.empty()){
-        a = p->getPrimeiraAresta();
-        while(a != nullptr){
-            No* aux = buscaNo(a->getAdj());
-            int indice = aux->getIndice();
-            int i = 1;
-            if(!visita[indice]){
-                arqSaida << aux->getId() << " ";
-                cout << aux->getId() << " ";
-                visita[indice] = true;
-                queqe.push_back(aux->getId());
-                p = buscaNo(queqe.front());
-                a = p->getPrimeiraAresta();
-            } else
-                a = a->getProx();
-        }
-        queqe.pop_front();
-        if(!queqe.empty())
-            p = buscaNo(queqe.front());
-    }
-
-
-    cout << endl;
-
-}
-
-
 
 /**
 * Algoritmo de Dijkstra para encontrar menor caminho entre dois vertices
@@ -174,23 +120,8 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
     else{
         cout << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)" << endl;
         arqSaida << endl << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
-<<<<<<< HEAD:Grafo.cpp
         //return -1;
     }
-}
-
-/**
-* Função que verifica se o vetor é false em todas as posições
-* @param vet bool com os indices dos nos do grafo
-* @param n int com o tamanho do vetor
-* @return false se todas as posicoes sao false ou true se encontrado ao menos um true
-*/
-bool Grafo::verificaVisit(bool vet[], int n){
-    // funcao que verifica se todos os indicies do vetor foram visitados
-    for(int i = 0; i < n; i++)
-        if(!vet[i])
-            return false;
-    return true;
 }
 
 /**
@@ -198,7 +129,9 @@ bool Grafo::verificaVisit(bool vet[], int n){
  * @param s vertice 1
  */
 void Grafo::buscaEmLargura(int s){
-
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida << endl << "Busca em largura: ";
     No* p = buscaNo(s);
     if(p == nullptr)
         return;
@@ -211,6 +144,8 @@ void Grafo::buscaEmLargura(int s){
     queqe.push_back(s);
     visita[p->getIndice()] = true;
     cout << p->getId() << " ";
+    arqSaida << p->getId() << " ";
+
 
     Aresta* a;
     while(!queqe.empty()){
@@ -218,7 +153,9 @@ void Grafo::buscaEmLargura(int s){
         while(a != nullptr){
             No* aux = buscaNo(a->getAdj());
             int indice = aux->getIndice();
+            int i = 1;
             if(!visita[indice]){
+                arqSaida << aux->getId() << " ";
                 cout << aux->getId() << " ";
                 visita[indice] = true;
                 queqe.push_back(aux->getId());
@@ -230,15 +167,13 @@ void Grafo::buscaEmLargura(int s){
         queqe.pop_front();
         if(!queqe.empty())
             p = buscaNo(queqe.front());
-=======
->>>>>>> d863482dc15f9b71cea773007a3c949241f38a03:Classes/Grafo.cpp
     }
+
+
+    cout << endl;
+
 }
 
-<<<<<<< HEAD:Grafo.cpp
-=======
-
->>>>>>> d863482dc15f9b71cea773007a3c949241f38a03:Classes/Grafo.cpp
 /**
  * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
  * @param idVertice id do vertice de inicio.
