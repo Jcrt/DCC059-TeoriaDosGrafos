@@ -32,7 +32,7 @@ public:
     void buscaEmLargura(int inicio);
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
-    void AGCMPrim();
+    void Prim();
 
 
 private:
@@ -50,9 +50,13 @@ private:
 
     vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
     vector<No *> GetAllNos(No *_no, bool _isSorted);
-    vector<No*> RemoveNoOutSolucao(vector<No *> _outSolucao, No *_target);
+    vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);
     static bool CompareArestas(Aresta *a, Aresta *b);
     static bool CompareNos(No *a, No *b);
+
+    vector<Aresta *> RemoveArestaFromAllArestas(vector<Aresta *> _vector, Aresta *_target);
+
+    Aresta *MenorArestaNo(Aresta *_aresta, vector<No *> _inSolution);
 };
 
 

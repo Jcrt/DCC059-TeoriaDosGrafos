@@ -334,10 +334,14 @@ bool Grafo::CompareNos(No* a, No* b){
     return a->getPeso() < b->getPeso();
 }
 
-void Grafo::AGCMPrim(){
+void Grafo::Prim(){
     vector<No*> inSolution;
     vector<No*> outSolution;
     vector<Aresta*> allArestas;
+    vector<Aresta*> arestasNaSolucao;
+    Aresta* arestaMenorPeso = nullptr;
+    bool isGeraFloresta = false;
+    int LoopLimit = 0;
 
     //Trago lista de arestas ordenadas e pego a aresta de menor peso (que sempre estará na solução)
     allArestas = GetAllArestas(this->primeiro, true);
@@ -346,24 +350,78 @@ void Grafo::AGCMPrim(){
     //Insiro o nó de origem da aresta de menor peso na lista de soluções
     No* n1 = this->buscaNo(allArestas[0]->getId());
     inSolution.push_back(n1);
-    outSolution = RemoveNoOutSolucao(outSolution, n1);
+    outSolution = RemoveNoFromVector(outSolution, n1);
 
     //Busco o nó adjascente à aresta de menor peso
     No* n2 = this->buscaNo(allArestas[0]->getAdj());
     inSolution.push_back(n2);
-    outSolution = RemoveNoOutSolucao(outSolution, n2);
+    outSolution = RemoveNoFromVector(outSolution, n2);
 
-    /*while(outSolution.size() > 0){
+    //Coloca a primeira aresta na solução
+    arestasNaSolucao.push_back(allArestas[0]);
 
-    }*/
+    while(outSolution.size() > 0 && LoopLimit <= 3) {
+        arestaMenorPeso = nullptr;
+        LoopLimit++;
+
+        if(!isGeraFloresta){
+            for (int i = 0; i < inSolution.size(); i++) {
+                Aresta* aux = MenorArestaNo(inSolution[i]->getPrimeiraAresta(), inSolution);
+                if(aux != nullptr && (arestaMenorPeso == nullptr || (arestaMenorPeso != nullptr && arestaMenorPeso->getPeso() > aux->getPeso())))
+                    arestaMenorPeso = aux;
+            }
+        }
+        else {
+            for (int i = 0; i < outSolution.size(); i++) {
+                Aresta* aux = MenorArestaNo(outSolution[i]->getPrimeiraAresta(), inSolution);
+                if(aux != nullptr && (arestaMenorPeso == nullptr || (arestaMenorPeso != nullptr && arestaMenorPeso->getPeso() > aux->getPeso())))
+                    arestaMenorPeso = aux;
+            }
+        }
+
+        if(arestaMenorPeso != nullptr){
+            No* newNo = this->buscaNo(arestaMenorPeso->getAdj());
+            inSolution.push_back(newNo);
+            outSolution = RemoveNoFromVector(outSolution, newNo);
+            arestasNaSolucao.push_back(arestaMenorPeso);
+            isGeraFloresta = false;
+            LoopLimit = 0;
+        } else{
+            isGeraFloresta = true;
+        }
+    }
+
+    if(LoopLimit > 3){
+        cout << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
+    }
 }
 
-vector<No*> Grafo::RemoveNoOutSolucao(vector<No*> _outSolucao, No* _target){
-    auto objPointer = find(_outSolucao.begin(), _outSolucao.end(), _target);
-    if(objPointer != _outSolucao.end()){
-        _outSolucao.erase(objPointer);
+Aresta* Grafo::MenorArestaNo(Aresta* _aresta, vector<No*> _inSolution){
+    Aresta* aux = nullptr;
+
+    if(_aresta != nullptr)
+        if(_aresta->getProx() != nullptr)
+            aux = MenorArestaNo(_aresta->getProx(), _inSolution);
+
+    for(int i = 0;  i < _inSolution.size(); i++){
+        if(_aresta != nullptr && _aresta->getAdj() == _inSolution[i]->getId())
+            _aresta = nullptr;
+        if(aux != nullptr && aux->getAdj() == _inSolution[i]->getId())
+            aux = nullptr;
     }
-    return _outSolucao;
+
+    if(_aresta == nullptr || (aux != nullptr && _aresta != nullptr && aux->getPeso() < _aresta->getPeso()))
+        _aresta = aux;
+
+    return _aresta;
+}
+
+vector<No*> Grafo::RemoveNoFromVector(vector<No*> _vector, No* _target){
+    auto objPointer = find(_vector.begin(), _vector.end(), _target);
+    if(objPointer != _vector.end()){
+        _vector.erase(objPointer);
+    }
+    return _vector;
 }
 
 /**

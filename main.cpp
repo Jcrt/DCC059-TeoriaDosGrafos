@@ -1,20 +1,14 @@
 #include <random>
 #include "MenuPrincipal.h"
 #include "Grafo.h"
-#include "ListaArestas.h"
-#include "No.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <math.h>
 #include <utility>
 #include <tuple>
 #include <iomanip>
-#include <stdlib.h>
 #include <chrono>
 #include <cstdlib>
-
-
 
 using namespace std;
 
@@ -89,7 +83,6 @@ int main(int argc, char* argv[]) {
     bool isPonderadoAresta = atoi(argv[3]);
     bool isPonderadoNo = atoi(argv[4]);
 
-
     do
     {
         opcaoEscolhida = MenuPrincipal::ReadOption();
@@ -127,7 +120,7 @@ int main(int argc, char* argv[]) {
             case 5:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
-                x->AGCMPrim();
+                x->Prim();
                 delete x;
             } break;
             case 6:{
