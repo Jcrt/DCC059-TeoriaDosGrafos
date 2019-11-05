@@ -1,6 +1,7 @@
-.idea/
+﻿.idea/
 .vs/
 out/
 cmake-build-debug/
 /Utilitários/ArquivoGrafoParser/bin/Debug
 /Utilitários/ArquivoGrafoParser/obj/Debug
+/Utilitários/303/

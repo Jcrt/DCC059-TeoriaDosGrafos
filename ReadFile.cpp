@@ -81,3 +81,5 @@ vector<LinhaArquivo> ReadFile::GetLinhasGrafo(vector<string> &arquivoLido){
     return linhasArquivos;
 }
 
+
+

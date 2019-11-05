@@ -391,8 +391,14 @@ void Grafo::Prim(){
         }
     }
 
-    if(LoopLimit > 3){
+    if(LoopLimit > 3) {
         cout << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
+    } else {
+        cout << "Arestas na solução: " << endl;
+        for(int i = 0; i < arestasNaSolucao.size(); i++){
+            printf("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
+            cout << endl;
+        }
     }
 }
 
@@ -725,4 +731,8 @@ bool Grafo::ehPonderadoVertice() {
 
 int Grafo::getOrdem() {
     return this->ordem;
+}
+
+No *Grafo::GetPrimeiroNo() {
+    return this->primeiro;
 }

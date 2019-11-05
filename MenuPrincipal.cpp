@@ -9,21 +9,22 @@
 #include <algorithm>
 #include <stdlib.h>
 
-using namespace std;
-
 //Definindo as opções do menu
 vector<OpcoesMenu> MenuPrincipal::GetOpcoesMenu(){
     static vector<OpcoesMenu> opt = {
-        {1, "Busca em largura"},
-        {2, "Busca em profundidade"},
-        {3, "Menor caminho floyd"},
-        {4, "Menor caminho dijsktra"},
-        {5, "Árvore geradora de custo mínimo Prim"},
-        {6, "Imprime arestas"},
-        {0, "Sair do programa"}
+            {1, "Busca em largura"},
+            {2, "Busca em profundidade"},
+            {3, "Menor caminho floyd"},
+            {4, "Menor caminho dijsktra"},
+            {5, "Árvore geradora de custo mínimo Prim"},
+            {6, "Imprime arestas"},
+            {7, "Caixeiro Viajante (Abordagem gulosa)"},
+            {0, "Sair do programa"}
     };
     return opt;
 }
+
+using namespace std;
 
 void MenuPrincipal::Show() {
     vector<OpcoesMenu> opt = GetOpcoesMenu();

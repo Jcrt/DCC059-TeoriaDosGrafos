@@ -1,6 +1,7 @@
 #include <random>
 #include "MenuPrincipal.h"
 #include "Grafo.h"
+#include "CaixeiroViajante.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -128,6 +129,10 @@ int main(int argc, char* argv[]) {
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
                 x->imprimirArestas();
                 delete x;
+            }break;
+            case 7 :{
+                Grafo* x;
+                x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);

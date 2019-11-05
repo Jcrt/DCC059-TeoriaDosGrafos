@@ -11,7 +11,6 @@ public:
 	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
 
-
     void insereNo(int idNo);
     void removeNo(int idNo);
     No* buscaNo(int idNo);
@@ -33,7 +32,8 @@ public:
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
     void Prim();
-
+    vector<No *> GetAllNos(No *_no, bool _isSorted);
+    No* GetPrimeiroNo();
 
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
@@ -49,7 +49,6 @@ private:
     float getPesoArestaIndice(int indice1, int indice2);
 
     vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
-    vector<No *> GetAllNos(No *_no, bool _isSorted);
     vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);
     static bool CompareArestas(Aresta *a, Aresta *b);
     static bool CompareNos(No *a, No *b);
