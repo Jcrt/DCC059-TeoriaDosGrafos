@@ -79,3 +79,17 @@ void No::setIndice(int indice) {
 int No::getIndice() {
     return this->indice;
 }
+
+Aresta *No::getAresta(int idAdj) {
+    Aresta* a = getAresta(lista->getPrimeira(), idAdj);
+}
+
+Aresta* No::getAresta(Aresta* _a, int _idAdj){
+    if(_a != nullptr){
+        if(_a->getAdj() == _idAdj)
+            return _a;
+        else
+            return getAresta(_a->getProx(), _idAdj);
+    }
+    return _a;
+}

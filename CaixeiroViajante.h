@@ -18,7 +18,9 @@ class CaixeiroViajante {
 
 public:
     static Grafo *BuildTSPGraphFromFile(std::basic_string<char> _filename);
-    static int GetEuclideanDistance(int xa, int ya, int xb, int yb);
+    static int GetEuclideanDistance(int _xa, int _ya, int xb, int yb);
+
+    static vector<Aresta *> GetBetterCostG(Grafo *_grafo);
 };
 
 

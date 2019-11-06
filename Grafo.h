@@ -32,8 +32,13 @@ public:
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
     void Prim();
+
+
     vector<No *> GetAllNos(No *_no, bool _isSorted);
+    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
+    Aresta *MenorArestaNo(Aresta *_aresta, vector<No*> _inSolution);
     No* GetPrimeiroNo();
+    vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);
 
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
@@ -47,15 +52,8 @@ private:
 
     No* buscaNoIndice(int indice);
     float getPesoArestaIndice(int indice1, int indice2);
-
-    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
-    vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);
     static bool CompareArestas(Aresta *a, Aresta *b);
     static bool CompareNos(No *a, No *b);
-
-    vector<Aresta *> RemoveArestaFromAllArestas(vector<Aresta *> _vector, Aresta *_target);
-
-    Aresta *MenorArestaNo(Aresta *_aresta, vector<No *> _inSolution);
 };
 
 

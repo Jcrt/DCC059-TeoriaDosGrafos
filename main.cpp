@@ -133,6 +133,8 @@ int main(int argc, char* argv[]) {
             case 7 :{
                 Grafo* x;
                 x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
+                vector<Aresta*> a = CaixeiroViajante::GetBetterCostG(x);
+
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);

@@ -27,7 +27,7 @@ public:
     float getPeso() const;
     float getPesoAresta(int idAdj);
     Aresta* getPrimeiraAresta();
-
+    Aresta* getAresta(int idAdj);
 
 private:
     int id;
@@ -38,6 +38,7 @@ private:
     ListaArestas *lista;
     int indice;
 
+    Aresta *getAresta(Aresta *_a, int _idAdj);
 };
 
 
