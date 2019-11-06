@@ -8,6 +8,8 @@
 #include <math.h>
 using namespace std;
 
+const double RANDOMIZED_PERCENT = 0.15;
+const bool DEBUG = true;
 /***
  * Faz a leitura do arquivo que contém o grafo do caixeiro viajante e constrói um grafo
  * @param _filename o caminho completo do arquivo
@@ -53,7 +55,8 @@ Grafo* CaixeiroViajante::BuildTSPGraphFromFile(string _filename){
 
                 //Adiciona a nova aresta
                 no->addAresta(no->getId(), linhasArquivo[j].idNo, euclideanDistance);
-                cout << "Aresta de " << no->getId() << " para " << linhasArquivo[j].idNo << " custa " << euclideanDistance << endl;
+                if(DEBUG)
+                    cout << "Aresta de " << no->getId() << " para " << linhasArquivo[j].idNo << " custa " << euclideanDistance << endl;
             }
         }
     }
@@ -77,17 +80,18 @@ int CaixeiroViajante::GetEuclideanDistance(int _xa, int _ya, int _xb, int _yb){
 
 /***
  * Constrói uma lista de arestas que faz a representação do grafo de menor custo do caixeiro viajante, abordagem gulosa
- * @param _grafo O grafo que contém a instância do problema
+ * @param _grafo: O grafo que contém a instância do problema
+ * @param _randomizacao: Double sinalizando qual será a randomização do grafo. Caso não informado, será passado 0 como default
  * @return Lista de arestas que formam o grafo de menor custo
  */
-vector<Aresta* > CaixeiroViajante::GetBetterCostG(Grafo* _grafo){
+vector<Aresta* > CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomizacao){
+    int randomFactor = CaixeiroViajante::Random(_randomizacao, _grafo);
     No* pontaDireita;
     No* pontaEsquerda;
     Aresta* menorArestaPontaDireita;
     Aresta* menorArestaPontaEsquerda;
     Aresta* arestaCorrente;
     No* noCorrente;
-
     vector<No*> noInSolution;
     vector<Aresta*> arestasInSolution;
 
@@ -96,7 +100,7 @@ vector<Aresta* > CaixeiroViajante::GetBetterCostG(Grafo* _grafo){
 
     //Pra transformar em randomizado, mudar aqui para pegar a primeira aresta randomizada;
     //Pego a menor aresta do grafo para iniciar a construção e a insiro na lista de arestas na solução
-    Aresta* menorAresta = _grafo->GetAllArestas(_grafo->GetPrimeiroNo(), true)[0];
+    Aresta* menorAresta = _grafo->GetAllArestas(_grafo->GetPrimeiroNo(), true)[randomFactor];
     arestaCorrente = menorAresta;
     arestasInSolution.push_back(arestaCorrente);
 
@@ -107,20 +111,21 @@ vector<Aresta* > CaixeiroViajante::GetBetterCostG(Grafo* _grafo){
     //Incluo o nó da ponta direita nos nós da solução e removo o nó da ponta direita dos nós que estão fora da solução
     noInSolution.push_back(pontaDireita);
     noOutSolution = _grafo->RemoveNoFromVector(noOutSolution, pontaDireita);
-    cout << "Nó " << pontaDireita->getId() << " na ponta direita"<< endl;
+    if(DEBUG)
+        cout << "Nó " << pontaDireita->getId() << " na ponta direita"<< endl;
 
     //Incluo o nó da ponta esquerda nos nós da solução e removo o nó da ponta esquerda dos nós que estão fora da solução
     noInSolution.push_back(pontaEsquerda);
     noOutSolution = _grafo->RemoveNoFromVector(noOutSolution, pontaEsquerda);
-    cout << "Nó " << pontaEsquerda->getId() << " na ponta esquerda"<< endl;
+    if(DEBUG)
+        cout << "Nó " << pontaEsquerda->getId() << " na ponta esquerda"<< endl;
 
     //Enquanto eu tiver ítens fora da solução, faço...
     while(noOutSolution.size() > 0){
 
-        //Para transformar em randomizado, mudar aqui para pegar as arestas de cada nó randomizadas
-        //Pego as menores arestas da ponta esquerda e da ponta direita
-        menorArestaPontaDireita = _grafo->MenorArestaNo(pontaDireita->getPrimeiraAresta(), noInSolution);
-        menorArestaPontaEsquerda = _grafo->MenorArestaNo(pontaEsquerda->getPrimeiraAresta(), noInSolution);
+        //Pego as menores arestas da ponta esquerda e da ponta direita com abordagem randomizada
+        menorArestaPontaDireita = CaixeiroViajante::GetRandomEdge(pontaDireita, _grafo, noInSolution, _randomizacao);
+        menorArestaPontaEsquerda = CaixeiroViajante::GetRandomEdge(pontaEsquerda, _grafo, noInSolution, _randomizacao);
 
         //Verifico qual aresta é menor e, então, assumo que essa é a aresta corrente e insiro na solução
         if(menorArestaPontaDireita->getPeso() <= menorArestaPontaEsquerda->getPeso())
@@ -133,14 +138,17 @@ vector<Aresta* > CaixeiroViajante::GetBetterCostG(Grafo* _grafo){
         noCorrente = _grafo->buscaNo(arestaCorrente->getAdj());
         noInSolution.push_back(noCorrente);
         noOutSolution = _grafo->RemoveNoFromVector(noOutSolution,noCorrente);
-        cout << "Aresta entre " << arestaCorrente->getId() << " e " << arestaCorrente->getAdj() << " com custo " << arestaCorrente->getPeso() << " inserida" << endl;
+        if(DEBUG)
+            cout << "Aresta entre " << arestaCorrente->getId() << " e " << arestaCorrente->getAdj() << " com custo " << arestaCorrente->getPeso() << " inserida" << endl;
 
         //Verifico qual ponta será atualizada baseado no id da aresta corrente
         if(arestaCorrente->getId() == pontaDireita->getId()){
-            cout << "Substituindo nó " << pontaDireita->getId() << " por " << noCorrente->getId() << " na ponta direita" << endl;
+            if(DEBUG)
+                cout << "Substituindo nó " << pontaDireita->getId() << " por " << noCorrente->getId() << " na ponta direita" << endl;
             pontaDireita = noCorrente;
         } else{
-            cout << "Substituindo nó " << pontaEsquerda->getId() << " por " << noCorrente->getId() << " na ponta esquerda" << endl;
+            if(DEBUG)
+                cout << "Substituindo nó " << pontaEsquerda->getId() << " por " << noCorrente->getId() << " na ponta esquerda" << endl;
             pontaEsquerda = noCorrente;
         }
     }
@@ -151,5 +159,60 @@ vector<Aresta* > CaixeiroViajante::GetBetterCostG(Grafo* _grafo){
 
     return arestasInSolution;
 }
-/* =======================================================================*/
 
+/***
+ * Gerador de números aleatórios com percentual dentro da ordem do grafo
+ * @param _percent: O percentual sobre a ordem que desejo fazer a randomização
+ * @param _grafo: O grafo do problema
+ * @return inteiro representando o randomizado encontrado
+ */
+int CaixeiroViajante::Random(double _percent, Grafo* _grafo){
+    //inicializando o seed do random
+    srand(time(NULL));
+
+    int base = int(_grafo->getOrdem() * _percent);
+    int randomNumber = rand() % (base <= 0 ? 1 : base);
+    return randomNumber;
+}
+
+/***
+ * Função que escolhe qual será o proximo vértice baseado na escolha randômica de arestas
+ * @param _node: Qual nó estou verificando as arestas no momento
+ * @param _grafo: O grafo que contém os nós
+ * @param _nodeInSolution: Lista de nós que ja estão na solução
+ * @param _randomPercent: Percentual de variação dentro da ordem do grafo
+ * @return Aresta indicando qual será o próximo nó randomizado
+ */
+Aresta* CaixeiroViajante::GetRandomEdge(No* _node, Grafo* _grafo, vector<No*> _nodeInSolution, float _randomPercent){
+    int random = CaixeiroViajante::Random(_randomPercent, _grafo);
+    vector<Aresta*> elegibleEdges = GetEdgesOutSolution(_node, _grafo, _nodeInSolution);
+
+    if(random >= elegibleEdges.size())
+        random = elegibleEdges.size() - 1;
+    return elegibleEdges[random];
+}
+
+/***
+ * Percorro todas as arestas de um determinado nó e verifico se ele está na solução. Se não tiver
+ * Posso colocá-lo como vértice elegível para seleção
+ * @param _node: O nó que quero pesquisar as arestas
+ * @param _grafo: O grafo que contém os nós
+ * @param _nodeInSolution: Lista de nós que já estão na solução
+ * @return um vector de arestas que podem ser escolhidas como próximas
+ */
+vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, vector<No*> _nodeInSolution){
+    vector<Aresta*> allEdges = _grafo->GetAllArestas(_node, true, false);
+    vector<Aresta*> edgesOutSolution;
+    bool isNotInSolution;
+
+    for(int i = 0; i < allEdges.size(); i++){
+        isNotInSolution = true;
+        for(int j = 0; j < _nodeInSolution.size() && isNotInSolution; j++){
+            if(allEdges[i]->getAdj() == _nodeInSolution[j]->getId())
+                isNotInSolution = false;
+        }
+        if(isNotInSolution)
+            edgesOutSolution.push_back(allEdges[i]);
+    }
+    return edgesOutSolution;
+}

@@ -35,7 +35,7 @@ public:
 
 
     vector<No *> GetAllNos(No *_no, bool _isSorted);
-    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted);
+    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted, bool _isRecursive = true);
     Aresta *MenorArestaNo(Aresta *_aresta, vector<No*> _inSolution);
     No* GetPrimeiroNo();
     vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);

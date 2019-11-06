@@ -278,12 +278,14 @@ void Grafo::algFloyd(int a, int b) {
  * @param _isSorted - Em caso de true, ordena as arestas crescentemente pelo peso
  * @return Lista de arestas ordenadas ou não
  */
-vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isSorted){
+vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isSorted, bool _isRecursive){
     vector<Aresta*> AllArestas;
     Aresta* aresta = _no->getPrimeiraAresta();
 
-    if(_no->getProx() != nullptr)
-        AllArestas = GetAllArestas(_no->getProx(), true);
+    if(_isRecursive){
+        if(_no->getProx() != nullptr)
+            AllArestas = GetAllArestas(_no->getProx(), true);
+    }
 
     if(aresta != nullptr){
         do{
