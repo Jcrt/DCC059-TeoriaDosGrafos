@@ -9,6 +9,9 @@
 using namespace std;
 const bool DEBUG = true;
 
+const vector<double> ALFA_COLLECTION { 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
+const int EXECUTIONS = 10;
+
 /***
  * Faz a leitura do arquivo que contém o grafo do caixeiro viajante e constrói um grafo
  * @param _filename o caminho completo do arquivo
@@ -100,7 +103,9 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
 
     //Pra transformar em randomizado, mudar aqui para pegar a primeira aresta randomizada;
     //Pego a menor aresta do grafo para iniciar a construção e a insiro na lista de arestas na solução
-    Aresta* menorAresta = _grafo->GetAllArestas(_grafo->GetPrimeiroNo(), true)[randomFactor];
+    vector<Aresta*> allArestas = _grafo->GetAllArestas(_grafo->GetPrimeiroNo(), true);
+    int n = allArestas.size();
+    Aresta* menorAresta = allArestas[randomFactor];
     arestaCorrente = menorAresta;
     arestasInSolution.push_back(arestaCorrente);
 
@@ -185,7 +190,7 @@ int CaixeiroViajante::Random(double _percent, int _maxRandom){
  */
 Aresta* CaixeiroViajante::GetRandomEdge(No* _node, Grafo* _grafo, vector<No*> _nodeInSolution, float _randomPercent){
     vector<Aresta*> elegibleEdges = GetEdgesOutSolution(_node, _grafo, _nodeInSolution);
-    int random = CaixeiroViajante::Random(_randomPercent, elegibleEdges.size());
+    int random = CaixeiroViajante::Random(_randomPercent, _grafo->getOrdem());
 
     if(random >= elegibleEdges.size())
         random = elegibleEdges.size() - 1;
@@ -215,4 +220,22 @@ vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, 
             edgesOutSolution.push_back(allEdges[i]);
     }
     return edgesOutSolution;
+}
+
+int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
+    int totalHeight = 0;
+    vector<Aresta*> arestasInSolution = CaixeiroViajante::GetBetterCostGR(_grafo, _randomizacao);
+    for(Aresta* aresta : arestasInSolution)
+        totalHeight += aresta->getPeso();
+    return totalHeight;
+}
+
+vector<ExecutionParams> CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao){
+    vector<ExecutionParams> exeParams;
+    for (int i = 0; i < EXECUTIONS; i++){
+        exeParams.push_back(
+                ExecutionParams{ _randomizacao, CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao) }
+        );
+    }
+    return exeParams;
 }

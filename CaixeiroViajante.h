@@ -14,6 +14,11 @@ struct LinhaArquivoCV{
     int coordy;
 };
 
+struct ExecutionParams{
+    double alpha;
+    int totalHeight;
+};
+
 class CaixeiroViajante {
 
 public:
@@ -23,6 +28,8 @@ public:
     static int Random(double _percent, int _maxRandom);
     static vector<Aresta *> GetEdgesOutSolution(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution);
     static Aresta *GetRandomEdge(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution, float _randomPercent);
+    static int GetSumOfEdgeHeights(Grafo *_grafo, double _randomizacao);
+    static vector<ExecutionParams> ExecuteGRR(Grafo *_grafo, double _randomizacao);
 };
 
 
