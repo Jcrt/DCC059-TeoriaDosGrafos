@@ -19,6 +19,11 @@ struct ExecutionParams{
     int totalHeight;
 };
 
+struct NormalizedValue{
+    double alpha;
+    double value;
+};
+
 class CaixeiroViajante {
 
 public:
@@ -30,6 +35,10 @@ public:
     static Aresta *GetRandomEdge(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution, float _randomPercent);
     static int GetSumOfEdgeHeights(Grafo *_grafo, double _randomizacao);
     static vector<ExecutionParams> ExecuteGRR(Grafo *_grafo, double _randomizacao);
+    static bool OrdenaExecutions(ExecutionParams _e1, ExecutionParams _e2);
+    static double GetHeightNormalization(vector<ExecutionParams> _execParams);
+
+    static vector<NormalizedValue> GetListNormalizedHeights(Grafo *_grafo);
 };
 
 

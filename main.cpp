@@ -71,8 +71,10 @@ Grafo* leituraDados(char *arqEntrada, bool direcionado, bool ponderadoAresta, bo
 }
 
 int main(int argc, char* argv[]) {
+    srand(time(NULL));
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
+
 
     if(argc != 5) {
         cout << "Argumentos insuficientes" << endl;
@@ -133,7 +135,7 @@ int main(int argc, char* argv[]) {
             case 7 :{
                 Grafo* x;
                 x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
-                vector<ExecutionParams> a = CaixeiroViajante::ExecuteGRR(x, 0.35);
+                vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);

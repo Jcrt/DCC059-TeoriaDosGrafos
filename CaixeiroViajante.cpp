@@ -6,10 +6,12 @@
 #include "CaixeiroViajante.h"
 #include "Grafo.h"
 #include <math.h>
-using namespace std;
-const bool DEBUG = true;
+#include <algorithm>
 
-const vector<double> ALFA_COLLECTION { 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
+using namespace std;
+const bool DEBUG = false;
+
+const vector<double> ALPHA_COLLECTION { 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
 const int EXECUTIONS = 10;
 
 /***
@@ -172,9 +174,6 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
  * @return inteiro representando o randomizado encontrado
  */
 int CaixeiroViajante::Random(double _percent, int _maxRandom){
-    //inicializando o seed do random
-    srand(time(NULL));
-
     int base = int(_maxRandom * _percent);
     int randomNumber = rand() % (base <= 0 ? 1 : base);
     return randomNumber;
@@ -238,4 +237,29 @@ vector<ExecutionParams> CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _rand
         );
     }
     return exeParams;
+}
+
+double CaixeiroViajante::GetHeightNormalization(vector<ExecutionParams> _execParams){
+    int totalHeight = _execParams[0].totalHeight;
+    int minValue = _execParams[0].totalHeight;
+
+    for (int i = 1; i < _execParams.size(); ++i) {
+        if(minValue > _execParams[i].totalHeight)
+            minValue = _execParams[i].totalHeight;
+        totalHeight+=_execParams[i].totalHeight;
+    }
+    double result = ((double)minValue / ((double)totalHeight / _execParams.size()));
+    return result;
+}
+
+vector<NormalizedValue> CaixeiroViajante::GetListNormalizedHeights(Grafo* _grafo){
+    vector<NormalizedValue> normalizedHeights;
+    vector<ExecutionParams> execParams;
+    float normalizedValue;
+
+    for (int i = 0; i < ALPHA_COLLECTION.size(); i++){
+        normalizedValue = CaixeiroViajante::GetHeightNormalization(CaixeiroViajante::ExecuteGRR(_grafo, ALPHA_COLLECTION[i]));
+        normalizedHeights.push_back(NormalizedValue{ALPHA_COLLECTION[i], normalizedValue});
+    }
+    return normalizedHeights;
 }
