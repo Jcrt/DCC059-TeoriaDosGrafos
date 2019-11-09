@@ -20,7 +20,7 @@ public:
     static Grafo *BuildTSPGraphFromFile(std::basic_string<char> _filename);
     static int GetEuclideanDistance(int _xa, int _ya, int xb, int yb);
     static vector<Aresta *> GetBetterCostGR(Grafo *_grafo, double _randomizacao = 0);
-    static int Random(double _percent, Grafo *_grafo);
+    static int Random(double _percent, int _maxRandom);
     static vector<Aresta *> GetEdgesOutSolution(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution);
     static Aresta *GetRandomEdge(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution, float _randomPercent);
 };

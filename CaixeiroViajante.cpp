@@ -7,9 +7,8 @@
 #include "Grafo.h"
 #include <math.h>
 using namespace std;
-
-const double RANDOMIZED_PERCENT = 0.15;
 const bool DEBUG = true;
+
 /***
  * Faz a leitura do arquivo que contém o grafo do caixeiro viajante e constrói um grafo
  * @param _filename o caminho completo do arquivo
@@ -76,16 +75,17 @@ int CaixeiroViajante::GetEuclideanDistance(int _xa, int _ya, int _xb, int _yb){
     int x = pow(_xa - _xb, 2);
     int y = pow(_ya - _yb, 2);
     int result = sqrt(x + y);
+    return result;
 }
 
 /***
- * Constrói uma lista de arestas que faz a representação do grafo de menor custo do caixeiro viajante, abordagem gulosa
+ * Constrói uma lista de arestas que faz a representação do grafo de menor custo do caixeiro viajante, abordagem gulosa randomizada
  * @param _grafo: O grafo que contém a instância do problema
  * @param _randomizacao: Double sinalizando qual será a randomização do grafo. Caso não informado, será passado 0 como default
  * @return Lista de arestas que formam o grafo de menor custo
  */
-vector<Aresta* > CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomizacao){
-    int randomFactor = CaixeiroViajante::Random(_randomizacao, _grafo);
+vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomizacao){
+    int randomFactor = CaixeiroViajante::Random(_randomizacao, _grafo->getOrdem());
     No* pontaDireita;
     No* pontaEsquerda;
     Aresta* menorArestaPontaDireita;
@@ -166,11 +166,11 @@ vector<Aresta* > CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _random
  * @param _grafo: O grafo do problema
  * @return inteiro representando o randomizado encontrado
  */
-int CaixeiroViajante::Random(double _percent, Grafo* _grafo){
+int CaixeiroViajante::Random(double _percent, int _maxRandom){
     //inicializando o seed do random
     srand(time(NULL));
 
-    int base = int(_grafo->getOrdem() * _percent);
+    int base = int(_maxRandom * _percent);
     int randomNumber = rand() % (base <= 0 ? 1 : base);
     return randomNumber;
 }
@@ -184,8 +184,8 @@ int CaixeiroViajante::Random(double _percent, Grafo* _grafo){
  * @return Aresta indicando qual será o próximo nó randomizado
  */
 Aresta* CaixeiroViajante::GetRandomEdge(No* _node, Grafo* _grafo, vector<No*> _nodeInSolution, float _randomPercent){
-    int random = CaixeiroViajante::Random(_randomPercent, _grafo);
     vector<Aresta*> elegibleEdges = GetEdgesOutSolution(_node, _grafo, _nodeInSolution);
+    int random = CaixeiroViajante::Random(_randomPercent, elegibleEdges.size());
 
     if(random >= elegibleEdges.size())
         random = elegibleEdges.size() - 1;
