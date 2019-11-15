@@ -19,14 +19,19 @@ struct ExecutionParams{
     int totalHeight;
 };
 
-struct NormalizedValue{
+struct AlphaParams{
     double alpha;
-    double value;
+    double normalizedValue;
+    double probValue;
+    int executionTimes;
 };
 
 class CaixeiroViajante {
 
 public:
+    vector<AlphaParams> alphaParams;
+
+    CaixeiroViajante();
     static Grafo *BuildTSPGraphFromFile(std::basic_string<char> _filename);
     static int GetEuclideanDistance(int _xa, int _ya, int xb, int yb);
     static vector<Aresta *> GetBetterCostGR(Grafo *_grafo, double _randomizacao = 0);
@@ -34,11 +39,15 @@ public:
     static vector<Aresta *> GetEdgesOutSolution(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution);
     static Aresta *GetRandomEdge(No *_node, Grafo *_grafo, vector<No *> _nodeInSolution, float _randomPercent);
     static int GetSumOfEdgeHeights(Grafo *_grafo, double _randomizacao);
-    static vector<ExecutionParams> ExecuteGRR(Grafo *_grafo, double _randomizacao);
+    static ExecutionParams ExecuteGRR(Grafo *_grafo, double _randomizacao);
     static bool OrdenaExecutions(ExecutionParams _e1, ExecutionParams _e2);
-    static double GetHeightNormalization(vector<ExecutionParams> _execParams);
+    static AlphaParams GetHeightNormalization(vector<ExecutionParams> _execParams, AlphaParams _normalizedVal);
+    static vector<AlphaParams> GetListNormalizedHeights(Grafo *_grafo);
 
-    static vector<NormalizedValue> GetListNormalizedHeights(Grafo *_grafo);
+    vector<ExecutionParams> ExecRandomizing(Grafo *_grafo);
+    double GetAlphaByProb(double _random);
+    void RecallProbability();
+    void RecallNormalization(vector<ExecutionParams>  _execParams);
 };
 
 
