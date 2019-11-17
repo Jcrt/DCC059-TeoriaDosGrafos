@@ -15,11 +15,12 @@ public:
 
     void insereAresta(int idVerticeOrigem, int idVerticeAdj, int peso);
     void removeAresta(int idNo);
-    float getPeso(int idAdj);
     void setId(int idAresta);
+    float getPeso(int idAdj);
     void imprimirArestas();
     bool existeAresta(int idNo);
     Aresta* getPrimeira();
+    void removeDoKruskal(Aresta* a);
 
 private:
     Aresta* primeira;

@@ -7,12 +7,26 @@
 #include "Grafo.h"
 #include <math.h>
 #include <algorithm>
+#include <random>
 
 using namespace std;
-const bool DEBUG = false;
 
-const vector<double> ALPHA_COLLECTION { 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
-const int EXECUTIONS = 10;
+const vector<double> ALPHA_COLLECTION { 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
+const double RANDOM_FACTOR = 1000;
+const double RECALL_PERCENT_OVER_ALPHA = 0.1;
+const int EXECUTIONS = 500;
+const bool DEBUG = false;
+const bool DEBUG_GRR = true;
+
+CaixeiroViajante::CaixeiroViajante() {
+    double initialProb = double(1/(double)ALPHA_COLLECTION.size());
+
+    for(int i = 0; i <  ALPHA_COLLECTION.size(); i++){
+        this->alphaParams.push_back(
+            AlphaParams{ALPHA_COLLECTION[i], 0, initialProb}
+        );
+    }
+}
 
 /***
  * Faz a leitura do arquivo que contém o grafo do caixeiro viajante e constrói um grafo
@@ -174,7 +188,7 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
  * @return inteiro representando o randomizado encontrado
  */
 int CaixeiroViajante::Random(double _percent, int _maxRandom){
-    int base = int(_maxRandom * _percent);
+    int base = double(_maxRandom * _percent);
     int randomNumber = rand() % (base <= 0 ? 1 : base);
     return randomNumber;
 }
@@ -221,6 +235,12 @@ vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, 
     return edgesOutSolution;
 }
 
+/**
+ * Calcula a soma dos pesos das arestas na solução
+ * @param _grafo: Grafo completo
+ * @param _randomizacao: O alfa que determina a randomização
+ * @return: Inteiro com peso das arestas somados
+ */
 int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
     int totalHeight = 0;
     vector<Aresta*> arestasInSolution = CaixeiroViajante::GetBetterCostGR(_grafo, _randomizacao);
@@ -229,37 +249,149 @@ int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
     return totalHeight;
 }
 
-vector<ExecutionParams> CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao){
-    vector<ExecutionParams> exeParams;
-    for (int i = 0; i < EXECUTIONS; i++){
-        exeParams.push_back(
-                ExecutionParams{ _randomizacao, CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao) }
-        );
-    }
-    return exeParams;
+/**
+ * Faz a execução do algoritmo do caixeiro viajante e retorna uma struct com dados da execução
+ * @param _grafo: Grafo completo
+ * @param _randomizacao: O alfa que determina a randomizacao
+ * @return: Struct ExecutionParams, que armazena qual randomização e peso total de arestas da execução
+ */
+ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao){
+    return ExecutionParams{ _randomizacao, CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao) };
 }
 
-double CaixeiroViajante::GetHeightNormalization(vector<ExecutionParams> _execParams){
-    int totalHeight = _execParams[0].totalHeight;
-    int minValue = _execParams[0].totalHeight;
-
-    for (int i = 1; i < _execParams.size(); ++i) {
-        if(minValue > _execParams[i].totalHeight)
-            minValue = _execParams[i].totalHeight;
-        totalHeight+=_execParams[i].totalHeight;
-    }
-    double result = ((double)minValue / ((double)totalHeight / _execParams.size()));
-    return result;
-}
-
-vector<NormalizedValue> CaixeiroViajante::GetListNormalizedHeights(Grafo* _grafo){
-    vector<NormalizedValue> normalizedHeights;
+/**
+ * Executa o randomizado reativo
+ * @param _grafo: O grafo completo
+ * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
+ */
+vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
+    double randomDouble;
+    double alpha;
+    int recallPoint = int(EXECUTIONS * RECALL_PERCENT_OVER_ALPHA);
     vector<ExecutionParams> execParams;
-    float normalizedValue;
 
-    for (int i = 0; i < ALPHA_COLLECTION.size(); i++){
-        normalizedValue = CaixeiroViajante::GetHeightNormalization(CaixeiroViajante::ExecuteGRR(_grafo, ALPHA_COLLECTION[i]));
-        normalizedHeights.push_back(NormalizedValue{ALPHA_COLLECTION[i], normalizedValue});
+    for (int i = 0; i < EXECUTIONS; i++) {
+        randomDouble = (double(CaixeiroViajante::Random(1, RANDOM_FACTOR))/RANDOM_FACTOR);
+        alpha = GetAlphaByProb(randomDouble);
+        execParams.push_back(
+            CaixeiroViajante::ExecuteGRR(_grafo, alpha)
+        );
+
+        if(i > 0 && i % recallPoint == 0){
+
+            if(DEBUG_GRR){
+                cout << endl << "*************************************************";
+                cout << endl << "**** Iteração " << i << " *******************************";
+                cout << endl << "*************************************************";
+            }
+
+            RecallNormalization(execParams);
+            RecallProbability();
+        }
     }
-    return normalizedHeights;
+
+    if(DEBUG_GRR){
+        cout << endl << "=========================";
+        cout << endl << "= Resultados finais =====";
+        cout << endl << "=========================";
+        for (int i = 0; i < this->alphaParams.size(); i++) {
+            cout << endl << "Para o alfa " << this->alphaParams[i].alpha << " temos: " << endl;
+            cout << "-Normalizacao: " << this->alphaParams[i].normalizedValue << endl;
+            cout << "-Probabilidade: " << this->alphaParams[i].probValue << endl;
+            cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
+        }
+    }
+}
+
+/**
+ * Baseado no número randômico de 0 a 1 que é gerado, pega o alfa correspondente
+ * @param _random: Double de 0 a 1 que representa qual é a faixa randomica do alfa
+ * @return: Double representando o alfa selecionado
+ */
+double CaixeiroViajante::GetAlphaByProb(double _random){
+    double alpha;
+    double rangeInicial = 0;
+    AlphaParams p;
+
+    for (int i = 0; i < this->alphaParams.size(); i++) {
+        p = this->alphaParams[i];
+        if(rangeInicial < _random && _random <= (rangeInicial + p.probValue))
+            alpha = p.alpha;
+        rangeInicial += 1 * p.probValue;
+    }
+    return alpha;
+}
+
+/**
+ * Produz a normalização da lista de N execuçãoes do algoritmo para um determinado alfa
+ * @param _execParams: Lista com o alfa e o peso total da solução
+ * @param _normalizedVal: Parametro para que seja inforamado qual alfa que está sendo normalizado
+ * @return: Struct AlphaParams, que tem os dados da nova atualização de normalização
+ */
+AlphaParams CaixeiroViajante::GetHeightNormalization(vector<ExecutionParams> _execParams, AlphaParams _normalizedVal){
+    int minValue = -1;
+    int totalHeight = 0;
+    int execsToThisAlpha = 0;
+    double normalizedVal = 0;
+
+    for (int i = 0; i < _execParams.size(); i++) {
+        if(minValue == -1 || minValue > _execParams[i].totalHeight)
+            minValue = _execParams[i].totalHeight;
+
+        if(_execParams[i].alpha == _normalizedVal.alpha){
+            totalHeight +=_execParams[i].totalHeight;
+            execsToThisAlpha++;
+        }
+    }
+    if(execsToThisAlpha > 0)
+        normalizedVal = (double(minValue) / (double(totalHeight) / double(execsToThisAlpha)));
+
+    AlphaParams ap {
+            _normalizedVal.alpha,
+            normalizedVal,
+            _normalizedVal.probValue,
+        _normalizedVal.executionTimes += execsToThisAlpha
+    };
+    return ap;
+}
+
+/**
+ * Recalcula a probabilidade com base na lista normalizada de execuções
+ */
+void CaixeiroViajante::RecallProbability() {
+    double sumOfNormalizations = 0;
+
+    if(DEBUG_GRR)
+        cout << endl << "= Recall de probabilidade =====" << endl;
+
+    for (int i = 0; i < this->alphaParams.size(); i++)
+        sumOfNormalizations += this->alphaParams[i].normalizedValue;
+
+    for (int j = 0; j < alphaParams.size(); ++j) {
+        AlphaParams p = this->alphaParams[j];
+        p.probValue = this->alphaParams[j].normalizedValue / sumOfNormalizations;
+        this->alphaParams[j] = p;
+
+        if(DEBUG_GRR)
+            cout << "A probabilidade para o alfa " << p.alpha << " foi recalculada para " << p.probValue<< endl;
+    }
+}
+
+/**
+ * Recalcula a normalização de execuções
+ * @param _execParams: Lista de execuções do algoritmo guloso
+ */
+void CaixeiroViajante::RecallNormalization(vector<ExecutionParams> _execParams) {
+    AlphaParams normalizedVal;
+
+    if(DEBUG_GRR)
+        cout << endl << "= Recall de normalizacao =====" << endl;
+
+    for (int i = 0; i < this->alphaParams.size(); i++) {
+        normalizedVal = CaixeiroViajante::GetHeightNormalization(_execParams, this->alphaParams[i]);;
+        this->alphaParams[i] = normalizedVal;
+
+        if(DEBUG_GRR)
+            cout << "A normalização para o alfa " << normalizedVal.alpha << " foi recalculada para " << normalizedVal.normalizedValue << endl;
+    }
 }

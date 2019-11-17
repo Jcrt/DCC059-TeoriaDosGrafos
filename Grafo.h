@@ -8,7 +8,7 @@
 
 class Grafo {
 public:
-	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
+    Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
 
     void insereNo(int idNo);
@@ -32,6 +32,7 @@ public:
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
     void Prim();
+    void kruskal();
 
 
     vector<No *> GetAllNos(No *_no, bool _isSorted);

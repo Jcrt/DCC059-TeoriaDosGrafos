@@ -127,15 +127,23 @@ int main(int argc, char* argv[]) {
                 delete x;
             } break;
             case 6:{
+                Grafo* y;
+                y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                y->kruskal();
+                delete y;
+            }break;
+            case 7 :{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
                 x->imprimirArestas();
                 delete x;
             }break;
-            case 7 :{
-                Grafo* x;
-                x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
-                vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
+            case 8:{
+                Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
+                CaixeiroViajante* cv = new CaixeiroViajante();
+                cv->ExecRandomizing(x);
+
+                //vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
             }break;
         }
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);

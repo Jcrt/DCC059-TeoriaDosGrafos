@@ -17,8 +17,9 @@ struct OpcoesMenu {
 class MenuPrincipal {
 public:
     static void Show();
-    static int ReadOption();
     static void ClearOutput();
+    static int ReadOption();
+
     static const int FINAL_APLICACAO = 0;
     static vector<OpcoesMenu> GetOpcoesMenu();
 private:

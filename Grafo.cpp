@@ -15,14 +15,14 @@ using namespace std;
 Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice) {
     cout << "---- CRIANDO GRAFO ----" << endl;
 
-	primeiro = nullptr;
-	ultimo = nullptr;
-	this->ordem = ordem;
-	this->orientado = orientado;
-	this->ponderado_aresta = ponderado_aresta;
-	this->ponderado_vertice = ponderado_vertice;
-	this->n = 0;
-	cout << endl;
+    primeiro = nullptr;
+    ultimo = nullptr;
+    this->ordem = ordem;
+    this->orientado = orientado;
+    this->ponderado_aresta = ponderado_aresta;
+    this->ponderado_vertice = ponderado_vertice;
+    this->n = 0;
+    cout << endl;
 }
 
 /**
@@ -337,6 +337,8 @@ bool Grafo::CompareNos(No* a, No* b){
 }
 
 void Grafo::Prim(){
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
     vector<No*> inSolution;
     vector<No*> outSolution;
     vector<Aresta*> allArestas;
@@ -394,13 +396,85 @@ void Grafo::Prim(){
     }
 
     if(LoopLimit > 3) {
-        cout << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
+        arqSaida << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
     } else {
-        cout << "Arestas na solução: " << endl;
+        arqSaida << "Arestas na solução: " << endl;
         for(int i = 0; i < arestasNaSolucao.size(); i++){
-            printf("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
-            cout << endl;
+            arqSaida << ("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
+            arqSaida << endl;
         }
+    }
+    arqSaida.close();
+}
+/**
+ * Faz uma arvore geradora minima ou se o grafo for conexo ou
+ * faz florestas se o grafo for desconexo
+ */
+void Grafo::kruskal() {
+    ofstream arqSaida;
+    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    if(n != 0){
+        No* p = primeiro;
+        int vetArvores[n];
+        bool visitado[n];
+        bool condicao[n];
+        Aresta* a = p->getPrimeiraAresta();
+        ListaArestas* lista = new ListaArestas();
+
+        for(int i = 0; i < n; i++){
+            vetArvores[i] = p->getId();
+            condicao[i] = false;
+            visitado[i] = false;
+                        p = p->getProx();
+        }
+        p = primeiro;
+
+        /// percorro todas as arestas do grafo e inserindo na lista com seus respectivos Id e o adjacente e o peso, para
+        /// ordenarmos o menor peso.
+
+        while(p != NULL){
+            while(a != NULL){
+                if(!visitado[a->getId()])
+                    lista->insereAresta(a->getId(), a->getAdj(), a->getPeso());
+                a = a->getProx();
+            }
+            visitado[p->getId()] = true;
+            p = p->getProx();
+            if(p != NULL)
+                a = p->getPrimeiraAresta();
+        }
+
+        ///percorro a lista de arestas partindo da primeira aresta em busca do menor caminho separadamente que vai juntando
+        /// uma unica componente conexa de peso minimo, imprimo a lista das arestas com seu peso e insercao na arvore.
+        p = primeiro;
+        a = lista->getPrimeira();
+        int cont = 0;
+        arqSaida << endl <<  "Arvore de Kruskal: " << endl;
+        while(lista != nullptr && cont != n-1){
+            if(condicao[lista->getPrimeira()->getId()] && condicao[lista->getPrimeira()->getAdj()])
+                lista->removeDoKruskal(lista->getPrimeira());
+            else{
+                if(lista->getPrimeira()->getAdj() >= lista->getPrimeira()->getId()){
+                    arqSaida <<  "Aresta de " << lista->getPrimeira()->getId() << " para " << lista->getPrimeira()->getAdj() << " peso: " << lista->getPrimeira()->getPeso() << endl;
+                    condicao[lista->getPrimeira()->getId()] = true;
+                    lista->removeDoKruskal(lista->getPrimeira());
+                    cont++;
+                }
+                else{
+                    arqSaida << "Aresta de " << lista->getPrimeira()->getAdj() << " para " << lista->getPrimeira()->getId() << " peso: " << lista->getPrimeira()->getPeso() << endl;
+                    condicao[lista->getPrimeira()->getId()] = true;
+                    lista->removeDoKruskal(lista->getPrimeira());
+                    cont++;
+                }
+            }
+
+        }
+        if(lista != nullptr && cont != n-1)
+            arqSaida << endl << "Numero de aresta na solucao: " << cont << endl;
+        arqSaida << endl << "Numero de vertices: " << cont+1 << endl;
+
+        arqSaida.close();
+        delete lista;
     }
 }
 
@@ -494,7 +568,7 @@ void Grafo::removeNo(int idNo) {
                             ultimo = aux;
                         delete p;
                         ordem--;
-						break;
+                        break;
                     }
                 } else {
                     aux = p;
@@ -511,6 +585,8 @@ void Grafo::removeNo(int idNo) {
 
 }
 
+
+
 /**
  * Metodo que adiciona a relacao de aresta entre dois vertices do grafo.
  * @param idVertice1 id do primeiro vertice que deseja adicionar a aresta.
@@ -519,7 +595,7 @@ void Grafo::removeNo(int idNo) {
  * @param peso peso da aresta que sera adicionada
  */
 void Grafo::addAresta(int idVertice1, int idVertice2, int peso) {
-if(!existeVertice(idVertice1))
+    if(!existeVertice(idVertice1))
         insereNo(idVertice1);
     if(!existeVertice(idVertice2))
         insereNo(idVertice2);
@@ -586,13 +662,13 @@ No* Grafo::buscaNo(int idNo) {
  * @return retorna um ponteiro para o vertice ou NULL se nao for encontrado.
  */
 No* Grafo::buscaNoIndice(int indice) {
-        No *p = primeiro;
-        while (p != nullptr) {
-            if (p->getIndice() == indice)
-                return p;
-            p = p->getProx();
-        }
-        return p;
+    No *p = primeiro;
+    while (p != nullptr) {
+        if (p->getIndice() == indice)
+            return p;
+        p = p->getProx();
+    }
+    return p;
 
 }
 

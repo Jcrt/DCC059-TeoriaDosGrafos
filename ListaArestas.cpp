@@ -108,7 +108,8 @@ void ListaArestas::imprimirArestas() {
  * @return true ou false
  */
 bool ListaArestas::existeAresta(int idNo) {
-    Aresta* p = primeira;
+    Aresta* p;
+    p = primeira;
     while(p != nullptr){
         if(p->getAdj() == idNo)
             return true;
@@ -129,4 +130,44 @@ float ListaArestas::getPeso(int idAdj) {
 
 Aresta* ListaArestas::getPrimeira(){
     return primeira;
+}
+
+void ListaArestas::removeDoKruskal(Aresta* a)
+{
+    if(numeroDeArestas == 0)
+        cout << "Lista Vazia!!!" << endl;
+    else{
+        Aresta* p = primeira;
+        if(numeroDeArestas == 1 && p == a){
+            delete p;
+            primeira = NULL;
+            ultima = NULL;
+            numeroDeArestas--;
+        }
+        else if(p == a){
+            primeira = p->getProx();
+            delete p;
+            numeroDeArestas--;
+        }
+        else{
+            while(p != NULL){
+                if(p->getProx() != NULL && p->getProx() == a){
+                    if(p->getProx() == ultima){
+                        Aresta* q = p->getProx();
+                        delete q;
+                        p->setProx(NULL);
+                        ultima = p;
+                        numeroDeArestas--;
+                    }
+                    else{
+                        Aresta* q = p->getProx();
+                        p->setProx(q->getProx());
+                        delete q;
+                        numeroDeArestas--;
+                    }
+                }
+                p = p->getProx();
+            }
+        }
+    }
 }
