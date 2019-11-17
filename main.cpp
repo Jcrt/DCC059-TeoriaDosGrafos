@@ -108,9 +108,13 @@ int main(int argc, char* argv[]) {
     }
     cout << endl;
 
+    ofstream file;
+    file.open(arquivoSaida, ofstream::ios_base::app);
 
     do
     {
+
+        auto inicioFuncoes = std::chrono::high_resolution_clock::now();
         opcaoEscolhida = MenuPrincipal::ReadOption();
         switch(opcaoEscolhida){
             case 1:{
@@ -179,9 +183,14 @@ int main(int argc, char* argv[]) {
                 //vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
             }break;
         }
+        auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+        long long resulFunc = std::chrono::duration_cast<std::chrono::seconds>(resultadoFuncoes).count();
+        file << " Tempo em segundos de cada Funcao: " << resulFunc << endl;
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
 
     auto resultado = std::chrono::high_resolution_clock::now() - inicio;
     long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();
-    cout << "Tempo em segundos: " << seconds << endl;
+    file << "Tempo em segundos: " << seconds << endl;
+
 }
+
