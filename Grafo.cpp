@@ -423,9 +423,9 @@ void Grafo::kruskal() {
 
         for(int i = 0; i < n; i++){
             vetArvores[i] = p->getId();
-            visitado[i] = false;
             condicao[i] = false;
-            p = p->getProx();
+            visitado[i] = false;
+                        p = p->getProx();
         }
         p = primeiro;
 

@@ -108,7 +108,8 @@ void ListaArestas::imprimirArestas() {
  * @return true ou false
  */
 bool ListaArestas::existeAresta(int idNo) {
-    Aresta* p = primeira;
+    Aresta* p;
+    p = primeira;
     while(p != nullptr){
         if(p->getAdj() == idNo)
             return true;

@@ -16,8 +16,8 @@ vector<OpcoesMenu> MenuPrincipal::GetOpcoesMenu(){
             {2, "Busca em profundidade"},
             {3, "Menor caminho floyd"},
             {4, "Menor caminho dijsktra"},
-            {5, "Árvore geradora de custo mínimo Prim"},
-            {6, "Árvore de Kruskal"},
+            {5, "Arvore geradora de custo minimo Prim"},
+            {6, "Arvore de Kruskal"},
             {7, "Imprimir Arestas"},
             {8, "Caixeiro Viajante (Abordagem gulosa)"},
             {0, "Sair do programa"}

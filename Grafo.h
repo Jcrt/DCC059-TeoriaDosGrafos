@@ -25,7 +25,6 @@ public:
     bool existeVertice(int idVertice);
     bool ehPonderadoVertice();
     bool ehPonderadoAresta();
-    void kruskal();
     int getOrdem();
     void algFloyd(int idVertice1, int idVertice2);
     void buscaProfundidade(int idVertice);
@@ -33,6 +32,7 @@ public:
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
     void Prim();
+    void kruskal();
 
 
     vector<No *> GetAllNos(No *_no, bool _isSorted);

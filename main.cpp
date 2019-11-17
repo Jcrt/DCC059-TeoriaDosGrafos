@@ -127,10 +127,10 @@ int main(int argc, char* argv[]) {
                 delete x;
             } break;
             case 6:{
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
-                x->kruskal();
-                delete x;
+                Grafo* y;
+                y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                y->kruskal();
+                delete y;
             }break;
             case 7 :{
                 Grafo* x;
