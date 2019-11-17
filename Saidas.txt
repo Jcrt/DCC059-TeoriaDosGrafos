@@ -1,1 +1,30 @@
- 
+
+Busca em largura: 2 1 8 3 9 7 4 6 5 
+
+Busca em profundidade: 2 1 8 9 3 4 6 7 5 
+
+Menor Caminho(Floyd) entre 4 e 3 : 7
+
+Menor Caminho(Dijkstra) entre 4 e 3 : 7
+
+Arestas na solução (PRIM): 
+Do no 7 para o no 8 com peso 1
+Do no 7 para o no 6 com peso 2
+Do no 6 para o no 3 com peso 4
+Do no 3 para o no 9 com peso 2
+Do no 3 para o no 4 com peso 7
+Do no 8 para o no 1 com peso 8
+Do no 1 para o no 2 com peso 4
+Do no 4 para o no 5 com peso 9
+
+
+Arvore de Kruskal: 
+Aresta de 1 para 2 peso: 4
+Aresta de 1 para 8 peso: 8
+Aresta de 1 para 2 peso: 4
+Aresta de 2 para 8 peso: 11
+Aresta de 2 para 3 peso: 8
+Aresta de 1 para 8 peso: 8
+Aresta de 7 para 8 peso: 1
+Aresta de 2 para 3 peso: 8
+Numero de vertices: 9

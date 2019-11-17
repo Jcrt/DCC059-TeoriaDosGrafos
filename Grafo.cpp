@@ -58,13 +58,13 @@ bool Grafo::verificaVisit(bool vet[], int n) {
 * @param vN int com o no destino
 * @return dist[vN] com a distancia entre os dois nos passados por parâmetro
 */
-void Grafo::menorCaminhoDijkstra(int v, int vN){
+void Grafo::menorCaminhoDijkstra(int v, int vN, char* caminhoArqSaida){
     No* p = buscaNoIndice(v-1);
     No* q = buscaNoIndice(vN-1);
     No* aux;
     int indice;
     ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida.open(caminhoArqSaida, ofstream::ios_base::app);
     if(p != nullptr && q != nullptr){
         int menor;
 
@@ -100,7 +100,6 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
                         break;
                     if(i == n-1){
                         cout << endl;
-                        cout << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " e: " << dist[vN-1] << endl;
                         arqSaida << endl << "Menor Caminho(Dijkstra) entre " << v << " e " << vN << " : " << dist[vN-1] << endl;
                     }
                 }
@@ -113,15 +112,15 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
             }
         }
         if(dist[vN] == INT_MAX/2) {
-            cout << endl << "Nao existe caminho entre os vertices." << endl;
             arqSaida << endl << "Nao existe caminho entre os vertices. " << endl;
         }
     }
     else{
-        cout << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)" << endl;
         arqSaida << endl << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
         //return -1;
     }
+    cout << endl;
+    arqSaida << endl;
 }
 
 /**
@@ -143,7 +142,6 @@ void Grafo::buscaEmLargura(int s, char* arqSaida){
     list<int> queqe;
     queqe.push_back(s);
     visita[p->getIndice()] = true;
-    cout << p->getId() << " ";
     file << p->getId() << " ";
 
 
@@ -156,7 +154,6 @@ void Grafo::buscaEmLargura(int s, char* arqSaida){
             int i = 1;
             if(!visita[indice]){
                 file << aux->getId() << " ";
-                cout << aux->getId() << " ";
                 visita[indice] = true;
                 queqe.push_back(aux->getId());
                 p = buscaNo(queqe.front());
@@ -171,16 +168,16 @@ void Grafo::buscaEmLargura(int s, char* arqSaida){
 
 
     cout << endl;
-
+    file << endl;
 }
 
 /**
  * Algoritmo de busca em profundindade, passando por todos nós como origem e por todas as arestas dos nós.
  * @param idVertice id do vertice de inicio.
  */
-void Grafo::buscaProfundidade(int idVertice){
+void Grafo::buscaProfundidade(int idVertice, char* caminhoArqSaida){
     ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida.open(caminhoArqSaida, ofstream::ios_base::app);
     arqSaida << endl <<  "Busca em profundidade: ";
     No* p = buscaNo(idVertice);
     if(p == nullptr)
@@ -193,7 +190,6 @@ void Grafo::buscaProfundidade(int idVertice){
     stack<int> pilha;
     pilha.push(idVertice);
     visita[p->getIndice()] = true;
-    cout << p->getId() << " ";
     arqSaida << p->getId() << " ";
 
     Aresta* a;
@@ -204,7 +200,6 @@ void Grafo::buscaProfundidade(int idVertice){
             int indice = aux->getIndice();
             if(!visita[indice]){
                 arqSaida << aux->getId() << " ";
-                cout << aux->getId() << " ";
                 visita[indice] = true;
                 pilha.push(aux->getId());
                 p = buscaNo(pilha.top());
@@ -217,6 +212,7 @@ void Grafo::buscaProfundidade(int idVertice){
             p = buscaNo(pilha.top());
     }
     cout << endl;
+    arqSaida << endl;
 }
 
 /**
@@ -224,9 +220,9 @@ void Grafo::buscaProfundidade(int idVertice){
  * @param a vertice 1
  * @param b vertice 2
  */
-void Grafo::algFloyd(int a, int b) {
+void Grafo::algFloyd(int a, int b, char* caminhoArqSaida) {
     ofstream f;
-    f.open("../Saidas.txt", ofstream::ios_base::app);
+    f.open(caminhoArqSaida, ofstream::ios_base::app);
     if(existeVertice(a) && existeVertice(b)) {
         int **mat = new int *[n];
         No* p;
@@ -258,7 +254,6 @@ void Grafo::algFloyd(int a, int b) {
         }
 
         f << endl << "Menor Caminho(Floyd) entre " << a << " e " << b << " : " << mat[a-1][b-1] << endl;
-        cout << endl << "Menor Caminho(Floyd) entre " << a << " e " << b << " : " << mat[a-1][b-1] << endl;
 
         for (int i = 0; i < n; i++)
             delete[] mat[i];
@@ -267,7 +262,6 @@ void Grafo::algFloyd(int a, int b) {
 
     } else{
         f << endl << "Vertices Invalidos (ERRO)-Algoritmo Floyd" << endl;
-        cout << endl << "Vertices Invalidos (ERRO)-Algoritmo Floyd" << endl;
     }
     f.close();
 }
@@ -336,9 +330,9 @@ bool Grafo::CompareNos(No* a, No* b){
     return a->getPeso() < b->getPeso();
 }
 
-void Grafo::Prim(){
+void Grafo::Prim(char* caminhoArqSaida){
     ofstream f;
-    f.open("../Saidas.txt", ofstream::ios_base::app);
+    f.open(caminhoArqSaida, ofstream::ios_base::app);
     vector<No*> inSolution;
     vector<No*> outSolution;
     vector<Aresta*> allArestas;
@@ -396,23 +390,23 @@ void Grafo::Prim(){
     }
 
     if(LoopLimit > 3) {
-        cout << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
+        f << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
     } else {
-        f << "Arestas na solução: " << endl;
+        f << "Arestas na solução (PRIM): " << endl;
         for(int i = 0; i < arestasNaSolucao.size(); i++){
-           // printf("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
-            f << "Do no " << arestasNaSolucao[i]->getId() << " para o no " << arestasNaSolucao[i]->getAdj() << " com peso " << arestasNaSolucao[i]->getPeso() <<endl;
-          //  cout << endl;
+           f << "Do no " << arestasNaSolucao[i]->getId() << " para o no " << arestasNaSolucao[i]->getAdj() << " com peso " << arestasNaSolucao[i]->getPeso() <<endl;
         }
     }
+    f << endl;
+    cout << endl;
 }
 /**
  * Faz uma arvore geradora minima ou se o grafo for conexo ou
  * faz florestas se o grafo for desconexo
  */
-void Grafo::kruskal() {
+void Grafo::kruskal(char* caminhoArqSaida) {
     ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    arqSaida.open(caminhoArqSaida, ofstream::ios_base::app);
     if(n != 0){
         No* p = primeiro;
         int vetArvores[n];
@@ -470,12 +464,13 @@ void Grafo::kruskal() {
 
         }
         if(lista != nullptr && cont != n-1)
-            arqSaida << endl << "Numero de aresta na solucao: " << cont << endl;
-        arqSaida << endl << "Numero de vertices: " << cont+1 << endl;
+            arqSaida << "Numero de aresta na solucao: " << cont << endl;
+        arqSaida <<  "Numero de vertices: " << cont+1 << endl;
 
         arqSaida.close();
         delete lista;
     }
+    arqSaida << endl;
 }
 
 Aresta* Grafo::MenorArestaNo(Aresta* _aresta, vector<No*> _inSolution){
@@ -523,8 +518,6 @@ void Grafo::insereNo(int idNo) {
     if(n == 1)
         primeiro = p;
 
-    //cout << "No " << idNo << " adicionado ao Grafo.";
-    //cout << endl;
 }
 
 /**
@@ -539,7 +532,6 @@ void Grafo::removeNo(int idNo) {
         if (primeiro != nullptr) {
             while (p != nullptr) {
                 if (p->getId() == idNo) {
-                    cout << "Vertice " << p->getId() << " removido";
                     if (p == primeiro) {
                         if (primeiro == ultimo) {
                             delete primeiro;

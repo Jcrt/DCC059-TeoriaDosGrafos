@@ -26,13 +26,13 @@ public:
     bool ehPonderadoVertice();
     bool ehPonderadoAresta();
     int getOrdem();
-    void algFloyd(int idVertice1, int idVertice2);
-    void buscaProfundidade(int idVertice);
+    void algFloyd(int idVertice1, int idVertice2, char* caminhoArqSaida);
+    void buscaProfundidade(int idVertice, char* caminhoArqSaida);
     void buscaEmLargura(int inicio, char* arqSaida);
-    void menorCaminhoDijkstra(int v, int vN);
+    void menorCaminhoDijkstra(int v, int vN, char* caminhoArqSaida);
     bool verificaVisit(bool vet[], int n);
-    void Prim();
-    void kruskal();
+    void Prim(char* caminhoArqSaida);
+    void kruskal(char* caminhoArqSaida);
 
 
     vector<No *> GetAllNos(No *_no, bool _isSorted);

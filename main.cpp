@@ -128,31 +128,41 @@ int main(int argc, char* argv[]) {
                 cout << "No inicial busca em profundidade: ";
                 int idNo;
                 cin >> idNo;
-                x->buscaProfundidade(idNo);
+                x->buscaProfundidade(idNo, arquivoSaida);
                 delete x;
             }break;
             case 3:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                x->algFloyd(4, 3);
+                int no1, no2;
+                cout << "No 1: ";
+                cin >> no1;
+                cout << "No 2: ";
+                cin >> no2;
+                x->algFloyd(no1, no2, arquivoSaida);
                 delete x;
             }break;
             case 4:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                x->menorCaminhoDijkstra(4, 3);
+                int no1, no2;
+                cout << "No 1: ";
+                cin >> no1;
+                cout << "No 2: ";
+                cin >> no2;
+                x->menorCaminhoDijkstra(no1, no2, arquivoSaida);
                 delete x;
             }break;
             case 5:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                x->Prim();
+                x->Prim(arquivoSaida);
                 delete x;
             } break;
             case 6:{
                 Grafo* y;
                 y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                y->kruskal();
+                y->kruskal(arquivoSaida);
                 delete y;
             }break;
             case 7 :{
