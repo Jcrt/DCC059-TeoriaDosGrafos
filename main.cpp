@@ -81,8 +81,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-
-
     char* arquivoEntrada = argv[1];
     char* arquivoSaida = argv[2];
     //bool isDirecionado = atoi(argv[2]);
@@ -122,16 +120,16 @@ int main(int argc, char* argv[]) {
         switch(opcaoEscolhida){
             case 1:{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 cout << "No inicial busca em largura: ";
                 int idNo;
                 cin >> idNo;
-                x->buscaEmLargura(idNo);
+                x->buscaEmLargura(idNo, arquivoSaida);
                 delete x;
             }break;
             case 2:{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 cout << "No inicial busca em profundidade: ";
                 int idNo;
                 cin >> idNo;
@@ -140,31 +138,31 @@ int main(int argc, char* argv[]) {
             }break;
             case 3:{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 x->algFloyd(4, 3);
                 delete x;
             }break;
             case 4:{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 x->menorCaminhoDijkstra(4, 3);
                 delete x;
             }break;
             case 5:{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 x->Prim();
                 delete x;
             } break;
             case 6:{
                 Grafo* y;
-                y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 y->kruskal();
                 delete y;
             }break;
             case 7 :{
                 Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 x->imprimirArestas();
                 delete x;
             }break;

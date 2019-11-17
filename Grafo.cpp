@@ -128,10 +128,10 @@ void Grafo::menorCaminhoDijkstra(int v, int vN){
  * Busca os nos adjacentes ao passado como parametro e tras quais sao os adjacentes por nivel em largura.
  * @param s vertice 1
  */
-void Grafo::buscaEmLargura(int s){
-    ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
-    arqSaida << endl << "Busca em largura: ";
+void Grafo::buscaEmLargura(int s, char* arqSaida){
+    ofstream file;
+    file.open(arqSaida, ofstream::ios_base::app);
+    file << endl << "Busca em largura: ";
     No* p = buscaNo(s);
     if(p == nullptr)
         return;
@@ -144,7 +144,7 @@ void Grafo::buscaEmLargura(int s){
     queqe.push_back(s);
     visita[p->getIndice()] = true;
     cout << p->getId() << " ";
-    arqSaida << p->getId() << " ";
+    file << p->getId() << " ";
 
 
     Aresta* a;
@@ -155,7 +155,7 @@ void Grafo::buscaEmLargura(int s){
             int indice = aux->getIndice();
             int i = 1;
             if(!visita[indice]){
-                arqSaida << aux->getId() << " ";
+                file << aux->getId() << " ";
                 cout << aux->getId() << " ";
                 visita[indice] = true;
                 queqe.push_back(aux->getId());

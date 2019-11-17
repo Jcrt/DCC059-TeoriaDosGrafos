@@ -28,7 +28,7 @@ public:
     int getOrdem();
     void algFloyd(int idVertice1, int idVertice2);
     void buscaProfundidade(int idVertice);
-    void buscaEmLargura(int inicio);
+    void buscaEmLargura(int inicio, char* arqSaida);
     void menorCaminhoDijkstra(int v, int vN);
     bool verificaVisit(bool vet[], int n);
     void Prim();
