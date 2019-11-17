@@ -75,18 +75,13 @@ int main(int argc, char* argv[]) {
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
 
-
-    if(argc != 2) {
+    if(argc != 3) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
 
     char* arquivoEntrada = argv[1];
     char* arquivoSaida = argv[2];
-    //bool isDirecionado = atoi(argv[2]);
-    //bool isPonderadoAresta = atoi(argv[3]);
-    //bool isPonderadoNo = atoi(argv[4]);
-
     bool isDirecionado;
     bool isPonderadoAresta;
     bool isPonderadoNo;
