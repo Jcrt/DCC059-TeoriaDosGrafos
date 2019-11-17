@@ -76,15 +76,45 @@ int main(int argc, char* argv[]) {
     auto inicio = std::chrono::high_resolution_clock::now();
 
 
-    if(argc != 5) {
+    if(argc != 2) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
     }
 
+
+
     char* arquivoEntrada = argv[1];
-    bool isDirecionado = atoi(argv[2]);
-    bool isPonderadoAresta = atoi(argv[3]);
-    bool isPonderadoNo = atoi(argv[4]);
+    char* arquivoSaida = argv[2];
+    //bool isDirecionado = atoi(argv[2]);
+    //bool isPonderadoAresta = atoi(argv[3]);
+    //bool isPonderadoNo = atoi(argv[4]);
+
+    bool isDirecionado;
+    bool isPonderadoAresta;
+    bool isPonderadoNo;
+
+    int x;
+    cout << "Qual o tipo de Grafo: " << endl;
+    cout << "1) - Orientado e Ponderado nas Arestas " << endl;
+    cout << "2) - Orientado e Nao podenrado nas Arestas" << endl;
+    cout << "3) - Nao Orientado e Ponderado nas Arestas " << endl;
+    cout << "4) - Nao Orientado e Nao ponderado nas Arestas" << endl;
+    cin >> x;
+    if(x == 1){
+        isDirecionado = true;
+        isPonderadoAresta = true;
+    }else if(x == 2){
+        isDirecionado = true;
+        isPonderadoAresta = false;
+    }else if(x == 3){
+        isDirecionado = false;
+        isPonderadoAresta = true;
+    }else if(x == 4){
+        isDirecionado = false;
+        isPonderadoAresta = false;
+    }
+    cout << endl;
+
 
     do
     {
