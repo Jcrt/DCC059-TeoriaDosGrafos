@@ -222,7 +222,7 @@ int main(int argc, char* argv[]) {
                 delete x;
             }break;
             case 8:{
-                //auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 algoritmoEscolhido = " caixeiro viajante ";
 
                 Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
@@ -230,9 +230,9 @@ int main(int argc, char* argv[]) {
                 cv->ExecRandomizing(x);
 
                 //vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
-                //auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                //long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                //file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
         }
 
