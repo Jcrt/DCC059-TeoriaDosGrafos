@@ -112,15 +112,14 @@ void Grafo::menorCaminhoDijkstra(int v, int vN, char* caminhoArqSaida){
             }
         }
         if(dist[vN] == INT_MAX/2) {
-            arqSaida << endl << "Nao existe caminho entre os vertices. " << endl;
+            arqSaida << "Nao existe caminho entre os vertices. " << endl;
         }
     }
     else{
-        arqSaida << endl << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
+        arqSaida << "Vertice " << v << " ou "<< vN << " nao encontrados no grafo! (ERRO)-Algoritmo Dijkstra" << endl;
         //return -1;
     }
     cout << endl;
-    arqSaida << endl;
 }
 
 /**

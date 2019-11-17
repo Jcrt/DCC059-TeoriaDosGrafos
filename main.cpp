@@ -111,31 +111,48 @@ int main(int argc, char* argv[]) {
     ofstream file;
     file.open(arquivoSaida, ofstream::ios_base::app);
 
+    string algoritmoEscolhido;
+
     do
     {
 
-        auto inicioFuncoes = std::chrono::high_resolution_clock::now();
         opcaoEscolhida = MenuPrincipal::ReadOption();
         switch(opcaoEscolhida){
             case 1:{
+                algoritmoEscolhido = " busca em largura ";
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 cout << "No inicial busca em largura: ";
                 int idNo;
                 cin >> idNo;
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 x->buscaEmLargura(idNo, arquivoSaida);
                 delete x;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
             case 2:{
+                algoritmoEscolhido = " busca em profundidade ";
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 cout << "No inicial busca em profundidade: ";
                 int idNo;
                 cin >> idNo;
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 x->buscaProfundidade(idNo, arquivoSaida);
                 delete x;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
             case 3:{
+
+                algoritmoEscolhido = " floyd ";
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 int no1, no2;
@@ -143,10 +160,17 @@ int main(int argc, char* argv[]) {
                 cin >> no1;
                 cout << "No 2: ";
                 cin >> no2;
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 x->algFloyd(no1, no2, arquivoSaida);
                 delete x;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
             case 4:{
+                algoritmoEscolhido = " dijsktra ";
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
                 int no1, no2;
@@ -154,20 +178,42 @@ int main(int argc, char* argv[]) {
                 cin >> no1;
                 cout << "No 2: ";
                 cin >> no2;
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 x->menorCaminhoDijkstra(no1, no2, arquivoSaida);
                 delete x;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                file << endl;
             }break;
             case 5:{
+                algoritmoEscolhido = " prim ";
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 x->Prim(arquivoSaida);
                 delete x;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             } break;
             case 6:{
+
+                algoritmoEscolhido = " kruskal ";
                 Grafo* y;
                 y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
                 y->kruskal(arquivoSaida);
                 delete y;
+
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
             case 7 :{
                 Grafo* x;
@@ -176,21 +222,20 @@ int main(int argc, char* argv[]) {
                 delete x;
             }break;
             case 8:{
+                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                algoritmoEscolhido = " caixeiro viajante ";
                 Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
                 CaixeiroViajante* cv = new CaixeiroViajante();
                 cv->ExecRandomizing(x);
 
                 //vector<NormalizedValue> eee =  CaixeiroViajante::GetListNormalizedHeights(x);
+                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
             }break;
         }
-        auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-        long long resulFunc = std::chrono::duration_cast<std::chrono::seconds>(resultadoFuncoes).count();
-        file << " Tempo em segundos de cada Funcao: " << resulFunc << endl;
+
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
-
-    auto resultado = std::chrono::high_resolution_clock::now() - inicio;
-    long long seconds = std::chrono::duration_cast<std::chrono::seconds>(resultado).count();
-    file << "Tempo em segundos: " << seconds << endl;
-
+    
 }
 
