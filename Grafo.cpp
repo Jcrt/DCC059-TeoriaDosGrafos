@@ -337,8 +337,8 @@ bool Grafo::CompareNos(No* a, No* b){
 }
 
 void Grafo::Prim(){
-    ofstream arqSaida;
-    arqSaida.open("../Saidas.txt", ofstream::ios_base::app);
+    ofstream f;
+    f.open("../Saidas.txt", ofstream::ios_base::app);
     vector<No*> inSolution;
     vector<No*> outSolution;
     vector<Aresta*> allArestas;
@@ -396,15 +396,15 @@ void Grafo::Prim(){
     }
 
     if(LoopLimit > 3) {
-        arqSaida << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
+        cout << "Grafo não construído. O algoritmo não conseguiu contemplar todos os nós" << endl;
     } else {
-        arqSaida << "Arestas na solução: " << endl;
+        f << "Arestas na solução: " << endl;
         for(int i = 0; i < arestasNaSolucao.size(); i++){
-            arqSaida << ("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
-            arqSaida << endl;
+           // printf("De nó %d para nó %d com peso %d", arestasNaSolucao[i]->getId(), arestasNaSolucao[i]->getAdj(), arestasNaSolucao[i]->getPeso());
+            f << "Do no " << arestasNaSolucao[i]->getId() << " para o no " << arestasNaSolucao[i]->getAdj() << " com peso " << arestasNaSolucao[i]->getPeso() <<endl;
+          //  cout << endl;
         }
     }
-    arqSaida.close();
 }
 /**
  * Faz uma arvore geradora minima ou se o grafo for conexo ou
