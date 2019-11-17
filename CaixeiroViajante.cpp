@@ -44,7 +44,7 @@ Grafo* CaixeiroViajante::BuildTSPGraphFromFile(string _filename){
     file >> ordem;
 
     //Instancia o grafo
-    Grafo* grafo = new Grafo(ordem, 0, 1, 0);;
+    Grafo* grafo = new Grafo(ordem, 0, 1, 0);
 
     /*Percorre todo o arquivo para gerar as linhas e, ao mesmo tempo que as guarda numa lista, cria os nós*/
     while(file >> idNo >> coordx >> coordy){
@@ -301,6 +301,7 @@ vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
             cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
         }
     }
+    return execParams;
 }
 
 /**
