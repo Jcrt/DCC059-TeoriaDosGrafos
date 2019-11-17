@@ -8,7 +8,7 @@
 
 class Grafo {
 public:
-	Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
+    Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice);
     ~Grafo();
 
     void insereNo(int idNo);
@@ -25,6 +25,7 @@ public:
     bool existeVertice(int idVertice);
     bool ehPonderadoVertice();
     bool ehPonderadoAresta();
+    void kruskal();
     int getOrdem();
     void algFloyd(int idVertice1, int idVertice2);
     void buscaProfundidade(int idVertice);

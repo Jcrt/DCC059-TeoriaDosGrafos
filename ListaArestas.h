@@ -20,6 +20,7 @@ public:
     void imprimirArestas();
     bool existeAresta(int idNo);
     Aresta* getPrimeira();
+    void removeDoKruskal(Aresta* a);
 
 private:
     Aresta* primeira;

@@ -129,10 +129,16 @@ int main(int argc, char* argv[]) {
             case 6:{
                 Grafo* x;
                 x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
-                x->imprimirArestas();
+                x->kruskal();
                 delete x;
             }break;
             case 7 :{
+                Grafo* x;
+                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, nullptr);
+                x->imprimirArestas();
+                delete x;
+            }break;
+            case 8:{
                 Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
                 CaixeiroViajante* cv = new CaixeiroViajante();
                 cv->ExecRandomizing(x);
