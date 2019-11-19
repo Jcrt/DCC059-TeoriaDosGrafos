@@ -6,6 +6,7 @@
 #include "CaixeiroViajante.h"
 #include "Grafo.h"
 #include <math.h>
+#include <time.h>
 #include <algorithm>
 #include <random>
 
