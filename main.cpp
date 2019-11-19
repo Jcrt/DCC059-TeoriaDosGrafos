@@ -224,9 +224,15 @@ int main(int argc, char* argv[]) {
             case 8:{
                 Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
                 CaixeiroViajante* cv = new CaixeiroViajante();
-                ExecutionParams param = cv->ExecRandomizing(x);
 
-                file << "Caixeiro viajante - Instancia " << arquivoEntrada << ": " << param.totalHeight << endl;
+                RDI rdiGuloso = cv->ExecGuloso(x);
+                file << "RDI Guloso para instância " << arquivoEntrada << ": " << rdiGuloso.value << endl;
+
+                RDI rdiRandomizado = cv->ExecRandomizado(x);
+                file << "RDI Guloso randomizado para instância " << arquivoEntrada << ": " << rdiRandomizado.value << endl;
+
+                RDI rdiReativo = cv->ExecRandomizadoReativo(x);
+                file << "RDI Guloso randomizado reativo para instância " << arquivoEntrada << ": " << rdiReativo.value << endl;
             }break;
         }
 

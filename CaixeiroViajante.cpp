@@ -14,7 +14,8 @@ using namespace std;
 const vector<double> ALPHA_COLLECTION { 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
 const double RANDOM_FACTOR = 1000;
 const double RECALL_PERCENT_OVER_ALPHA = 0.1;
-const int EXECUTIONS = 500;
+const int EXECUTIONS_RANDOMIZING_REACTIVE = 500;
+const int EXECUTIONS_RANDOMIZING = 100;
 const bool DEBUG = false;
 const bool DEBUG_GRR = false;
 
@@ -105,8 +106,6 @@ int CaixeiroViajante::GetEuclideanDistance(int _xa, int _ya, int _xb, int _yb){
  * @return Lista de arestas que formam o grafo de menor custo
  */
 vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomizacao){
-
-    cout << " - Caixeiro viajante randomizado iniciado com alfa = " << _randomizacao;
     int randomFactor = CaixeiroViajante::Random(_randomizacao, _grafo->getOrdem());
     No* pontaDireita;
     No* pontaEsquerda;
@@ -267,25 +266,27 @@ ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao
  * @param _grafo: O grafo completo
  * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
  */
-ExecutionParams CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
+RDI CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
     double randomDouble;
     double alpha;
-    int recallPoint = int(EXECUTIONS * RECALL_PERCENT_OVER_ALPHA);
+    double heights = 0;
+    int recallPoint = int(EXECUTIONS_RANDOMIZING_REACTIVE * RECALL_PERCENT_OVER_ALPHA);
     vector<ExecutionParams> execParams;
     ExecutionParams lowestParam = ExecutionParams{0, INT32_MAX};
+    ExecutionParams highestParam = ExecutionParams{0,0};
 
-    for (int i = 0; i < EXECUTIONS; i++) {
+    for (int i = 0; i < EXECUTIONS_RANDOMIZING_REACTIVE; i++) {
         randomDouble = (double(CaixeiroViajante::Random(1, RANDOM_FACTOR))/RANDOM_FACTOR);
         alpha = GetAlphaByProb(randomDouble);
 
         ExecutionParams currentParam = CaixeiroViajante::ExecuteGRR(_grafo, alpha);
-
-        execParams.push_back(
-                currentParam
-        );
+        execParams.push_back(currentParam);
+        heights += currentParam.totalHeight;
 
         if (lowestParam.totalHeight > currentParam.totalHeight)
             lowestParam = currentParam;
+        if(highestParam.totalHeight < currentParam.totalHeight)
+            highestParam = currentParam;
 
         if(i > 0 && i % recallPoint == 0){
 
@@ -313,7 +314,15 @@ ExecutionParams CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
             cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
         }
     }
-    return lowestParam;
+
+    int totalExecs = EXECUTIONS_RANDOMIZING_REACTIVE;
+    double media = (heights / totalExecs);
+
+    RDI rdi = RDI();
+    rdi.value = ((media - lowestParam.totalHeight) / (highestParam.totalHeight - lowestParam.totalHeight)) * 100;
+    rdi.bestHeight = lowestParam.totalHeight;
+
+    return rdi;
 }
 
 /**
@@ -407,4 +416,43 @@ void CaixeiroViajante::RecallNormalization(vector<ExecutionParams> _execParams) 
         if(DEBUG_GRR)
             cout << "A normalização para o alfa " << normalizedVal.alpha << " foi recalculada para " << normalizedVal.normalizedValue << endl;
     }
+}
+
+RDI CaixeiroViajante::ExecRandomizado(Grafo *_grafo) {
+    double heights = 0;
+    vector<double> alfas = { 0.1, 0.2, 0.3 };
+    vector<ExecutionParams> params;
+    ExecutionParams maiorPeso;
+    ExecutionParams menorPeso;
+    ExecutionParams atual;
+
+    for(double alfa : alfas){
+        for (int i = 0; i < EXECUTIONS_RANDOMIZING; ++i){
+            atual = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
+            heights+= atual.totalHeight;
+
+            if(atual.totalHeight > maiorPeso.totalHeight)
+                maiorPeso = atual;
+
+            if(menorPeso.alpha == 0 || atual.totalHeight < atual.totalHeight)
+                menorPeso = atual;
+        }
+    }
+
+    int totalExecs = EXECUTIONS_RANDOMIZING * alfas.size();
+    double media = (heights / totalExecs);
+
+    RDI rdi = RDI();
+    rdi.value = ((media - menorPeso.totalHeight) / (maiorPeso.totalHeight - menorPeso.totalHeight)) * 100;
+    rdi.bestHeight = menorPeso.totalHeight;
+
+    return rdi;
+}
+
+RDI CaixeiroViajante::ExecGuloso(Grafo *_grafo) {
+    ExecutionParams p = CaixeiroViajante::ExecuteGRR(_grafo, 0);
+    RDI rdi = RDI();
+    rdi.bestHeight = p.totalHeight;
+    rdi.value =  p.totalHeight;
+    return rdi;
 }

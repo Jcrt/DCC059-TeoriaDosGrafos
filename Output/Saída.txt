@@ -1,2 +1,5 @@
  Tempo de execucao em ms caixeiro viajante : 13030
  Tempo de execucao em ms caixeiro viajante : 18337
+RDI Guloso para instância ../Instancias/att48.tsp: 100757
+RDI Guloso randomizado para instância ../Instancias/att48.tsp: 17.2587
+RDI Guloso randomizado reativo para instância ../Instancias/att48.tsp: 47.3634
