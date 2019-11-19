@@ -440,7 +440,7 @@ RDI CaixeiroViajante::ExecRandomizado(Grafo *_grafo) {
             if(atual.totalHeight > maiorPeso.totalHeight)
                 maiorPeso = atual;
 
-            if(menorPeso.alpha == 0 || atual.totalHeight < atual.totalHeight)
+            if(menorPeso.alpha == 0 || atual.totalHeight < menorPeso.totalHeight)
                 menorPeso = atual;
         }
     }
