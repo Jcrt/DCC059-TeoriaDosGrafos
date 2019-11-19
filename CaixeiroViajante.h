@@ -44,7 +44,7 @@ public:
     static AlphaParams GetHeightNormalization(vector<ExecutionParams> _execParams, AlphaParams _normalizedVal);
     static vector<AlphaParams> GetListNormalizedHeights(Grafo *_grafo);
 
-    vector<ExecutionParams> ExecRandomizing(Grafo *_grafo);
+    ExecutionParams ExecRandomizing(Grafo *_grafo);
     double GetAlphaByProb(double _random);
     void RecallProbability();
     void RecallNormalization(vector<ExecutionParams>  _execParams);
