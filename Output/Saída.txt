@@ -3,3 +3,11 @@
 RDI Guloso para instância ../Instancias/att48.tsp: 100757
 RDI Guloso randomizado para instância ../Instancias/att48.tsp: 17.2587
 RDI Guloso randomizado reativo para instância ../Instancias/att48.tsp: 47.3634
+RDI Guloso para instância ../Instancias/att48.tsp: 100757
+RDI Guloso randomizado para instância ../Instancias/att48.tsp: 30.2561
+RDI Guloso randomizado reativo para instância ../Instancias/att48.tsp: 48.6961
+RDI Guloso para instância ../Instancias/att48.tsp: 100757
+RDI Guloso randomizado para instância ../Instancias/att48.tsp: -4.60884
+RDI Guloso para instância ../Instancias/att48.tsp: 100757
+RDI Guloso para instância ../Instancias/att48.tsp: 100757
+RDI Guloso para instância ../Instancias/att48.tsp: 100757

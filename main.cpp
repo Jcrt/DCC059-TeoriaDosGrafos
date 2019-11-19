@@ -222,21 +222,37 @@ int main(int argc, char* argv[]) {
                 delete x;
             }break;
             case 8:{
-                Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
-                CaixeiroViajante* cv = new CaixeiroViajante();
+                vector<char*> instanciasDeTeste =  {
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp",
+                        "../Entrada/att48.tsp"
+                };
 
-                RDI rdiGuloso = cv->ExecGuloso(x);
-                file << "RDI Guloso para instância " << arquivoEntrada << ": " << rdiGuloso.value << endl;
+                for(char* instancia : instanciasDeTeste){
+                    Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(instancia);
+                    CaixeiroViajante* cv = new CaixeiroViajante();
 
-                RDI rdiRandomizado = cv->ExecRandomizado(x);
-                file << "RDI Guloso randomizado para instância " << arquivoEntrada << ": " << rdiRandomizado.value << endl;
+                    RDI rdiGuloso = cv->ExecGuloso(x);
+                    file << "RDI Guloso para instância " << arquivoEntrada << ": " << rdiGuloso.value << endl;
 
-                RDI rdiReativo = cv->ExecRandomizadoReativo(x);
-                file << "RDI Guloso randomizado reativo para instância " << arquivoEntrada << ": " << rdiReativo.value << endl;
+                    RDI rdiRandomizado = cv->ExecRandomizado(x);
+                    file << "RDI Guloso randomizado para instância " << arquivoEntrada << ": " << rdiRandomizado.value << endl;
+
+                    RDI rdiReativo = cv->ExecRandomizadoReativo(x);
+                    file << "RDI Guloso randomizado reativo para instância " << arquivoEntrada << ": " << rdiReativo.value << endl;
+
+                    delete x;
+                    delete cv;
+                }
             }break;
         }
-
     }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
-    
 }
 

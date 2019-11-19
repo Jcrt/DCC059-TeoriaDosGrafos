@@ -267,6 +267,8 @@ ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao
  * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
  */
 RDI CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
+    time_t now;
+    time(&now);
     double randomDouble;
     double alpha;
     double heights = 0;
@@ -321,6 +323,7 @@ RDI CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
     RDI rdi = RDI();
     rdi.value = ((media - lowestParam.totalHeight) / (highestParam.totalHeight - lowestParam.totalHeight)) * 100;
     rdi.bestHeight = lowestParam.totalHeight;
+    rdi.timeInSeconds = difftime(time(NULL), now);
 
     return rdi;
 }
@@ -419,6 +422,9 @@ void CaixeiroViajante::RecallNormalization(vector<ExecutionParams> _execParams) 
 }
 
 RDI CaixeiroViajante::ExecRandomizado(Grafo *_grafo) {
+    time_t now;
+    time(&now);
+
     double heights = 0;
     vector<double> alfas = { 0.1, 0.2, 0.3 };
     vector<ExecutionParams> params;
@@ -445,14 +451,19 @@ RDI CaixeiroViajante::ExecRandomizado(Grafo *_grafo) {
     RDI rdi = RDI();
     rdi.value = ((media - menorPeso.totalHeight) / (maiorPeso.totalHeight - menorPeso.totalHeight)) * 100;
     rdi.bestHeight = menorPeso.totalHeight;
-
+    rdi.timeInSeconds = difftime(time(NULL), now);
     return rdi;
 }
 
 RDI CaixeiroViajante::ExecGuloso(Grafo *_grafo) {
+    time_t now;
+    time(&now);
+
     ExecutionParams p = CaixeiroViajante::ExecuteGRR(_grafo, 0);
     RDI rdi = RDI();
     rdi.bestHeight = p.totalHeight;
     rdi.value =  p.totalHeight;
+    rdi.timeInSeconds = difftime(time(NULL), now);
+
     return rdi;
 }
