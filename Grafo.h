@@ -34,12 +34,12 @@ public:
     void Prim(char* caminhoArqSaida);
     void kruskal(char* caminhoArqSaida);
 
-
     vector<No *> GetAllNos(No *_no, bool _isSorted);
-    vector<Aresta *> GetAllArestas(No *_no, bool _isSorted, bool _isRecursive = true);
+    vector<Aresta *> GetAllArestas(No *_no, bool _isRecursive = true);
     Aresta *MenorArestaNo(Aresta *_aresta, vector<No*> _inSolution);
     No* GetPrimeiroNo();
     vector<No*> RemoveNoFromVector(vector<No *> _vector, No *_target);
+    vector<Aresta *> GetArestasSorted(No *_no, bool _isRecursive = true);
 
 private:
     // variavel para acompanhar o tamanho do grafo no momento que o no eh adicionado.
@@ -50,6 +50,8 @@ private:
     bool orientado;
     bool ponderado_aresta;
     bool ponderado_vertice;
+    bool hasArestasOrdenadas = false;
+    vector<Aresta*> allArestasOrdenadas;
 
     No* buscaNoIndice(int indice);
     float getPesoArestaIndice(int indice1, int indice2);

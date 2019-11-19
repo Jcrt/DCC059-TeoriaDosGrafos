@@ -265,19 +265,28 @@ void Grafo::algFloyd(int a, int b, char* caminhoArqSaida) {
     f.close();
 }
 
+vector<Aresta*> Grafo::GetArestasSorted(No* _no, bool _isRecursive){
+    if(!this->hasArestasOrdenadas){
+        this->allArestasOrdenadas = Grafo::GetAllArestas(_no, _isRecursive);
+        sort(this->allArestasOrdenadas.begin(), this->allArestasOrdenadas.end(), CompareArestas);
+        this->hasArestasOrdenadas = true;
+    }
+    return this->allArestasOrdenadas;
+}
+
 /**
  * Retorna a lista de todas as arestas do grafo.
  * @param _no - Nó de entrada do algoritmo (pois ele pesquisa as arestas por nó, de forma recursiva)
  * @param _isSorted - Em caso de true, ordena as arestas crescentemente pelo peso
  * @return Lista de arestas ordenadas ou não
  */
-vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isSorted, bool _isRecursive){
+vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isRecursive){
     vector<Aresta*> AllArestas;
     Aresta* aresta = _no->getPrimeiraAresta();
 
     if(_isRecursive){
         if(_no->getProx() != nullptr)
-            AllArestas = GetAllArestas(_no->getProx(), true);
+            AllArestas = GetAllArestas(_no->getProx());
     }
 
     if(aresta != nullptr){
@@ -286,9 +295,6 @@ vector<Aresta*> Grafo::GetAllArestas(No* _no, bool _isSorted, bool _isRecursive)
             aresta = aresta->getProx();
         }while(aresta != nullptr);
     }
-
-    if(AllArestas.size() >= 2 && _isSorted)
-        sort(AllArestas.begin(), AllArestas.end(), CompareArestas);
 
     return AllArestas;
 }

@@ -35,7 +35,8 @@ CaixeiroViajante::CaixeiroViajante() {
  */
 Grafo* CaixeiroViajante::BuildTSPGraphFromFile(string _filename){
     No* no;
-    int ordem, idNo, coordx, coordy;
+    int ordem, idNo;
+    double coordx, coordy;
     vector<LinhaArquivoCV> linhasArquivo;
 
     //Lê a primeira linha do grafo para determinar a ordem e construir o grafo
@@ -104,6 +105,8 @@ int CaixeiroViajante::GetEuclideanDistance(int _xa, int _ya, int _xb, int _yb){
  * @return Lista de arestas que formam o grafo de menor custo
  */
 vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomizacao){
+
+    cout << " - Caixeiro viajante randomizado iniciado com alfa = " << _randomizacao;
     int randomFactor = CaixeiroViajante::Random(_randomizacao, _grafo->getOrdem());
     No* pontaDireita;
     No* pontaEsquerda;
@@ -119,7 +122,7 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
 
     //Pra transformar em randomizado, mudar aqui para pegar a primeira aresta randomizada;
     //Pego a menor aresta do grafo para iniciar a construção e a insiro na lista de arestas na solução
-    vector<Aresta*> allArestas = _grafo->GetAllArestas(_grafo->GetPrimeiroNo(), true);
+    vector<Aresta*> allArestas = _grafo->GetArestasSorted(_grafo->GetPrimeiroNo());
     int n = allArestas.size();
     Aresta* menorAresta = allArestas[randomFactor];
     arestaCorrente = menorAresta;
@@ -219,7 +222,7 @@ Aresta* CaixeiroViajante::GetRandomEdge(No* _node, Grafo* _grafo, vector<No*> _n
  * @return um vector de arestas que podem ser escolhidas como próximas
  */
 vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, vector<No*> _nodeInSolution){
-    vector<Aresta*> allEdges = _grafo->GetAllArestas(_node, true, false);
+    vector<Aresta*> allEdges = _grafo->GetAllArestas(_node, false);
     vector<Aresta*> edgesOutSolution;
     bool isNotInSolution;
 
@@ -301,6 +304,8 @@ vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
             cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
         }
     }
+
+    return execParams;
 }
 
 /**

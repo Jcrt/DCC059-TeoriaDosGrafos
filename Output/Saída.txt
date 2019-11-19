@@ -1,0 +1,2 @@
+ Tempo de execucao em ms caixeiro viajante : 13030
+ Tempo de execucao em ms caixeiro viajante : 18337

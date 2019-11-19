@@ -10,8 +10,8 @@
 
 struct LinhaArquivoCV{
     int idNo;
-    int coordx;
-    int coordy;
+    double coordx;
+    double coordy;
 };
 
 struct ExecutionParams{
