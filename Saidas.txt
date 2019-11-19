@@ -34,3 +34,6 @@ Aresta de 7 para 8 peso: 1
 Aresta de 2 para 3 peso: 8
 Numero de vertices: 9
  Tempo de execucao kruskal : 0
+
+ Tempo de execucao em ms caixeiro viajante : 22826
+ Tempo de execucao em ms caixeiro viajante : 44718

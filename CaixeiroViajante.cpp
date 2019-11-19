@@ -16,7 +16,7 @@ const double RANDOM_FACTOR = 1000;
 const double RECALL_PERCENT_OVER_ALPHA = 0.1;
 const int EXECUTIONS = 500;
 const bool DEBUG = false;
-const bool DEBUG_GRR = true;
+const bool DEBUG_GRR = false;
 
 CaixeiroViajante::CaixeiroViajante() {
     double initialProb = double(1/(double)ALPHA_COLLECTION.size());
@@ -45,7 +45,7 @@ Grafo* CaixeiroViajante::BuildTSPGraphFromFile(string _filename){
     file >> ordem;
 
     //Instancia o grafo
-    Grafo* grafo = new Grafo(ordem, 0, 1, 0);;
+    Grafo* grafo = new Grafo(ordem, 0, 1, 0);
 
     /*Percorre todo o arquivo para gerar as linhas e, ao mesmo tempo que as guarda numa lista, cria os nós*/
     while(file >> idNo >> coordx >> coordy){
@@ -267,18 +267,25 @@ ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao
  * @param _grafo: O grafo completo
  * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
  */
-vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
+ExecutionParams CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
     double randomDouble;
     double alpha;
     int recallPoint = int(EXECUTIONS * RECALL_PERCENT_OVER_ALPHA);
     vector<ExecutionParams> execParams;
+    ExecutionParams lowestParam = ExecutionParams{0, INT32_MAX};
 
     for (int i = 0; i < EXECUTIONS; i++) {
         randomDouble = (double(CaixeiroViajante::Random(1, RANDOM_FACTOR))/RANDOM_FACTOR);
         alpha = GetAlphaByProb(randomDouble);
+
+        ExecutionParams currentParam = CaixeiroViajante::ExecuteGRR(_grafo, alpha);
+
         execParams.push_back(
-            CaixeiroViajante::ExecuteGRR(_grafo, alpha)
+                currentParam
         );
+
+        if (lowestParam.totalHeight > currentParam.totalHeight)
+            lowestParam = currentParam;
 
         if(i > 0 && i % recallPoint == 0){
 
@@ -286,10 +293,12 @@ vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
                 cout << endl << "*************************************************";
                 cout << endl << "**** Iteração " << i << " *******************************";
                 cout << endl << "*************************************************";
+                cout << endl << "Menor peso até agora: " << lowestParam.totalHeight;
             }
 
             RecallNormalization(execParams);
             RecallProbability();
+            execParams.clear();
         }
     }
 
@@ -304,8 +313,7 @@ vector<ExecutionParams> CaixeiroViajante::ExecRandomizing(Grafo* _grafo){
             cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
         }
     }
-
-    return execParams;
+    return lowestParam;
 }
 
 /**
