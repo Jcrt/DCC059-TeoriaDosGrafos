@@ -17,6 +17,7 @@ struct LinhaArquivoCV{
 struct ExecutionParams{
     double alpha = 0;
     int totalHeight = 0;
+    double timeInSeconds = 0;
 };
 
 struct AlphaParams{
@@ -24,12 +25,6 @@ struct AlphaParams{
     double normalizedValue;
     double probValue;
     int executionTimes;
-};
-
-struct RDI{
-    double value = 0;
-    double timeInSeconds = 0;
-    int bestHeight = 0;
 };
 
 class CaixeiroViajante {
@@ -55,9 +50,9 @@ public:
     void RecallProbability();
     void RecallNormalization(vector<ExecutionParams>  _execParams);
 
-    RDI ExecGuloso(Grafo *_grafo);
-    RDI ExecRandomizado(Grafo *_grafo);
-    RDI ExecRandomizadoReativo(Grafo *_grafo);
+    ExecutionParams ExecGuloso(Grafo *_grafo);
+    ExecutionParams ExecRandomizado(Grafo *_grafo, double alfa);
+    ExecutionParams ExecRandomizadoReativo(Grafo *_grafo);
 };
 
 
