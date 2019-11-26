@@ -1,13 +1,15 @@
- Tempo de execucao em ms caixeiro viajante : 13030
- Tempo de execucao em ms caixeiro viajante : 18337
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
-RDI Guloso randomizado para instância ../Instancias/att48.tsp: 17.2587
-RDI Guloso randomizado reativo para instância ../Instancias/att48.tsp: 47.3634
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
-RDI Guloso randomizado para instância ../Instancias/att48.tsp: 30.2561
-RDI Guloso randomizado reativo para instância ../Instancias/att48.tsp: 48.6961
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
-RDI Guloso randomizado para instância ../Instancias/att48.tsp: -4.60884
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
-RDI Guloso para instância ../Instancias/att48.tsp: 100757
+[Guloso] ../Instancias/att48.tsp: - Peso: 100757 - Tempo: 0
+[Guloso] ../Instancias/att48.tsp: - Peso: 100757 - Tempo: 0
+[Guloso] ../Instancias/att48.tsp: - Peso: 100757 - Tempo: 0
+[Randomizado] ../Instancias/att48.tsp: - Peso: 98207 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 107495 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 99647 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 99939 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 107578 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 106777 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 104444 - Tempo: 0 - Alfa: 0.1
+[Randomizado] ../Instancias/att48.tsp: - Peso: 103618 - Tempo: 0 - Alfa: 0.1
+[Reativo] ../Instancias/att48.tsp: - Peso: 86493 - Tempo: 8 - Alfa: 0.25
+[Reativo] ../Instancias/att48.tsp: - Peso: 87389 - Tempo: 6 - Alfa: 0.4
+[Reativo] ../Instancias/att48.tsp: - Peso: 87032 - Tempo: 7 - Alfa: 0.45
+[Reativo] ../Instancias/att48.tsp: - Peso: 89566 - Tempo: 6 - Alfa: 0.45

@@ -75,184 +75,237 @@ int main(int argc, char* argv[]) {
     int opcaoEscolhida;
     auto inicio = std::chrono::high_resolution_clock::now();
 
-    if(argc != 3) {
+    if(argc == 4){
+        ofstream file;
+        char* arquivoEntrada = argv[1];
+        char* arquivoSaida = argv[2];
+        int opcao = atoi(argv[3]);
+
+        if(opcao == 1){
+
+            Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
+            CaixeiroViajante* cv = new CaixeiroViajante();
+            ExecutionParams execGuloso = cv->ExecGuloso(x);
+
+            file.open(arquivoSaida, ofstream::ios_base::app);
+            file << "[Guloso] " << arquivoEntrada << ":";
+            file << " - Peso: " << execGuloso.totalHeight;
+            file << " - Tempo: " << execGuloso.timeInSeconds << endl;
+            file.close();
+
+            delete x;
+            delete cv;
+        } else if(opcao == 3){
+
+            Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
+            CaixeiroViajante* cv = new CaixeiroViajante();
+            ExecutionParams execGulosoRandomizadoReativo = cv->ExecRandomizadoReativo(x);
+
+            file.open(arquivoSaida, ofstream::ios_base::app);
+            file << "[Reativo] " << arquivoEntrada << ":";
+            file << " - Peso: " << execGulosoRandomizadoReativo.totalHeight;
+            file << " - Tempo: " << execGulosoRandomizadoReativo.timeInSeconds;
+            file << " - Alfa: " << execGulosoRandomizadoReativo.alpha << endl;
+            file.close();
+
+            delete x;
+            delete cv;
+        } else {
+            cout << "Opção inválida para execução por linha de comando";
+            return 1;
+        }
+    } else if(argc == 5){
+        ofstream file;
+        char* arquivoEntrada = argv[1];
+        char* arquivoSaida = argv[2];
+        double alfa = atoff(argv[4]);
+
+        Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
+        CaixeiroViajante* cv = new CaixeiroViajante();
+        ExecutionParams execGulosoRandomizado = cv->ExecRandomizado(x, alfa);
+
+        file.open(arquivoSaida, ofstream::ios_base::app);
+        file << "[Randomizado] " << arquivoEntrada << ":";
+        file << " - Peso: " << execGulosoRandomizado.totalHeight;
+        file << " - Tempo: " << execGulosoRandomizado.timeInSeconds;
+        file << " - Alfa: " << execGulosoRandomizado.alpha << endl;
+        file.close();
+
+        delete x;
+        delete cv;
+    } else if(argc != 3) {
         cout << "Argumentos insuficientes" << endl;
         return 1;
-    }
+    } else {
+        char* arquivoEntrada = argv[1];
+        char* arquivoSaida = argv[2];
+        bool isDirecionado;
+        bool isPonderadoAresta;
+        bool isPonderadoNo;
 
-    char* arquivoEntrada = argv[1];
-    char* arquivoSaida = argv[2];
-    bool isDirecionado;
-    bool isPonderadoAresta;
-    bool isPonderadoNo;
+        int x;
+        cout << "Qual o tipo de Grafo: " << endl;
+        cout << "1) - Orientado e Ponderado nas Arestas " << endl;
+        cout << "2) - Orientado e Nao podenrado nas Arestas" << endl;
+        cout << "3) - Nao Orientado e Ponderado nas Arestas " << endl;
+        cout << "4) - Nao Orientado e Nao ponderado nas Arestas" << endl;
+        cin >> x;
+        if(x == 1){
+            isDirecionado = true;
+            isPonderadoAresta = true;
+        }else if(x == 2){
+            isDirecionado = true;
+            isPonderadoAresta = false;
+        }else if(x == 3){
+            isDirecionado = false;
+            isPonderadoAresta = true;
+        }else if(x == 4){
+            isDirecionado = false;
+            isPonderadoAresta = false;
+        }
+        cout << endl;
 
-    int x;
-    cout << "Qual o tipo de Grafo: " << endl;
-    cout << "1) - Orientado e Ponderado nas Arestas " << endl;
-    cout << "2) - Orientado e Nao podenrado nas Arestas" << endl;
-    cout << "3) - Nao Orientado e Ponderado nas Arestas " << endl;
-    cout << "4) - Nao Orientado e Nao ponderado nas Arestas" << endl;
-    cin >> x;
-    if(x == 1){
-        isDirecionado = true;
-        isPonderadoAresta = true;
-    }else if(x == 2){
-        isDirecionado = true;
-        isPonderadoAresta = false;
-    }else if(x == 3){
-        isDirecionado = false;
-        isPonderadoAresta = true;
-    }else if(x == 4){
-        isDirecionado = false;
-        isPonderadoAresta = false;
-    }
-    cout << endl;
+        ofstream file;
+        file.open(arquivoSaida, ofstream::ios_base::app);
 
-    ofstream file;
-    file.open(arquivoSaida, ofstream::ios_base::app);
+        string algoritmoEscolhido;
 
-    string algoritmoEscolhido;
+        do
+        {
 
-    do
-    {
+            opcaoEscolhida = MenuPrincipal::ReadOption();
+            switch(opcaoEscolhida){
+                case 1:{
+                    algoritmoEscolhido = " busca em largura ";
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    cout << "No inicial busca em largura: ";
+                    int idNo;
+                    cin >> idNo;
 
-        opcaoEscolhida = MenuPrincipal::ReadOption();
-        switch(opcaoEscolhida){
-            case 1:{
-                algoritmoEscolhido = " busca em largura ";
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                cout << "No inicial busca em largura: ";
-                int idNo;
-                cin >> idNo;
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    x->buscaEmLargura(idNo, arquivoSaida);
+                    delete x;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                x->buscaEmLargura(idNo, arquivoSaida);
-                delete x;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                }break;
+                case 2:{
+                    algoritmoEscolhido = " busca em profundidade ";
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    cout << "No inicial busca em profundidade: ";
+                    int idNo;
+                    cin >> idNo;
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-            }break;
-            case 2:{
-                algoritmoEscolhido = " busca em profundidade ";
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                cout << "No inicial busca em profundidade: ";
-                int idNo;
-                cin >> idNo;
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    x->buscaProfundidade(idNo, arquivoSaida);
+                    delete x;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                x->buscaProfundidade(idNo, arquivoSaida);
-                delete x;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                }break;
+                case 3:{
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-            }break;
-            case 3:{
+                    algoritmoEscolhido = " floyd ";
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    int no1, no2;
+                    cout << "No 1: ";
+                    cin >> no1;
+                    cout << "No 2: ";
+                    cin >> no2;
 
-                algoritmoEscolhido = " floyd ";
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                int no1, no2;
-                cout << "No 1: ";
-                cin >> no1;
-                cout << "No 2: ";
-                cin >> no2;
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    x->algFloyd(no1, no2, arquivoSaida);
+                    delete x;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                x->algFloyd(no1, no2, arquivoSaida);
-                delete x;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                }break;
+                case 4:{
+                    algoritmoEscolhido = " dijsktra ";
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    int no1, no2;
+                    cout << "No 1: ";
+                    cin >> no1;
+                    cout << "No 2: ";
+                    cin >> no2;
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-            }break;
-            case 4:{
-                algoritmoEscolhido = " dijsktra ";
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                int no1, no2;
-                cout << "No 1: ";
-                cin >> no1;
-                cout << "No 2: ";
-                cin >> no2;
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    x->menorCaminhoDijkstra(no1, no2, arquivoSaida);
+                    delete x;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                x->menorCaminhoDijkstra(no1, no2, arquivoSaida);
-                delete x;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                    file << endl;
+                }break;
+                case 5:{
+                    algoritmoEscolhido = " prim ";
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-                file << endl;
-            }break;
-            case 5:{
-                algoritmoEscolhido = " prim ";
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    x->Prim(arquivoSaida);
+                    delete x;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                x->Prim(arquivoSaida);
-                delete x;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                } break;
+                case 6:{
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-            } break;
-            case 6:{
+                    algoritmoEscolhido = " kruskal ";
+                    Grafo* y;
+                    y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
 
-                algoritmoEscolhido = " kruskal ";
-                Grafo* y;
-                y = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    auto inicioFuncoes = std::chrono::high_resolution_clock::now();
+                    y->kruskal(arquivoSaida);
+                    delete y;
 
-                auto inicioFuncoes = std::chrono::high_resolution_clock::now();
-                y->kruskal(arquivoSaida);
-                delete y;
+                    auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
+                    long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
+                    file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
+                }break;
+                case 7 :{
+                    Grafo* x;
+                    x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
+                    x->imprimirArestas();
+                    delete x;
+                }break;
+                case 8:{
 
-                auto resultadoFuncoes = std::chrono::high_resolution_clock::now() - inicioFuncoes;
-                long long resulFunc = std::chrono::duration_cast<std::chrono::milliseconds>(resultadoFuncoes).count();
-                file << " Tempo de execucao em ms" << algoritmoEscolhido << ": " << resulFunc << endl;
-            }break;
-            case 7 :{
-                Grafo* x;
-                x = leituraDados(arquivoEntrada, isDirecionado, isPonderadoAresta, isPonderadoNo, arquivoSaida);
-                x->imprimirArestas();
-                delete x;
-            }break;
-            case 8:{
-                vector<char*> instanciasDeTeste =  {
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp",
-                        "../Entrada/att48.tsp"
-                };
-
-                for(char* instancia : instanciasDeTeste){
-                    Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(instancia);
+                    Grafo* x = CaixeiroViajante::BuildTSPGraphFromFile(arquivoEntrada);
                     CaixeiroViajante* cv = new CaixeiroViajante();
 
-                    RDI rdiGuloso = cv->ExecGuloso(x);
-                    file << "RDI Guloso para instância " << arquivoEntrada << ": " << rdiGuloso.value << endl;
+                    ExecutionParams execGuloso = cv->ExecGuloso(x);
+                    file << "[Guloso] " << arquivoEntrada << ":";
+                    file << " - Peso: " << execGuloso.totalHeight;
+                    file << " - Tempo: " << execGuloso.timeInSeconds << endl;
 
-                    RDI rdiRandomizado = cv->ExecRandomizado(x);
-                    file << "RDI Guloso randomizado para instância " << arquivoEntrada << ": " << rdiRandomizado.value << endl;
+                    ExecutionParams execGulosoRandomizado = cv->ExecRandomizado(x, 0.1);
+                    file << "[Randomizado] " << arquivoEntrada << ":";
+                    file << " - Peso: " << execGulosoRandomizado.totalHeight;
+                    file << " - Tempo: " << execGulosoRandomizado.timeInSeconds;
+                    file << " - Alfa: " << execGulosoRandomizado.alpha << endl;
 
-                    RDI rdiReativo = cv->ExecRandomizadoReativo(x);
-                    file << "RDI Guloso randomizado reativo para instância " << arquivoEntrada << ": " << rdiReativo.value << endl;
+                    ExecutionParams execGulosoRandomizadoReativo = cv->ExecRandomizadoReativo(x);
+                    file << "[Reativo] " << arquivoEntrada << ":";
+                    file << " - Peso: " << execGulosoRandomizadoReativo.totalHeight;
+                    file << " - Tempo: " << execGulosoRandomizadoReativo.timeInSeconds;
+                    file << " - Alfa: " << execGulosoRandomizadoReativo.alpha << endl;
 
                     delete x;
                     delete cv;
-                }
-            }break;
-        }
-    }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
+
+                }break;
+            }
+        }while(opcaoEscolhida != MenuPrincipal::FINAL_APLICACAO);
+    }
 }
 

@@ -14,8 +14,8 @@ using namespace std;
 
 const vector<double> ALPHA_COLLECTION { 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
 const double RANDOM_FACTOR = 1000;
-const double RECALL_PERCENT_OVER_ALPHA = 0.1;
-const int EXECUTIONS_RANDOMIZING_REACTIVE = 500;
+const double RECALL_PERCENT_OVER_ALPHA = 0.05;
+const int EXECUTIONS_RANDOMIZING_REACTIVE = 1500;
 const int EXECUTIONS_RANDOMIZING = 100;
 const bool DEBUG = false;
 const bool DEBUG_GRR = false;
@@ -259,74 +259,13 @@ int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
  * @return: Struct ExecutionParams, que armazena qual randomização e peso total de arestas da execução
  */
 ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao){
-    return ExecutionParams{ _randomizacao, CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao) };
-}
-
-/**
- * Executa o randomizado reativo
- * @param _grafo: O grafo completo
- * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
- */
-RDI CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
     time_t now;
     time(&now);
-    double randomDouble;
-    double alpha;
-    double heights = 0;
-    int recallPoint = int(EXECUTIONS_RANDOMIZING_REACTIVE * RECALL_PERCENT_OVER_ALPHA);
-    vector<ExecutionParams> execParams;
-    ExecutionParams lowestParam = ExecutionParams{0, INT32_MAX};
-    ExecutionParams highestParam = ExecutionParams{0,0};
 
-    for (int i = 0; i < EXECUTIONS_RANDOMIZING_REACTIVE; i++) {
-        randomDouble = (double(CaixeiroViajante::Random(1, RANDOM_FACTOR))/RANDOM_FACTOR);
-        alpha = GetAlphaByProb(randomDouble);
+    int sumOfHeights = CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao);
+    double timeInSeconds = difftime(time(NULL), now);
 
-        ExecutionParams currentParam = CaixeiroViajante::ExecuteGRR(_grafo, alpha);
-        execParams.push_back(currentParam);
-        heights += currentParam.totalHeight;
-
-        if (lowestParam.totalHeight > currentParam.totalHeight)
-            lowestParam = currentParam;
-        if(highestParam.totalHeight < currentParam.totalHeight)
-            highestParam = currentParam;
-
-        if(i > 0 && i % recallPoint == 0){
-
-            if(DEBUG_GRR){
-                cout << endl << "*************************************************";
-                cout << endl << "**** Iteração " << i << " *******************************";
-                cout << endl << "*************************************************";
-                cout << endl << "Menor peso até agora: " << lowestParam.totalHeight;
-            }
-
-            RecallNormalization(execParams);
-            RecallProbability();
-            execParams.clear();
-        }
-    }
-
-    if(DEBUG_GRR){
-        cout << endl << "=========================";
-        cout << endl << "= Resultados finais =====";
-        cout << endl << "=========================";
-        for (int i = 0; i < this->alphaParams.size(); i++) {
-            cout << endl << "Para o alfa " << this->alphaParams[i].alpha << " temos: " << endl;
-            cout << "-Normalizacao: " << this->alphaParams[i].normalizedValue << endl;
-            cout << "-Probabilidade: " << this->alphaParams[i].probValue << endl;
-            cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
-        }
-    }
-
-    int totalExecs = EXECUTIONS_RANDOMIZING_REACTIVE;
-    double media = (heights / totalExecs);
-
-    RDI rdi = RDI();
-    rdi.value = ((media - lowestParam.totalHeight) / (highestParam.totalHeight - lowestParam.totalHeight)) * 100;
-    rdi.bestHeight = lowestParam.totalHeight;
-    rdi.timeInSeconds = difftime(time(NULL), now);
-
-    return rdi;
+    return ExecutionParams{ _randomizacao, sumOfHeights, timeInSeconds };
 }
 
 /**
@@ -422,49 +361,75 @@ void CaixeiroViajante::RecallNormalization(vector<ExecutionParams> _execParams) 
     }
 }
 
-RDI CaixeiroViajante::ExecRandomizado(Grafo *_grafo) {
+ExecutionParams CaixeiroViajante::ExecGuloso(Grafo *_grafo) {
+    ExecutionParams p = CaixeiroViajante::ExecuteGRR(_grafo, 0);
+    return p;
+}
+
+ExecutionParams CaixeiroViajante::ExecRandomizado(Grafo *_grafo, double alfa) {
+    ExecutionParams atual = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
+    ExecutionParams exec;
+    for (int i = 1; i < EXECUTIONS_RANDOMIZING; ++i){
+        exec = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
+        if(atual.totalHeight > exec.totalHeight)
+            atual = exec;
+    }
+    return atual;
+}
+
+/**
+ * Executa o randomizado reativo
+ * @param _grafo: O grafo completo
+ * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
+ */
+ExecutionParams CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
     time_t now;
     time(&now);
+    double alpha;
+    double randomDouble;
+    int recallPoint = int(EXECUTIONS_RANDOMIZING_REACTIVE * RECALL_PERCENT_OVER_ALPHA);
 
-    double heights = 0;
-    vector<double> alfas = { 0.1, 0.2, 0.3 };
-    vector<ExecutionParams> params;
-    ExecutionParams maiorPeso;
-    ExecutionParams menorPeso;
-    ExecutionParams atual;
+    vector<ExecutionParams> execParams;
+    ExecutionParams lowestParam = ExecutionParams{0, INT32_MAX};
 
-    for(double alfa : alfas){
-        for (int i = 0; i < EXECUTIONS_RANDOMIZING; ++i){
-            atual = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
-            heights+= atual.totalHeight;
+    for (int i = 0; i < EXECUTIONS_RANDOMIZING_REACTIVE; i++) {
+        randomDouble = (double(CaixeiroViajante::Random(1, RANDOM_FACTOR))/RANDOM_FACTOR);
+        alpha = GetAlphaByProb(randomDouble);
 
-            if(atual.totalHeight > maiorPeso.totalHeight)
-                maiorPeso = atual;
+        ExecutionParams currentParam = CaixeiroViajante::ExecuteGRR(_grafo, alpha);
+        execParams.push_back(currentParam);
 
-            if(menorPeso.alpha == 0 || atual.totalHeight < menorPeso.totalHeight)
-                menorPeso = atual;
+        if (lowestParam.totalHeight > currentParam.totalHeight)
+            lowestParam = currentParam;
+
+        if(i > 0 && i % recallPoint == 0){
+
+            if(DEBUG_GRR){
+                cout << endl << "*************************************************";
+                cout << endl << "**** Iteração " << i << " *******************************";
+                cout << endl << "*************************************************";
+                cout << endl << "Menor peso até agora: " << lowestParam.totalHeight;
+            }
+
+            RecallNormalization(execParams);
+            RecallProbability();
+            execParams.clear();
         }
     }
 
-    int totalExecs = EXECUTIONS_RANDOMIZING * alfas.size();
-    double media = (heights / totalExecs);
+    if(DEBUG_GRR){
+        cout << endl << "=========================";
+        cout << endl << "= Resultados finais =====";
+        cout << endl << "=========================";
+        for (int i = 0; i < this->alphaParams.size(); i++) {
+            cout << endl << "Para o alfa " << this->alphaParams[i].alpha << " temos: " << endl;
+            cout << "-Normalizacao: " << this->alphaParams[i].normalizedValue << endl;
+            cout << "-Probabilidade: " << this->alphaParams[i].probValue << endl;
+            cout << "-Execuções: " << this->alphaParams[i].executionTimes << endl;
+        }
+    }
 
-    RDI rdi = RDI();
-    rdi.value = ((media - menorPeso.totalHeight) / (maiorPeso.totalHeight - menorPeso.totalHeight)) * 100;
-    rdi.bestHeight = menorPeso.totalHeight;
-    rdi.timeInSeconds = difftime(time(NULL), now);
-    return rdi;
-}
+    lowestParam.timeInSeconds = difftime(time(NULL), now);
 
-RDI CaixeiroViajante::ExecGuloso(Grafo *_grafo) {
-    time_t now;
-    time(&now);
-
-    ExecutionParams p = CaixeiroViajante::ExecuteGRR(_grafo, 0);
-    RDI rdi = RDI();
-    rdi.bestHeight = p.totalHeight;
-    rdi.value =  p.totalHeight;
-    rdi.timeInSeconds = difftime(time(NULL), now);
-
-    return rdi;
+    return lowestParam;
 }
