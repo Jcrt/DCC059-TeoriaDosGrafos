@@ -5,12 +5,13 @@
 #include <fstream>
 #include "CaixeiroViajante.h"
 #include "Grafo.h"
-#include <math.h>
-#include <time.h>
+#include <cmath>
+#include <chrono>
 #include <algorithm>
 #include <random>
 
 using namespace std;
+using namespace chrono;
 
 const vector<double> ALPHA_COLLECTION { 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50 };
 const double RANDOM_FACTOR = 1000;
@@ -47,7 +48,7 @@ Grafo* CaixeiroViajante::BuildTSPGraphFromFile(string _filename){
     file >> ordem;
 
     //Instancia o grafo
-    Grafo* grafo = new Grafo(ordem, 0, 1, 0);
+    Grafo* grafo = new Grafo(ordem, false, true, false);
 
     /*Percorre todo o arquivo para gerar as linhas e, ao mesmo tempo que as guarda numa lista, cria os nós*/
     while(file >> idNo >> coordx >> coordy){
@@ -123,7 +124,6 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
     //Pra transformar em randomizado, mudar aqui para pegar a primeira aresta randomizada;
     //Pego a menor aresta do grafo para iniciar a construção e a insiro na lista de arestas na solução
     vector<Aresta*> allArestas = _grafo->GetArestasSorted(_grafo->GetPrimeiroNo());
-    int n = allArestas.size();
     Aresta* menorAresta = allArestas[randomFactor];
     arestaCorrente = menorAresta;
     arestasInSolution.push_back(arestaCorrente);
@@ -145,7 +145,7 @@ vector<Aresta*> CaixeiroViajante::GetBetterCostGR(Grafo* _grafo, double _randomi
         cout << "Nó " << pontaEsquerda->getId() << " na ponta esquerda"<< endl;
 
     //Enquanto eu tiver ítens fora da solução, faço...
-    while(noOutSolution.size() > 0){
+    while(!noOutSolution.empty()){
 
         //Pego as menores arestas da ponta esquerda e da ponta direita com abordagem randomizada
         menorArestaPontaDireita = CaixeiroViajante::GetRandomEdge(pontaDireita, _grafo, noInSolution, _randomizacao);
@@ -226,9 +226,9 @@ vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, 
     vector<Aresta*> edgesOutSolution;
     bool isNotInSolution;
 
-    for(int i = 0; i < allEdges.size(); i++){
+    for(long i = 0; i < allEdges.size(); i++){
         isNotInSolution = true;
-        for(int j = 0; j < _nodeInSolution.size() && isNotInSolution; j++){
+        for(long j = 0; j < _nodeInSolution.size() && isNotInSolution; j++){
             if(allEdges[i]->getAdj() == _nodeInSolution[j]->getId())
                 isNotInSolution = false;
         }
@@ -245,7 +245,7 @@ vector<Aresta*> CaixeiroViajante::GetEdgesOutSolution(No* _node, Grafo* _grafo, 
  * @return: Inteiro com peso das arestas somados
  */
 int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
-    int totalHeight = 0;
+    long totalHeight = 0;
     vector<Aresta*> arestasInSolution = CaixeiroViajante::GetBetterCostGR(_grafo, _randomizacao);
     for(Aresta* aresta : arestasInSolution)
         totalHeight += aresta->getPeso();
@@ -259,13 +259,15 @@ int CaixeiroViajante::GetSumOfEdgeHeights(Grafo* _grafo, double _randomizacao){
  * @return: Struct ExecutionParams, que armazena qual randomização e peso total de arestas da execução
  */
 ExecutionParams CaixeiroViajante::ExecuteGRR(Grafo* _grafo, double _randomizacao){
-    time_t now;
-    time(&now);
-
+    high_resolution_clock::time_point inicio = std::chrono::high_resolution_clock::now();
     int sumOfHeights = CaixeiroViajante::GetSumOfEdgeHeights(_grafo, _randomizacao);
-    double timeInSeconds = difftime(time(NULL), now);
-
+    float timeInSeconds = CaixeiroViajante::CalcExecutionTime(inicio);
     return ExecutionParams{ _randomizacao, sumOfHeights, timeInSeconds };
+}
+
+float CaixeiroViajante::CalcExecutionTime(high_resolution_clock::time_point _inicio){
+    high_resolution_clock::time_point _fim = std::chrono::high_resolution_clock::now();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(_fim - _inicio).count() / 1000.00;
 }
 
 /**
@@ -278,7 +280,7 @@ double CaixeiroViajante::GetAlphaByProb(double _random){
     double rangeInicial = 0;
     AlphaParams p;
 
-    for (int i = 0; i < this->alphaParams.size(); i++) {
+    for (long i = 0; i < this->alphaParams.size(); i++) {
         p = this->alphaParams[i];
         if(rangeInicial < _random && _random <= (rangeInicial + p.probValue))
             alpha = p.alpha;
@@ -299,7 +301,7 @@ AlphaParams CaixeiroViajante::GetHeightNormalization(vector<ExecutionParams> _ex
     int execsToThisAlpha = 0;
     double normalizedVal = 0;
 
-    for (int i = 0; i < _execParams.size(); i++) {
+    for (long i = 0; i < _execParams.size(); i++) {
         if(minValue == -1 || minValue > _execParams[i].totalHeight)
             minValue = _execParams[i].totalHeight;
 
@@ -367,13 +369,19 @@ ExecutionParams CaixeiroViajante::ExecGuloso(Grafo *_grafo) {
 }
 
 ExecutionParams CaixeiroViajante::ExecRandomizado(Grafo *_grafo, double alfa) {
+    high_resolution_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+
     ExecutionParams atual = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
     ExecutionParams exec;
+
     for (int i = 1; i < EXECUTIONS_RANDOMIZING; ++i){
         exec = CaixeiroViajante::ExecuteGRR(_grafo, alfa);
         if(atual.totalHeight > exec.totalHeight)
             atual = exec;
     }
+
+    atual.timeInSeconds = CaixeiroViajante::CalcExecutionTime(inicio);
+
     return atual;
 }
 
@@ -383,8 +391,7 @@ ExecutionParams CaixeiroViajante::ExecRandomizado(Grafo *_grafo, double alfa) {
  * @return Lista de ExecutionParams, que é a estrutura que armazena os resultados de cada execução
  */
 ExecutionParams CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
-    time_t now;
-    time(&now);
+    high_resolution_clock::time_point inicio = std::chrono::high_resolution_clock::now();
     double alpha;
     double randomDouble;
     int recallPoint = int(EXECUTIONS_RANDOMIZING_REACTIVE * RECALL_PERCENT_OVER_ALPHA);
@@ -429,7 +436,7 @@ ExecutionParams CaixeiroViajante::ExecRandomizadoReativo(Grafo* _grafo){
         }
     }
 
-    lowestParam.timeInSeconds = difftime(time(NULL), now);
+    lowestParam.timeInSeconds = CaixeiroViajante::CalcExecutionTime(inicio);
 
     return lowestParam;
 }

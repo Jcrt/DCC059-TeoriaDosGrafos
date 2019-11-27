@@ -6,6 +6,7 @@
 #define TRABALHOGRAFOS_CAIXEIROVIAJANTE_H
 
 
+#include <chrono>
 #include "Grafo.h"
 
 struct LinhaArquivoCV{
@@ -17,7 +18,7 @@ struct LinhaArquivoCV{
 struct ExecutionParams{
     double alpha = 0;
     int totalHeight = 0;
-    double timeInSeconds = 0;
+    float timeInSeconds = 0;
 };
 
 struct AlphaParams{
@@ -44,12 +45,11 @@ public:
     static bool OrdenaExecutions(ExecutionParams _e1, ExecutionParams _e2);
     static AlphaParams GetHeightNormalization(vector<ExecutionParams> _execParams, AlphaParams _normalizedVal);
     static vector<AlphaParams> GetListNormalizedHeights(Grafo *_grafo);
-
+    static float CalcExecutionTime(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<int64_t, std::ratio<1, 1000000000>>> _inicio);
 
     double GetAlphaByProb(double _random);
     void RecallProbability();
     void RecallNormalization(vector<ExecutionParams>  _execParams);
-
     ExecutionParams ExecGuloso(Grafo *_grafo);
     ExecutionParams ExecRandomizado(Grafo *_grafo, double alfa);
     ExecutionParams ExecRandomizadoReativo(Grafo *_grafo);

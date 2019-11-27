@@ -13,7 +13,7 @@ using namespace std;
  * Construtor do Grafo
  */
 Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_vertice) {
-    cout << "---- CRIANDO GRAFO ----" << endl;
+    //cout << "---- CRIANDO GRAFO ----" << endl;
 
     primeiro = nullptr;
     ultimo = nullptr;
@@ -22,15 +22,15 @@ Grafo::Grafo(int ordem, bool orientado, bool ponderado_aresta, bool ponderado_ve
     this->ponderado_aresta = ponderado_aresta;
     this->ponderado_vertice = ponderado_vertice;
     this->n = 0;
-    cout << endl;
+    //cout << endl;
 }
 
 /**
  * Destrutor do grafo, desaloca todos os nos.
  */
 Grafo::~Grafo() {
-    cout << endl;
-    cout << "---- DESTRUINDO GRAFO ----" << endl;
+    //cout << endl;
+    //cout << "---- DESTRUINDO GRAFO ----" << endl;
     No *p = primeiro;
     while (p != nullptr) {
         No *t = p->getProx();

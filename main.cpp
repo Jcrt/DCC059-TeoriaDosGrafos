@@ -88,6 +88,8 @@ int main(int argc, char* argv[]) {
             ExecutionParams execGuloso = cv->ExecGuloso(x);
 
             file.open(arquivoSaida, ofstream::ios_base::app);
+            file << fixed;
+            file.precision(5);
             file << "[Guloso] " << arquivoEntrada << ":";
             file << " - Peso: " << execGuloso.totalHeight;
             file << " - Tempo: " << execGuloso.timeInSeconds << endl;
@@ -102,6 +104,8 @@ int main(int argc, char* argv[]) {
             ExecutionParams execGulosoRandomizadoReativo = cv->ExecRandomizadoReativo(x);
 
             file.open(arquivoSaida, ofstream::ios_base::app);
+            file << fixed;
+            file.precision(5);
             file << "[Reativo] " << arquivoEntrada << ":";
             file << " - Peso: " << execGulosoRandomizadoReativo.totalHeight;
             file << " - Tempo: " << execGulosoRandomizadoReativo.timeInSeconds;
@@ -125,6 +129,8 @@ int main(int argc, char* argv[]) {
         ExecutionParams execGulosoRandomizado = cv->ExecRandomizado(x, alfa);
 
         file.open(arquivoSaida, ofstream::ios_base::app);
+        file << fixed;
+        file.precision(5);
         file << "[Randomizado] " << arquivoEntrada << ":";
         file << " - Peso: " << execGulosoRandomizado.totalHeight;
         file << " - Tempo: " << execGulosoRandomizado.timeInSeconds;
